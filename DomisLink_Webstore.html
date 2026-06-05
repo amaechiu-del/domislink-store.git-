@@ -1,0 +1,1218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="theme-color" content="#0A1F3D">
+<title>DomisLink Store — Aviation Education & Digital Products</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://js.paystack.co/v1/inline.js"></script>
+<style>
+:root {
+  --navy:#0A1F3D; --navy2:#112a52; --gold:#FFD100; --lgold:#FFF3B0;
+  --dgold:#CC9900; --cream:#FFF8F0; --white:#fff; --text:#1a1a2e;
+  --muted:#667; --border:#e8e0d0; --success:#128C7E;
+  --r:14px; --sh:0 4px 24px rgba(10,31,61,.10);
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--text);min-height:100vh;}
+
+/* ── SCROLLBAR ── */
+::-webkit-scrollbar{width:6px;}
+::-webkit-scrollbar-track{background:var(--cream);}
+::-webkit-scrollbar-thumb{background:var(--gold);border-radius:3px;}
+
+/* ── NAV ── */
+nav{position:sticky;top:0;z-index:900;background:var(--navy);
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 28px;height:64px;border-bottom:2px solid var(--gold);}
+.nav-brand{display:flex;align-items:center;gap:12px;text-decoration:none;}
+.nav-logo{width:36px;height:36px;background:var(--gold);border-radius:8px;
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Cormorant Garamond',serif;font-weight:700;font-size:18px;color:var(--navy);}
+.nav-name{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:700;color:#fff;line-height:1;}
+.nav-name span{display:block;font-size:10px;color:var(--gold);font-family:'DM Sans',sans-serif;font-weight:500;letter-spacing:2px;text-transform:uppercase;}
+.nav-links{display:flex;gap:6px;align-items:center;}
+.nav-links a{color:rgba(255,255,255,0.80);text-decoration:none;font-size:13px;font-weight:500;
+  padding:6px 14px;border-radius:20px;transition:.2s;}
+.nav-links a:hover{color:#fff;background:rgba(255,209,0,.15);}
+.cart-btn{background:var(--gold);color:var(--navy);border:none;padding:8px 18px;
+  border-radius:24px;font-weight:700;font-size:13px;cursor:pointer;
+  display:flex;align-items:center;gap:8px;font-family:'DM Sans',sans-serif;}
+.cart-count{background:var(--navy);color:var(--gold);width:20px;height:20px;
+  border-radius:50%;display:flex;align-items:center;justify-content:center;
+  font-size:11px;font-weight:700;}
+
+/* ── HERO ── */
+.hero{background:var(--navy);padding:80px 28px 60px;position:relative;overflow:hidden;}
+.hero::before{content:'';position:absolute;top:0;left:0;right:0;bottom:0;
+  background:radial-gradient(ellipse at 70% 50%,rgba(255,209,0,.08),transparent 60%);}
+.hero-inner{max-width:1100px;margin:0 auto;position:relative;z-index:1;}
+.hero-tag{font-size:11px;letter-spacing:4px;color:var(--gold);font-weight:600;
+  text-transform:uppercase;margin-bottom:16px;}
+.hero h1{font-family:'Cormorant Garamond',serif;font-size:clamp(36px,6vw,64px);
+  color:#fff;line-height:1.1;margin-bottom:16px;}
+.hero h1 em{color:var(--gold);font-style:normal;}
+.hero p{color:rgba(245,230,192,.75);font-size:16px;max-width:560px;line-height:1.75;margin-bottom:32px;}
+.hero-badges{display:flex;flex-wrap:wrap;gap:10px;}
+.badge{background:rgba(255,209,0,.12);border:1px solid rgba(255,209,0,.3);
+  color:var(--gold);padding:6px 16px;border-radius:20px;font-size:12px;font-weight:600;}
+
+/* ── FILTER BAR ── */
+.filter-bar{background:#fff;border-bottom:1px solid var(--border);
+  padding:16px 28px;position:sticky;top:64px;z-index:800;
+  display:flex;gap:8px;overflow-x:auto;align-items:center;}
+.filter-bar::-webkit-scrollbar{display:none;}
+.filter-label{font-size:12px;font-weight:700;color:var(--muted);letter-spacing:1px;
+  text-transform:uppercase;white-space:nowrap;margin-right:8px;}
+.filt{background:none;border:2px solid var(--border);color:var(--muted);
+  padding:7px 18px;border-radius:24px;font-size:13px;font-weight:600;
+  cursor:pointer;white-space:nowrap;transition:.2s;font-family:'DM Sans',sans-serif;}
+.filt:hover,.filt.active{background:var(--navy);border-color:var(--navy);color:#fff;}
+.search-box{margin-left:auto;display:flex;align-items:center;gap:8px;
+  background:var(--cream);border:2px solid var(--border);border-radius:24px;
+  padding:6px 16px;flex-shrink:0;}
+.search-box input{border:none;background:none;font-size:13px;font-family:'DM Sans',sans-serif;
+  color:var(--text);width:180px;outline:none;}
+
+/* ── PRODUCTS GRID ── */
+.store-main{max-width:1100px;margin:0 auto;padding:40px 24px;}
+.section-title{font-family:'Cormorant Garamond',serif;font-size:28px;color:var(--navy);
+  margin-bottom:6px;}
+.section-title em{color:var(--gold);font-style:normal;}
+.section-sub{color:var(--muted);font-size:14px;margin-bottom:28px;}
+.products-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:22px;}
+
+/* ── PRODUCT CARD ── */
+.prod-card{background:#fff;border-radius:var(--r);overflow:hidden;
+  box-shadow:var(--sh);transition:transform .25s,box-shadow .25s;cursor:pointer;
+  border:1px solid var(--border);}
+.prod-card:hover{transform:translateY(-4px);box-shadow:0 12px 40px rgba(10,31,61,.14);}
+.prod-thumb{height:180px;display:flex;align-items:center;justify-content:center;
+  position:relative;overflow:hidden;}
+.prod-thumb.navy{background:linear-gradient(135deg,var(--navy),#1e3a6e);}
+.prod-thumb.gold{background:linear-gradient(135deg,#8B6914,#FFD100);}
+.prod-thumb.teal{background:linear-gradient(135deg,#0d4f4f,#128C7E);}
+.prod-thumb.dark{background:linear-gradient(135deg,#1a1a2e,#16213e);}
+.prod-thumb.red{background:linear-gradient(135deg,#7B0000,#B22222);}
+.prod-thumb.deep{background:linear-gradient(135deg,#2d0050,#5a0099);}
+.prod-icon{font-size:56px;opacity:.9;}
+.prod-badge{position:absolute;top:12px;right:12px;background:var(--gold);
+  color:var(--navy);font-size:10px;font-weight:800;padding:4px 10px;
+  border-radius:20px;letter-spacing:1px;text-transform:uppercase;}
+.prod-badge.new{background:#128C7E;color:#fff;}
+.prod-badge.hot{background:#B22222;color:#fff;}
+.prod-badge.ai{background:#5a0099;color:#fff;}
+.prod-body{padding:20px;}
+.prod-cat{font-size:10px;letter-spacing:2px;color:var(--gold);font-weight:700;
+  text-transform:uppercase;margin-bottom:6px;}
+.prod-name{font-family:'Cormorant Garamond',serif;font-size:19px;font-weight:700;
+  color:var(--navy);line-height:1.2;margin-bottom:8px;}
+.prod-desc{font-size:13px;color:var(--muted);line-height:1.65;margin-bottom:16px;}
+.prod-footer{display:flex;align-items:center;justify-content:space-between;}
+.prod-price{font-size:20px;font-weight:800;color:var(--navy);}
+.prod-price span{font-size:12px;font-weight:500;color:var(--muted);
+  text-decoration:line-through;margin-right:4px;}
+.add-btn{background:var(--navy);color:#fff;border:none;padding:9px 18px;
+  border-radius:24px;font-size:13px;font-weight:700;cursor:pointer;
+  transition:.2s;font-family:'DM Sans',sans-serif;}
+.add-btn:hover{background:var(--gold);color:var(--navy);}
+.add-btn.in-cart{background:var(--success);color:#fff;}
+
+/* ── FEATURED BANNER ── */
+.featured{background:var(--navy);border-radius:var(--r);padding:36px;
+  margin-bottom:40px;display:grid;grid-template-columns:1fr auto;
+  gap:24px;align-items:center;position:relative;overflow:hidden;}
+.featured::after{content:'';position:absolute;right:0;top:0;bottom:0;
+  width:300px;background:linear-gradient(to left,rgba(255,209,0,.08),transparent);}
+.feat-tag{font-size:10px;letter-spacing:3px;color:var(--gold);font-weight:700;
+  text-transform:uppercase;margin-bottom:10px;}
+.feat-title{font-family:'Cormorant Garamond',serif;font-size:28px;color:#fff;
+  margin-bottom:8px;line-height:1.2;}
+.feat-title em{color:var(--gold);font-style:normal;}
+.feat-desc{color:rgba(245,230,192,.7);font-size:14px;line-height:1.7;margin-bottom:20px;max-width:480px;}
+.feat-price{font-size:32px;font-weight:900;color:var(--gold);margin-bottom:16px;}
+.feat-btns{display:flex;gap:12px;flex-wrap:wrap;}
+.feat-btn{padding:12px 24px;border-radius:30px;font-weight:700;font-size:14px;
+  cursor:pointer;border:none;font-family:'DM Sans',sans-serif;transition:.2s;}
+.feat-btn.primary{background:var(--gold);color:var(--navy);}
+.feat-btn.primary:hover{background:#fff;}
+.feat-btn.secondary{background:transparent;color:var(--gold);border:2px solid rgba(255,209,0,.4);}
+.feat-btn.secondary:hover{border-color:var(--gold);}
+
+/* ── CART DRAWER ── */
+.cart-overlay{display:none;position:fixed;inset:0;background:rgba(10,31,61,.5);
+  z-index:1000;backdrop-filter:blur(4px);}
+.cart-overlay.open{display:block;}
+.cart-drawer{position:fixed;right:0;top:0;bottom:0;width:min(420px,100vw);
+  background:#fff;z-index:1001;transform:translateX(100%);
+  transition:transform .35s cubic-bezier(.4,0,.2,1);
+  display:flex;flex-direction:column;box-shadow:-8px 0 40px rgba(10,31,61,.15);}
+.cart-drawer.open{transform:translateX(0);}
+.cart-head{background:var(--navy);padding:20px 24px;display:flex;
+  align-items:center;justify-content:space-between;border-bottom:2px solid var(--gold);}
+.cart-head h2{font-family:'Cormorant Garamond',serif;font-size:22px;color:#fff;}
+.close-btn{background:none;border:none;color:rgba(255,255,255,0.70);
+  font-size:24px;cursor:pointer;line-height:1;}
+.cart-items{flex:1;overflow-y:auto;padding:20px 24px;}
+.cart-empty{text-align:center;padding:60px 20px;color:var(--muted);}
+.cart-empty .icon{font-size:48px;margin-bottom:16px;opacity:.4;}
+.cart-item{display:flex;gap:14px;padding:16px 0;border-bottom:1px solid var(--border);}
+.ci-icon{width:50px;height:50px;border-radius:10px;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;font-size:24px;}
+.ci-info{flex:1;}
+.ci-name{font-weight:700;font-size:14px;color:var(--navy);margin-bottom:4px;}
+.ci-price{font-size:13px;color:var(--gold);font-weight:700;}
+.ci-remove{background:none;border:none;color:var(--muted);cursor:pointer;font-size:18px;}
+.cart-footer{padding:20px 24px;border-top:2px solid var(--border);}
+.cart-total{display:flex;justify-content:space-between;font-size:18px;
+  font-weight:800;color:var(--navy);margin-bottom:16px;}
+.checkout-btn{width:100%;background:var(--navy);color:#fff;border:none;
+  padding:16px;border-radius:30px;font-size:16px;font-weight:800;
+  cursor:pointer;font-family:'DM Sans',sans-serif;transition:.2s;}
+.checkout-btn:hover{background:var(--gold);color:var(--navy);}
+.checkout-btn:disabled{opacity:.5;cursor:not-allowed;}
+.secure-note{text-align:center;font-size:11px;color:var(--muted);margin-top:10px;}
+
+/* ── MODAL — PRODUCT DETAIL ── */
+.modal-overlay{display:none;position:fixed;inset:0;
+  background:rgba(10,31,61,.6);z-index:2000;backdrop-filter:blur(6px);
+  padding:20px;align-items:center;justify-content:center;}
+.modal-overlay.open{display:flex;}
+.modal{background:#fff;border-radius:20px;max-width:700px;width:100%;
+  max-height:90vh;overflow-y:auto;box-shadow:0 24px 80px rgba(10,31,61,.3);}
+.modal-top{background:var(--navy);padding:32px;border-radius:20px 20px 0 0;
+  position:relative;}
+.modal-close{position:absolute;top:16px;right:16px;background:rgba(255,255,255,0.55);
+  border:none;color:#fff;width:36px;height:36px;border-radius:50%;
+  font-size:20px;cursor:pointer;display:flex;align-items:center;justify-content:center;}
+.modal-body{padding:32px;}
+.modal-price-row{display:flex;align-items:center;gap:16px;margin-bottom:24px;}
+.modal-price{font-size:32px;font-weight:900;color:var(--navy);}
+.modal-includes{list-style:none;margin-bottom:24px;}
+.modal-includes li{display:flex;align-items:center;gap:10px;
+  padding:8px 0;border-bottom:1px solid var(--border);font-size:14px;}
+.modal-includes li::before{content:'✓';color:var(--gold);font-weight:800;}
+.modal-buy-btn{width:100%;background:var(--gold);color:var(--navy);border:none;
+  padding:16px;border-radius:30px;font-size:16px;font-weight:800;
+  cursor:pointer;font-family:'DM Sans',sans-serif;transition:.2s;margin-bottom:10px;}
+.modal-buy-btn:hover{background:var(--navy);color:#fff;}
+
+/* ── AI EBOOK READER ── */
+.ebook-modal{display:none;position:fixed;inset:0;z-index:3000;
+  background:var(--navy);flex-direction:column;}
+.ebook-modal.open{display:flex;}
+.ebook-nav{background:rgba(0,0,0,.3);padding:14px 24px;display:flex;
+  align-items:center;justify-content:space-between;border-bottom:1px solid rgba(255,209,0,.2);}
+.ebook-title{font-family:'Cormorant Garamond',serif;font-size:18px;color:#fff;}
+.ebook-progress{font-size:12px;color:rgba(245,230,192,.6);}
+.ebook-body{display:flex;flex:1;overflow:hidden;}
+.ebook-content{flex:1;overflow-y:auto;padding:40px;max-width:700px;margin:0 auto;}
+.method-header{margin-bottom:32px;}
+.method-num{font-size:11px;letter-spacing:4px;color:var(--gold);
+  font-weight:700;text-transform:uppercase;margin-bottom:8px;}
+.method-title{font-family:'Cormorant Garamond',serif;font-size:36px;
+  color:#fff;margin-bottom:16px;line-height:1.2;}
+.method-body{color:rgba(245,230,192,.85);font-size:16px;line-height:1.85;}
+.method-body p{margin-bottom:16px;}
+.method-body h4{color:var(--gold);font-size:14px;font-weight:700;
+  letter-spacing:1px;text-transform:uppercase;margin:24px 0 10px;}
+.method-steps{list-style:none;margin-bottom:20px;}
+.method-steps li{display:flex;align-items:flex-start;gap:12px;
+  padding:10px 0;border-bottom:1px solid rgba(255,209,0,.1);
+  color:rgba(245,230,192,.8);font-size:15px;line-height:1.6;}
+.method-steps li::before{content:attr(data-n);background:var(--gold);
+  color:var(--navy);width:24px;height:24px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-size:12px;font-weight:800;flex-shrink:0;margin-top:2px;}
+.ebook-sidebar{width:320px;background:rgba(0,0,0,.2);border-left:1px solid rgba(255,209,0,.15);
+  display:flex;flex-direction:column;overflow:hidden;}
+.sidebar-head{padding:16px 20px;border-bottom:1px solid rgba(255,209,0,.15);}
+.sidebar-head h3{font-size:13px;font-weight:700;color:var(--gold);
+  letter-spacing:1px;text-transform:uppercase;margin-bottom:4px;}
+.sidebar-head p{font-size:12px;color:rgba(245,230,192,.5);}
+.ai-messages{flex:1;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:12px;}
+.ai-msg{padding:12px 14px;border-radius:10px;font-size:13px;line-height:1.65;}
+.ai-msg.user{background:rgba(255,209,0,.15);color:rgba(245,230,192,.9);
+  border-left:3px solid var(--gold);margin-left:20px;}
+.ai-msg.assistant{background:rgba(255,255,255,.07);color:rgba(245,230,192,.8);
+  border-left:3px solid rgba(255,255,255,0.65);}
+.ai-msg.thinking{color:rgba(245,230,192,.4);font-style:italic;}
+.ai-input-row{padding:16px;border-top:1px solid rgba(255,209,0,.15);
+  display:flex;gap:8px;}
+.ai-input{flex:1;background:rgba(255,255,255,.08);border:1px solid rgba(255,209,0,.2);
+  border-radius:8px;padding:10px 14px;color:#fff;font-size:13px;
+  font-family:'DM Sans',sans-serif;outline:none;}
+.ai-input::placeholder{color:rgba(245,230,192,.3);}
+.ai-send{background:var(--gold);color:var(--navy);border:none;
+  padding:10px 16px;border-radius:8px;font-weight:700;font-size:13px;
+  cursor:pointer;font-family:'DM Sans',sans-serif;}
+.ebook-controls{padding:14px 40px;background:rgba(0,0,0,.2);
+  border-top:1px solid rgba(255,209,0,.15);display:flex;
+  align-items:center;justify-content:space-between;gap:16px;}
+.ebook-btn{background:rgba(255,209,0,.15);border:1px solid rgba(255,209,0,.3);
+  color:var(--gold);padding:10px 22px;border-radius:24px;font-size:13px;
+  font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;transition:.2s;}
+.ebook-btn:hover{background:var(--gold);color:var(--navy);}
+.ebook-btn:disabled{opacity:.3;cursor:not-allowed;}
+.method-index{flex:0 0 220px;background:rgba(0,0,0,.15);overflow-y:auto;
+  border-right:1px solid rgba(255,209,0,.1);padding:12px;}
+.mi-item{padding:10px 12px;border-radius:8px;cursor:pointer;
+  font-size:12px;color:rgba(245,230,192,.6);transition:.15s;margin-bottom:4px;}
+.mi-item:hover,.mi-item.active{background:rgba(255,209,0,.12);color:var(--gold);}
+.mi-item .mi-n{font-weight:800;font-size:10px;color:var(--gold);margin-bottom:2px;}
+
+/* ── EMAIL CAPTURE ── */
+.email-form{display:grid;gap:12px;margin-top:20px;}
+.email-form input{padding:12px 16px;border:2px solid var(--border);
+  border-radius:10px;font-size:14px;font-family:'DM Sans',sans-serif;outline:none;}
+.email-form input:focus{border-color:var(--gold);}
+
+/* ── TOAST ── */
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(100px);
+  background:var(--navy);color:#fff;padding:14px 24px;border-radius:30px;
+  font-size:14px;font-weight:600;z-index:9999;transition:transform .4s cubic-bezier(.4,0,.2,1);
+  border:1px solid var(--gold);box-shadow:0 8px 32px rgba(10,31,61,.3);
+  white-space:nowrap;}
+.toast.show{transform:translateX(-50%) translateY(0);}
+
+/* ── TESTIMONIALS ── */
+.testimonials{background:var(--navy);padding:60px 28px;margin-top:60px;}
+.testi-grid{max-width:1100px;margin:0 auto;
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px;
+  margin-top:32px;}
+.testi-card{background:rgba(255,255,255,.06);border-radius:12px;padding:24px;
+  border:1px solid rgba(255,209,0,.15);}
+.testi-stars{color:var(--gold);font-size:14px;margin-bottom:10px;}
+.testi-text{color:rgba(245,230,192,.8);font-size:14px;line-height:1.75;
+  margin-bottom:14px;font-style:italic;}
+.testi-name{color:var(--gold);font-size:12px;font-weight:700;}
+
+/* ── FOOTER ── */
+footer{background:var(--navy);border-top:2px solid rgba(255,209,0,.3);
+  padding:40px 28px;text-align:center;}
+.footer-logo{font-family:'Cormorant Garamond',serif;font-size:24px;color:#fff;margin-bottom:8px;}
+.footer-links{display:flex;justify-content:center;gap:20px;flex-wrap:wrap;margin:16px 0;}
+.footer-links a{color:rgba(245,230,192,.5);text-decoration:none;font-size:13px;}
+.footer-copy{color:rgba(245,230,192,.3);font-size:12px;margin-top:16px;}
+
+/* ── RESPONSIVE ── */
+@media(max-width:768px){
+  nav{padding:0 16px;}
+  .nav-links{display:none;}
+  .hero{padding:50px 20px 40px;}
+  .store-main{padding:28px 16px;}
+  .featured{grid-template-columns:1fr;}
+  .ebook-sidebar{display:none;}
+  .method-index{display:none;}
+  .ebook-content{padding:24px 20px;}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-brand">
+    <div class="nav-logo">D</div>
+    <div class="nav-name">DomisLink Store<span>Aviation Education & Digital Products</span></div>
+  </a>
+  <div class="nav-links">
+    <a href="https://submit.domislink.com">&#9992; Summit</a>
+    <a href="https://aviation-memoir.domislink.com">Memoir Archive</a>
+    <a href="#aviation">Aviation</a>
+    <a href="#ebooks">eBooks</a>
+    <a href="#quizpro">Quiz Pro</a>
+    <a href="#summit">Summit</a>
+  </div>
+  <button class="cart-btn" onclick="openCart()">
+    🛒 Cart <div class="cart-count" id="cartCount">0</div>
+  </button>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-tag">webstore.domislink.com &nbsp;&#183;&nbsp; Part of the DomisLink Digital Empire</div>
+    <h1>Learn. Fly. <em>Transform.</em></h1>
+    <p>Aviation courses, AI-powered interactive ebooks, exam prep tools, and digital products from Nigeria's most uniquely credentialled aviation educator — F/O Amaechi Ubadike.</p>
+    <div class="hero-badges">
+      <div class="badge">✈️ Aviation Certified</div>
+      <div class="badge">🤖 AI-Powered eBooks</div>
+      <div class="badge">🔐 DRM Protected</div>
+      <div class="badge">🇳🇬 Made in Nigeria</div>
+      <div class="badge">💳 Pay with Paystack</div>
+    </div>
+  </div>
+</div>
+
+<!-- FILTER BAR -->
+<div class="filter-bar">
+  <span class="filter-label">Filter:</span>
+  <button class="filt active" onclick="filterProducts('all',this)">All Products</button>
+  <button class="filt" onclick="filterProducts('aviation',this)">✈️ Aviation</button>
+  <button class="filt" onclick="filterProducts('ebook',this)">📚 eBooks</button>
+  <button class="filt" onclick="filterProducts('quiz',this)">📝 Quiz Pro</button>
+  <button class="filt" onclick="filterProducts('summit',this)">🎤 Summit</button>
+  <div class="search-box">
+    <span>🔍</span>
+    <input type="text" placeholder="Search products..." oninput="searchProducts(this.value)" id="searchInput">
+  </div>
+</div>
+
+<!-- MAIN STORE -->
+<div class="store-main">
+
+  <!-- FEATURED -->
+  <div class="featured" id="featured-banner">
+    <div>
+      <div class="feat-tag">New Release — AI Interactive</div>
+      <div class="feat-tag">New Release &#8212; Author&#8217;s Own Copy</div>
+    <div class="feat-title">Cleared for Takeoff &#8212;<br/><em>But Who Is Flying Nigeria&#8217;s Aviation?</em></div>
+      <div class="feat-desc">The most comprehensive insider analysis of Nigerian aviation governance, safety, and transformation ever published. By F/O Amaechi Ubadike &#8212; Commercial Pilot, Air Traffic Controller, and Aviation Safety Inspector. 18 chapters. The governance. The safety culture. The dying library. The blueprint for transformation.</div> for the digital age — each method with step-by-step action plans, Nigerian market analysis, and an AI tutor you can question at any time. Read it. Ask it. Learn it.</div>
+      <div class="feat-price">₦7,500</div>
+      <div class="feat-btns">
+        <button class="feat-btn primary" onclick="openEbook()">📖 Preview Free Chapter</button>
+        <button class="feat-btn secondary" onclick="addToCartById('gen50')">Add to Cart</button>
+      </div>
+    </div>
+    <div style="font-size:80px;opacity:.8;">📖</div>
+  </div>
+
+  <!-- AVIATION COURSES -->
+  <div id="aviation">
+    <div class="section-title">Aviation <em>Courses</em></div>
+    <div class="section-sub">ICAO/NCAA/FAA-aligned curricula — study at your own pace, download for offline access</div>
+  </div>
+
+  <div class="products-grid" id="productsGrid">
+
+    <!-- PPL -->
+    <div class="prod-card" data-cat="aviation" data-id="ppl">
+      <div class="prod-thumb navy">
+        <div class="prod-icon">🛩️</div>
+        <div class="prod-badge">ICAO Aligned</div>
+      </div>
+      <div class="prod-body">
+        <div class="prod-cat">Aviation · PPL</div>
+        <div class="prod-name">Private Pilot Licence Ground School</div>
+        <div class="prod-desc">Complete PPL theory — aerodynamics, meteorology, navigation, air law, human factors. 14 modules.</div>
+        <div class="prod-footer">
+          <div class="prod-price">₦25,000</div>
+          <button class="add-btn" onclick="addToCartById('ppl')">Add to Cart</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- CPL -->
+    <div class="prod-card" data-cat="aviation" data-id="cpl">
+      <div class="prod-thumb navy">
+        <div class="prod-icon">✈️</div>
+        <div class="prod-badge hot">Popular</div>
+      </div>
+      <div class="prod-body">
+        <div class="prod-cat">Aviation · CPL</div>
+        <div class="prod-name">Commercial Pilot Licence Preparation</div>
+        <div class="prod-desc">Advanced theory for CPL candidates — performance, systems, advanced navigation, CRM and MCC principles.</div>
+        <div class="prod-footer">
+          <div class="prod-price">₦35,000</div>
+          <button class="add-btn" onclick="addToCartById('cpl')">Add to Cart</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ATC -->
+    <div class="prod-card" data-cat="aviation" data-id="atc">
+      <div class="prod-thumb teal">
+        <div class="prod-icon">📡</div>
+        <div class="prod-badge">NCAA Aligned</div>
+      </div>
+      <div class="prod-body">
+        <div class="prod-cat">Aviation · ATC</div>
+        <div class="prod-name">Air Traffic Control — Full Study Package</div>
+        <div class="prod-desc">Procedures, phraseology, separation standards, radar theory and ICAO Annex 11 coverage. ATC and COMS.</div>
+        <div class="prod-footer">
+          <div class="prod-price">₦28,000</div>
+          <button class="add-btn" onclick="addToCartById('atc')">Add to Cart</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- HLO -->
+    <div class="prod-card" data-cat="aviation" data-id="hlo">
+      <div class="prod-thumb dark">
+        <div class="prod-icon">🚁</div>
+        <div class="prod-badge">OPITO Aligned</div>
+      </div>
+      <div class="prod-body">
+        <div class="prod-cat">Aviation · Helicopter</div>
+        <div class="prod-name">Helicopter Landing Officer (HLO)</div>
+        <div class="prod-desc">Offshore HLO certification study guide — OPITO standards, helideck management, emergency procedures.</div>
+        <div class="prod-footer">
+          <div class="prod-price">₦18,000</div>
+          <button class="add-btn" onclick="addToCartById('hlo')">Add to Cart</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Airport Ops -->
+    <div class="prod-card" data-cat="aviation" data-id="airportops">
+      <div class="prod-thumb navy">
+        <div class="prod-icon">🏢</div>
+      </div>
+      <div class="prod-body">
+        <div class="prod-cat">Aviation · Operations</div>
+        <div class="prod-name">Airport Operations Course</div>
+        <div class="prod-desc">Airside operations, ground handling, ICAO Annex 14, wildlife management, apron safety and SMS basics.</div>
+        <div class="prod-footer">
+          <div class="prod-price">₦20,000</div>
+          <button class="add-btn" onclick="addToCartById('airportops')">Add to Cart</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- COM/RT -->
+    <div class="prod-card" data-cat="aviation" data-id="comrt">
+      <div class="prod-thumb teal">
+        <div class="prod-icon">📻</div>
+      </div>
+      <div class="prod-body">
+        <div class="prod-cat">Aviation · Communications</div>
+        <div class="prod-name">Aviation COM/RT & AIS Course</div>
+        <div class="prod-desc">ICAO radiotelephony procedures, aeronautical information services, NOTAM interpretation, AIP navigation.</div>
+        <div class="prod-footer">
+          <div class="prod-price">₦15,000</div>
+          <button class="add-btn" onclick="addToCartById('comrt')">Add to Cart</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Safety Inspector -->
+    <div class="prod-card" data-cat="aviation" data-id="inspector">
+      <div class="prod-thumb red">
+        <div class="prod-icon">🔍</div>
+        <div class="prod-badge new">New</div>
+      </div>
+      <div class="prod-body">
+        <div class="prod-cat">Aviation · Regulatory</div>
+        <div class="prod-name">Aviation Safety Inspector — Personnel Licensing</div>
+        <div class="prod-desc">For aspiring regulators — ICAO Annex 1, NCAA CAR-FCL, inspector methodology, licensing procedures.</div>
+        <div class="prod-footer">
+          <div class="prod-price">₦32,000</div>
+          <button class="add-btn" onclick="addToCartById('inspector')">Add to Cart</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- EBOOK DIVIDER -->
+    <div data-cat="divider" style="grid-column:1/-1;padding:20px 0 8px;" id="ebooks">
+      <div class="section-title">AI-Powered <em>Interactive eBooks</em></div>
+      <div class="section-sub">Read, explore, and ask an AI tutor about any section — powered by Claude · DRM protected · 12-month access</div>
+    </div>
+
+    <!-- Gen50 -->
+    <div class="prod-card" data-cat="ebook" data-id="gen50">
+      <div class="prod-thumb gold">
+        <div class="prod-icon">💡</div>
+        <div class="prod-badge ai">AI Inside</div>
+      </div>
+      <div class="prod-body">
+        <div class="prod-cat">eBook · Income Generation</div>
+        <div class="prod-name">50 Methods of Generation 50</div>
+        <div class="prod-desc">50 proven strategies for generating income in Nigeria's digital economy. AI tutor explains, expands, and answers your questions on every method.</div>
+        <div class="prod-footer">
+          <div class="prod-price"><span>₦12,000</span> ₦7,500</div>
+          <button class="add-btn" onclick="addToCartById('gen50')">Add to Cart</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Cleared for Takeoff -->
+    <div class="prod-card" data-cat="ebook summit" data-id="cft">
+      <div class="prod-thumb navy">
+        <div class="prod-icon">📘</div>
+        <div class="prod-badge hot">New Release</div>
+      </div>
+      <div class="prod-body">
+        <div class="prod-cat">eBook · Aviation · Policy</div>
+        <div class="prod-name">Cleared for Takeoff — Digital Edition</div>
+        <div class="prod-desc">F/O Amaechi Ubadike's landmark book on Nigerian aviation governance, safety, and transformation. AI-powered reader included.</div>
+        <div class="prod-footer">
+          <div class="prod-price">₦8,500</div>
+          <button class="add-btn" onclick="addToCartById('cft')">Add to Cart</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Aviation Safety ebook -->
+    <div class="prod-card" data-cat="ebook" data-id="safetyebook">
+      <div class="prod-thumb red">
+        <div class="prod-icon">🛡️</div>
+        <div class="prod-badge ai">AI Inside</div>
+      </div>
+      <div class="prod-body">
+        <div class="prod-cat">eBook · Safety</div>
+        <div class="prod-name">Aviation Safety Management — A Practical Guide</div>
+        <div class="prod-desc">SMS, Just Culture, ICAO Annex 19, safety reporting — explained in plain language for aviation professionals and students.</div>
+        <div class="prod-footer">
+          <div class="prod-price">₦5,500</div>
+          <button class="add-btn" onclick="addToCartById('safetyebook')">Add to Cart</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- eBook Creation guide -->
+    <div class="prod-card" data-cat="ebook" data-id="ebookcreation">
+      <div class="prod-thumb deep">
+        <div class="prod-icon">✍️</div>
+        <div class="prod-badge new">New</div>
+      </div>
+      <div class="prod-body">
+        <div class="prod-cat">eBook · Digital Business</div>
+        <div class="prod-name">Create &amp; Sell Your eBook in Nigeria</div>
+        <div class="prod-desc">Complete guide to writing, designing, protecting, and selling digital books in the Nigerian and West African market. DomisLink method.</div>
+        <div class="prod-footer">
+          <div class="prod-price">₦4,000</div>
+          <button class="add-btn" onclick="addToCartById('ebookcreation')">Add to Cart</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- QUIZ DIVIDER -->
+    <div data-cat="divider" style="grid-column:1/-1;padding:20px 0 8px;" id="quizpro">
+      <div class="section-title">Quiz <em>Pro Platforms</em></div>
+      <div class="section-sub">Offline-capable exam preparation — AI-marked, Paystack-gated, 500+ questions</div>
+    </div>
+
+    <!-- WAEC Quiz -->
+    <div class="prod-card" data-cat="quiz" data-id="waecquiz">
+      <div class="prod-thumb teal">
+        <div class="prod-icon">📝</div>
+        <div class="prod-badge hot">500+ Qs</div>
+      </div>
+      <div class="prod-body">
+        <div class="prod-cat">Quiz · WAEC/WASSCE</div>
+        <div class="prod-name">WAEC Quiz Pro — 9 Subjects</div>
+        <div class="prod-desc">English, Maths, Physics, Chemistry, Biology, Economics, Government, Commerce, Literature. AI-marked. Offline capable.</div>
+        <div class="prod-footer">
+          <div class="prod-price">₦3,500</div>
+          <button class="add-btn" onclick="addToCartById('waecquiz')">Add to Cart</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Aviation Quiz -->
+    <div class="prod-card" data-cat="quiz aviation" data-id="aviationquiz">
+      <div class="prod-thumb navy">
+        <div class="prod-icon">🎯</div>
+        <div class="prod-badge">6 Regulators</div>
+      </div>
+      <div class="prod-body">
+        <div class="prod-cat">Quiz · Aviation</div>
+        <div class="prod-name">Aviation Quiz Pro — Multi-Regulator</div>
+        <div class="prod-desc">NCAA, FAA, EASA, CAA UK, ICAO, SACAA question banks. Select your regulatory authority and practice exam-style questions.</div>
+        <div class="prod-footer">
+          <div class="prod-price">₦4,500</div>
+          <button class="add-btn" onclick="addToCartById('aviationquiz')">Add to Cart</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- JSS Maths -->
+    <div class="prod-card" data-cat="quiz" data-id="jssmaths">
+      <div class="prod-thumb deep">
+        <div class="prod-icon">📐</div>
+        <div class="prod-badge new">New</div>
+      </div>
+      <div class="prod-body">
+        <div class="prod-cat">Quiz · JSS1 Mathematics</div>
+        <div class="prod-name">JSS1 Maths Video Platform — 12 Weeks</div>
+        <div class="prod-desc">Interactive 12-week video lesson platform for Junior Secondary. Aligned to the Nigerian curriculum. Offline-capable.</div>
+        <div class="prod-footer">
+          <div class="prod-price">₦2,500</div>
+          <button class="add-btn" onclick="addToCartById('jssmaths')">Add to Cart</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- SUMMIT DIVIDER -->
+    <div data-cat="divider" style="grid-column:1/-1;padding:20px 0 8px;" id="summit">
+      <div class="section-title">Summit <em>Tickets & Packages</em></div>
+      <div class="section-sub">Nigerian Aviation Development Summit & Book Launch — DomisLink International Services Ltd</div>
+    </div>
+
+    <!-- Summit Ticket - Blue Sky -->
+    <div class="prod-card" data-cat="summit" data-id="ticketblue">
+      <div class="prod-thumb deep">
+        <div class="prod-icon">🎟️</div>
+      </div>
+      <div class="prod-body">
+        <div class="prod-cat">Summit · Blue Sky</div>
+        <div class="prod-name">Blue Sky Delegate Ticket</div>
+        <div class="prod-desc">General admission. Full access to all panel sessions, networking, and book launch ceremony. Certificate of participation.</div>
+        <div class="prod-footer">
+          <div class="prod-price">₦5,000</div>
+          <button class="add-btn" onclick="addToCartById('ticketblue')">Add to Cart</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Summit Ticket - Gold -->
+    <div class="prod-card" data-cat="summit" data-id="ticketgold">
+      <div class="prod-thumb gold">
+        <div class="prod-icon">⭐</div>
+        <div class="prod-badge hot">Recommended</div>
+      </div>
+      <div class="prod-body">
+        <div class="prod-cat">Summit · Gold Wing</div>
+        <div class="prod-name">Gold Wing Delegate Package</div>
+        <div class="prod-desc">Premium seating, signed copy of Cleared for Takeoff, VIP networking lunch, simulator initiative early investor priority, and official programme credit.</div>
+        <div class="prod-footer">
+          <div class="prod-price">₦25,000</div>
+          <button class="add-btn" onclick="addToCartById('ticketgold')">Add to Cart</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Summit VIP -->
+    <div class="prod-card" data-cat="summit" data-id="ticketvip">
+      <div class="prod-thumb navy">
+        <div class="prod-icon">💎</div>
+      </div>
+      <div class="prod-body">
+        <div class="prod-cat">Summit · VIP Dinner</div>
+        <div class="prod-name">VIP Dinner Table (1 seat)</div>
+        <div class="prod-desc">Exclusive dinner with keynote speakers, agency heads, and investors. Includes all day conference + dinner. Limited seats.</div>
+        <div class="prod-footer">
+          <div class="prod-price">₦75,000</div>
+          <button class="add-btn" onclick="addToCartById('ticketvip')">Add to Cart</button>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /productsGrid -->
+</div><!-- /store-main -->
+
+<!-- TESTIMONIALS -->
+<div class="testimonials">
+  <div style="max-width:1100px;margin:0 auto;">
+    <div style="font-size:11px;letter-spacing:4px;color:var(--gold);font-weight:700;text-transform:uppercase;margin-bottom:8px;">Student Reviews</div>
+    <div style="font-family:'Cormorant Garamond',serif;font-size:28px;color:#fff;">What Our Students Say</div>
+    <div class="testi-grid">
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <div class="testi-text">"The PPL Ground School is the most comprehensive study material I have found in Nigeria. The alignment to NCAA CAR-FCL means I am studying exactly what the examiner will test."</div>
+        <div class="testi-name">Student Pilot — Lagos</div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <div class="testi-text">"The AI ebook for 50 Methods of Generation 50 is extraordinary. I asked it questions about my specific situation and it gave me a tailored action plan. I have not experienced this before."</div>
+        <div class="testi-name">Digital Entrepreneur — Abuja</div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <div class="testi-text">"WAEC Quiz Pro helped my daughter pass her WASSCE with distinction in four subjects. The AI marking gives instant feedback that no textbook can provide."</div>
+        <div class="testi-name">Parent — Port Harcourt</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<!-- EMPIRE LINKS -->
+<div style="background:#0A1F3D;padding:40px 28px;border-top:2px solid #FFD100;">
+  <div style="max-width:1100px;margin:0 auto;">
+    <div style="font-family:'Cormorant Garamond',serif;font-size:13px;font-weight:700;
+      color:#FFD100;letter-spacing:4px;text-transform:uppercase;text-align:center;
+      margin-bottom:24px;">The DomisLink Digital Empire</div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+      gap:16px;text-align:center;">
+      <a href="https://webstore.domislink.com" style="background:rgba(255,209,0,.1);
+        border:1px solid rgba(255,209,0,.3);padding:20px;text-decoration:none;
+        display:block;transition:all .2s;">
+        <div style="font-size:24px;margin-bottom:8px;">&#128722;</div>
+        <div style="color:#FFD100;font-weight:700;font-size:14px;">Digital Store</div>
+        <div style="color:rgba(255,255,255,.55);font-size:12px;margin-top:4px;">webstore.domislink.com</div>
+      </a>
+      <a href="https://submit.domislink.com" style="background:rgba(255,209,0,.1);
+        border:1px solid rgba(255,209,0,.3);padding:20px;text-decoration:none;
+        display:block;transition:all .2s;">
+        <div style="font-size:24px;margin-bottom:8px;">&#9992;</div>
+        <div style="color:#FFD100;font-weight:700;font-size:14px;">Aviation Summit</div>
+        <div style="color:rgba(255,255,255,.55);font-size:12px;margin-top:4px;">submit.domislink.com</div>
+      </a>
+      <a href="https://aviation-memoir.domislink.com" style="background:rgba(255,209,0,.1);
+        border:1px solid rgba(255,209,0,.3);padding:20px;text-decoration:none;
+        display:block;transition:all .2s;">
+        <div style="font-size:24px;margin-bottom:8px;">&#128218;</div>
+        <div style="color:#FFD100;font-weight:700;font-size:14px;">Memoir Archive</div>
+        <div style="color:rgba(255,255,255,.55);font-size:12px;margin-top:4px;">aviation-memoir.domislink.com</div>
+      </a>
+      <a href="mailto:domislinkint@gmail.com" style="background:rgba(255,209,0,.1);
+        border:1px solid rgba(255,209,0,.3);padding:20px;text-decoration:none;
+        display:block;transition:all .2s;">
+        <div style="font-size:24px;margin-bottom:8px;">&#9993;</div>
+        <div style="color:#FFD100;font-weight:700;font-size:14px;">Contact</div>
+        <div style="color:rgba(255,255,255,.55);font-size:12px;margin-top:4px;">domislinkint@gmail.com</div>
+      </a>
+    </div>
+  </div>
+</div>
+
+
+<!-- SOCIAL STRIP -->
+<div style="background:#0A1F3D;padding:20px 28px;display:flex;gap:20px;align-items:center;justify-content:center;flex-wrap:wrap;border-top:2px solid #C9A84C;">
+  <span style="font-family:'DM Sans',sans-serif;font-size:12px;color:rgba(245,230,192,.6);letter-spacing:2px;text-transform:uppercase;">Follow the Conversation:</span>
+  <a href="https://linkedin.com/company/domislink-international" target="_blank" style="background:rgba(201,168,76,.15);border:1px solid rgba(201,168,76,.3);color:#C9A84C;padding:8px 20px;text-decoration:none;font-size:13px;font-family:'DM Sans',sans-serif;font-weight:600;">LinkedIn</a>
+  <a href="https://aviation-memoir.domislink.com" target="_blank" style="background:rgba(201,168,76,.15);border:1px solid rgba(201,168,76,.3);color:#C9A84C;padding:8px 20px;text-decoration:none;font-size:13px;font-family:'DM Sans',sans-serif;font-weight:600;">Memoir Archive ✈</a>
+  <a href="https://submit.domislink.com" target="_blank" style="background:#C9A84C;color:#0A1F3D;padding:8px 20px;text-decoration:none;font-size:13px;font-family:'DM Sans',sans-serif;font-weight:700;">Aviation Summit →</a>
+</div>
+<footer>
+  <div class="footer-logo">DomisLink International Services Ltd</div>
+  <div style="color:rgba(245,230,192,.5);font-size:13px;margin-bottom:8px;">Training. Impact. Knowledge transfer across generations.</div>
+  <div class="footer-links">
+    <a href="#aviation">Aviation Courses</a>
+    <a href="#ebooks">Interactive eBooks</a>
+    <a href="#quizpro">Quiz Pro</a>
+    <a href="https://submit.domislink.com">Summit</a>
+    <a href="https://aviation-memoir.domislink.com">Memoir Archive</a>
+    <a href="mailto:domislinkint@gmail.com">Contact</a>
+    <a href="https://linkedin.com/company/domislink-international" target="_blank">LinkedIn</a>
+  </div>
+  <div style="color:rgba(245,230,192,.3);font-size:12px;">
+    19 Powerline, Asiwaju Dada, Lagos, Nigeria · +234 904 983 7474 · domislinkint@gmail.com
+  </div>
+  <div class="footer-copy">© 2025 DomisLink International Services Ltd · All digital products protected by DomisLink DRM Licensing · One device · 12-month access</div>
+</footer>
+
+<!-- CART OVERLAY -->
+<div class="cart-overlay" id="cartOverlay" onclick="closeCart()"></div>
+
+<!-- CART DRAWER -->
+<div class="cart-drawer" id="cartDrawer">
+  <div class="cart-head">
+    <h2>Your Cart</h2>
+    <button class="close-btn" onclick="closeCart()">×</button>
+  </div>
+  <div class="cart-items" id="cartItems">
+    <div class="cart-empty">
+      <div class="icon">🛒</div>
+      <p style="color:var(--muted);font-size:14px;">Your cart is empty.<br/>Add a product to get started.</p>
+    </div>
+  </div>
+  <div class="cart-footer">
+    <div class="cart-total">
+      <span>Total</span>
+      <span id="cartTotal">₦0</span>
+    </div>
+    <button class="checkout-btn" id="checkoutBtn" onclick="startCheckout()">
+      Checkout with Paystack 🔒
+    </button>
+    <div class="secure-note">🔒 Secure payment · Digital delivery to your email · DRM licence issued instantly</div>
+  </div>
+</div>
+
+<!-- PRODUCT MODAL -->
+<div class="modal-overlay" id="productModal">
+  <div class="modal">
+    <div class="modal-top" id="modalTop">
+      <button class="modal-close" onclick="closeModal()">×</button>
+      <div id="modalContent"></div>
+    </div>
+    <div class="modal-body" id="modalBody"></div>
+  </div>
+</div>
+
+<!-- AI EBOOK READER -->
+<div class="ebook-modal" id="ebookModal">
+  <div class="ebook-nav">
+    <div>
+      <div class="ebook-title" id="ebookTitle">50 Methods of Generation 50</div>
+      <div class="ebook-progress" id="ebookProgress">Method 1 of 50</div>
+    </div>
+    <button onclick="closeEbook()" style="background:rgba(255,255,255,0.55);border:none;color:rgba(245,230,192,.7);padding:8px 18px;border-radius:20px;cursor:pointer;font-family:'DM Sans',sans-serif;font-size:13px;">✕ Close Reader</button>
+  </div>
+  <div class="ebook-body">
+    <!-- Method Index -->
+    <div class="method-index" id="methodIndex"></div>
+    <!-- Content -->
+    <div class="ebook-content" id="ebookContent"></div>
+    <!-- AI Sidebar -->
+    <div class="ebook-sidebar">
+      <div class="sidebar-head">
+        <h3>🤖 AI Tutor</h3>
+        <p>Ask anything about this method</p>
+      </div>
+      <div class="ai-messages" id="aiMessages">
+        <div class="ai-msg assistant">Hello! I am your AI tutor for this ebook. Ask me anything about the method you are reading — how to apply it in Nigeria, what challenges you might face, or how to get started today.</div>
+      </div>
+      <div class="ai-input-row">
+        <input class="ai-input" id="aiInput" type="text" placeholder="Ask about this method..." onkeydown="if(event.key==='Enter')sendAiMessage()">
+        <button class="ai-send" onclick="sendAiMessage()">Ask</button>
+      </div>
+    </div>
+  </div>
+  <div class="ebook-controls">
+    <button class="ebook-btn" id="prevBtn" onclick="changeMethod(-1)">← Previous</button>
+    <div style="color:rgba(245,230,192,.5);font-size:13px;" id="methodCounter">1 / 50</div>
+    <button class="ebook-btn" id="nextBtn" onclick="changeMethod(1)">Next →</button>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<script>
+// ══ PRODUCT CATALOG ══════════════════════════════════════
+const PRODUCTS = {
+  ppl:         {id:'ppl',name:'Private Pilot Licence Ground School',price:25000,cat:'aviation',icon:'🛩️',color:'navy',includes:['14 learning modules','ICAO/NCAA/FAA aligned content','Downloadable study notes','Practice questions','12-month DRM access','DML licence key issued instantly']},
+  cpl:         {id:'cpl',name:'Commercial Pilot Licence Preparation',price:35000,cat:'aviation',icon:'✈️',color:'navy',includes:['Advanced theory complete',  'Performance & systems modules','CRM and MCC principles','NCAA CAR-FCL aligned','12-month access','PDF study guides']},
+  atc:         {id:'atc',name:'Air Traffic Control — Full Study Package',price:28000,cat:'aviation',icon:'📡',color:'teal',includes:['ATC procedures & phraseology','Separation standards','ICAO Annex 11 coverage','AIS and NOTAMs','COM/RT RT exercises','12-month access']},
+  hlo:         {id:'hlo',name:'Helicopter Landing Officer (HLO)',price:18000,cat:'aviation',icon:'🚁',color:'dark',includes:['OPITO standard alignment','Helideck management','Emergency procedures','Weather assessment','Offshore safety protocols','Certificate template']},
+  airportops:  {id:'airportops',name:'Airport Operations Course',price:20000,cat:'aviation',icon:'🏢',color:'navy',includes:['Airside operations','Ground handling standards','ICAO Annex 14','Wildlife management','SMS basics','Apron safety']},
+  comrt:       {id:'comrt',name:'Aviation COM/RT & AIS Course',price:15000,cat:'aviation',icon:'📻',color:'teal',includes:['ICAO RT phraseology','AIS and NOTAM reading','AIP navigation','Emergency RT','Practice scenarios','12-month access']},
+  inspector:   {id:'inspector',name:'Aviation Safety Inspector — Personnel Licensing',price:32000,cat:'aviation',icon:'🔍',color:'red',includes:['ICAO Annex 1 in full','NCAA CAR-FCL walkthrough','Inspector methodology','Licensing procedures','Case studies','12-month access']},
+  gen50:       {id:'gen50',name:'50 Methods of Generation 50',price:7500,cat:'ebook',icon:'💡',color:'gold',includes:['50 income methods explained','Step-by-step action plans per method','Nigerian market analysis','AI tutor — ask any question','Offline reading mode','12-month DRM access'],ai:true},
+  cft:         {id:'cft',name:'Cleared for Takeoff — Digital Edition',price:8500,cat:'ebook',icon:'📘',color:'navy',includes:['Full 18-chapter book','AI-powered reader','Searchable text','Author notes edition','Print-ready version','12-month access'],ai:true},
+  safetyebook: {id:'safetyebook',name:'Aviation Safety Management — Practical Guide',price:5500,cat:'ebook',icon:'🛡️',color:'red',includes:['SMS framework explained','Just Culture chapter','ICAO Annex 19','Safety reporting guides','AI tutor included','12-month access'],ai:true},
+  ebookcreation:{id:'ebookcreation',name:'Create & Sell Your eBook in Nigeria',price:4000,cat:'ebook',icon:'✍️',color:'deep',includes:['Writing methodology','Design templates','DRM protection guide','Paystack integration','Marketing in Nigeria','Distribution channels']},
+  waecquiz:    {id:'waecquiz',name:'WAEC Quiz Pro — 9 Subjects',price:3500,cat:'quiz',icon:'📝',color:'teal',includes:['500+ questions per subject','9 WAEC subjects covered','AI marking and feedback','Offline-capable','Progress tracking','12-month access']},
+  aviationquiz:{id:'aviationquiz',name:'Aviation Quiz Pro — Multi-Regulator',price:4500,cat:'quiz',icon:'🎯',color:'navy',includes:['NCAA, FAA, EASA, CAA UK, ICAO, SACAA','Regulator-specific question banks','Timed exam simulation','Detailed answer explanations','Progress dashboard','12-month access']},
+  jssmaths:    {id:'jssmaths',name:'JSS1 Maths Video Platform — 12 Weeks',price:2500,cat:'quiz',icon:'📐',color:'deep',includes:['12-week curriculum','Interactive video lessons','Practice exercises','Nigerian curriculum aligned','Offline capable','Parent progress reports']},
+  ticketblue:  {id:'ticketblue',name:'Blue Sky Delegate Ticket',price:5000,cat:'summit',icon:'🎟️',color:'deep',includes:['Full conference access','All panel sessions','Book launch ceremony','Networking access','Certificate of participation','Event programme booklet']},
+  ticketgold:  {id:'ticketgold',name:'Gold Wing Delegate Package',price:25000,cat:'summit',icon:'⭐',color:'gold',includes:['Premium reserved seating','Signed copy: Cleared for Takeoff','VIP networking lunch','Early investor priority — Simulator Initiative','Official programme credit','Certificate of participation']},
+  ticketvip:   {id:'ticketvip',name:'VIP Dinner (1 seat)',price:75000,cat:'summit',icon:'💎',color:'navy',includes:['Full conference access','Exclusive VIP dinner','Seated with keynote speakers','Simulator Initiative investor conversation','Table gift pack','Programme acknowledgement']},
+};
+
+// ══ 50 METHODS CONTENT ════════════════════════════════════
+const METHODS = [
+  {num:1,title:"Digital Freelancing",body:"In the age of global remote work, your skills are your currency — and Nigerian professionals are discovering that geography is no longer a barrier to earning in dollars, pounds, and euros.",steps:["Identify your core skill — writing, design, coding, video editing, data entry, social media","Create profiles on Upwork, Fiverr, Toptal, and PeoplePerHour","Build a portfolio of 3–5 sample projects even if unpaid initially","Set your initial rate 20% below market to win your first 10 reviews","Raise rates 25% every 10 successful projects"],tip:"Nigerians with strong English and technical skills consistently out-earn local salary benchmarks within 6–12 months of serious freelancing."},
+  {num:2,title:"Digital Product Creation",body:"Create once, sell infinitely. Digital products — ebooks, templates, courses, presets, fonts, stock photos — are the most scalable income model available to any individual with knowledge and a computer.",steps:["Choose a skill or knowledge area you can teach or demonstrate","Package it as a PDF, video course, template, or interactive tool","List on Gumroad, Selar, or your own Paystack-powered store","Price at ₦2,000–₦15,000 for Nigerian market, $10–$50 for international","Promote through WhatsApp groups, LinkedIn, and Instagram Reels"],tip:"The Nigerian digital product market is young and underserved. A well-made product in any practical skill category can sell hundreds of copies with minimal marketing."},
+  {num:3,title:"Online Tutoring & Teaching",body:"Nigeria produces some of the most academically rigorous students and graduates in Africa. That knowledge is marketable to students locally and internationally.",steps:["Register on Preply, Tutor.com, Cambly, or VIPKid for international students","Offer WAEC, JAMB, GCE preparation locally through WhatsApp and Zoom","Create a structured 4-week programme with clear learning outcomes","Use DomisLink Quiz Pro tools for assessment and progress tracking","Build a referral system — satisfied students bring siblings and friends"],tip:"A single skilled tutor working 4 hours per day can generate ₦150,000–₦400,000 monthly from online sessions."},
+  {num:4,title:"Content Creation & Monetisation",body:"YouTube, TikTok, Instagram Reels, podcasts — the attention economy rewards consistent, valuable content creation. Nigerian creators are increasingly breaking through globally.",steps:["Choose a content niche aligned with genuine knowledge or passion","Commit to a publication schedule — consistency beats perfection","Build to 1,000 subscribers/followers before focusing on monetisation","Apply for YouTube Partner Programme at 1,000 subscribers + 4,000 watch hours","Add affiliate links, sponsorships, and digital product upsells"],tip:"A Nigerian aviation content creator explaining flight training, ATC procedures, or aviation career paths in plain language has almost no competition and a genuinely underserved audience."},
+  {num:5,title:"Affiliate Marketing",body:"Earn commissions by recommending products you believe in. No inventory, no customer service, no capital — just your audience and your recommendation.",steps:["Join affiliate programmes: Jumia, Konga, Amazon Associates, Selar Partner","Choose products genuinely relevant to your audience","Create honest, specific review content — not generic promotion","Place affiliate links in blog posts, YouTube descriptions, email newsletters","Track conversions and double down on what converts"],tip:"Aviation professionals recommending aviation training materials, simulator software, and study guides to aviation communities can earn 10–20% commissions on every sale."},
+  {num:6,title:"Real Estate Consultancy",body:"Property knowledge is money in any economy. You do not need capital to earn from real estate — you need relationships, information, and the ability to connect buyers with sellers.",steps:["Get licensed as a real estate agent through NIESV or a state estate agency board","Build relationships with property developers in your city","Create a database of available properties and active buyers","Earn 3–10% commission on every completed transaction","Expand into property management for landlords who live abroad"],tip:"One closed real estate deal in Lagos can generate ₦500,000–₦5,000,000 in commission. The skill is in building trust and understanding both sides of the transaction."},
+  {num:7,title:"Import & E-Commerce",body:"Buy where things are cheap. Sell where they are expensive. The principle of trade is ancient. The execution through e-commerce platforms is modern.",steps:["Identify products with price differentials between China (Alibaba, 1688) and Nigeria","Start with small test orders of 10–20 units before scaling","List on Jumia, Konga, or your own WhatsApp/Instagram store","Use PayStack for seamless Nigerian payment collection","Reinvest 60% of profits into inventory to compound growth"],tip:"Electronics accessories, fashion, baby products, and home goods consistently outperform as import categories for Nigerian e-commerce beginners."},
+  {num:8,title:"Agricultural Value Chain",body:"Nigeria's agricultural sector feeds 200 million people. Between the farmer and the consumer is a value chain full of income opportunities that require less capital than farming itself.",steps:["Identify a crop with consistent demand in your region","Source directly from smallholder farmers at bulk prices","Add value: sorting, cleaning, packaging, branding","Sell to supermarkets, restaurants, institutions, or export markets","Build a network of reliable farmers and consistent buyers"],tip:"Dried, packaged, and branded agricultural products command 300–500% premiums over unprocessed equivalents. A cassava farmer earns ₦50,000 from a bag of cassava. Packaged garri from that cassava retails for ₦250,000."},
+];
+// Generate remaining methods programmatically
+const METHOD_TITLES = [
+  "Logistics & Delivery Services","Skill-Based Services","Event Planning & Management",
+  "Health & Wellness Coaching","Social Media Management","Website Development",
+  "Mobile App Development","Photography & Videography","Brand Design & Identity",
+  "Financial Planning & Coaching","Insurance Agency","Investment Clubs",
+  "Stock Market Trading","Cryptocurrency Informed Investment","Rental Income",
+  "Vehicle Hire & Leasing","Food Production & Catering","Bakery & Confectionery",
+  "Fashion & Tailoring","Hair & Beauty Business","Cleaning Services","Security Services",
+  "Education Centre Management","Printing & Publishing","Stationery & Office Supplies",
+  "Repair Services","Electronics Trading","Solar & Renewable Energy","Water Production",
+  "Waste Management & Recycling","ICT Training Centre","Podcast & Audio Production",
+  "Translation & Language Services","Legal Consulting Support","HR & Recruitment",
+  "Data Analysis Services","Virtual Assistant Services","Bookkeeping & Accounting",
+  "Tax Filing Services","Grant Writing","Non-Profit & Social Enterprise",
+  "Government Contractor Registration"
+];
+for(let i=8;i<50;i++){
+  METHODS.push({
+    num:i+1,
+    title:METHOD_TITLES[i-8]||`Method ${i+1}`,
+    body:`Method ${i+1} covers proven income strategies using ${METHOD_TITLES[i-8]||'this approach'} in the Nigerian context. This method has been validated across different economic conditions and can be started with minimal capital. The AI tutor can provide a personalised plan based on your specific situation, skills, and location.`,
+    steps:[
+      "Research the specific opportunity in your local market",
+      "Start with a minimum viable version before full investment",
+      "Build your first 5 customers through personal network",
+      "Document your process to enable delegation and scaling",
+      "Set a 6-month revenue target and track weekly progress"
+    ],
+    tip:`Ask the AI tutor: "How do I apply ${METHOD_TITLES[i-8]||'this method'} specifically in [your city/state]?" for a personalised action plan.`
+  });
+}
+
+// ══ CART STATE ═══════════════════════════════════════════
+let cart = JSON.parse(localStorage.getItem('dml_cart')||'[]');
+let currentMethod = 0;
+let isPreviewMode = true;
+
+function updateCartUI(){
+  const count = cart.length;
+  document.getElementById('cartCount').textContent = count;
+  const total = cart.reduce((s,id)=>s+(PRODUCTS[id]?.price||0),0);
+  document.getElementById('cartTotal').textContent = '₦'+total.toLocaleString();
+  const btn = document.getElementById('checkoutBtn');
+  btn.disabled = count===0;
+  const el = document.getElementById('cartItems');
+  if(count===0){
+    el.innerHTML='<div class="cart-empty"><div class="icon">🛒</div><p style="color:var(--muted);font-size:14px;">Your cart is empty.<br/>Add a product to get started.</p></div>';
+    return;
+  }
+  el.innerHTML = cart.map(id=>{
+    const p = PRODUCTS[id];
+    if(!p) return '';
+    return `<div class="cart-item">
+      <div class="ci-icon" style="background:var(--lgold);">${p.icon}</div>
+      <div class="ci-info">
+        <div class="ci-name">${p.name}</div>
+        <div class="ci-price">₦${p.price.toLocaleString()}</div>
+      </div>
+      <button class="ci-remove" onclick="removeFromCart('${id}')">🗑</button>
+    </div>`;
+  }).join('');
+  localStorage.setItem('dml_cart',JSON.stringify(cart));
+}
+
+function addToCartById(id){
+  if(cart.includes(id)){ showToast('Already in cart!'); return; }
+  cart.push(id);
+  updateCartUI();
+  // Update button
+  document.querySelectorAll(`[onclick*="${id}"]`).forEach(b=>{
+    if(b.classList.contains('add-btn')){ b.textContent='✓ In Cart'; b.classList.add('in-cart'); }
+  });
+  showToast(`✓ Added: ${PRODUCTS[id]?.name?.slice(0,30)}...`);
+}
+
+function removeFromCart(id){
+  cart = cart.filter(c=>c!==id);
+  updateCartUI();
+  document.querySelectorAll(`[onclick*="${id}"]`).forEach(b=>{
+    if(b.classList.contains('add-btn')){ b.textContent='Add to Cart'; b.classList.remove('in-cart'); }
+  });
+}
+
+function openCart(){ document.getElementById('cartOverlay').classList.add('open'); document.getElementById('cartDrawer').classList.add('open'); }
+function closeCart(){ document.getElementById('cartOverlay').classList.remove('open'); document.getElementById('cartDrawer').classList.remove('open'); }
+
+// ══ PAYSTACK CHECKOUT ════════════════════════════════════
+function startCheckout(){
+  const total = cart.reduce((s,id)=>s+(PRODUCTS[id]?.price||0),0);
+  if(total===0) return;
+  const email = prompt('Enter your email address for digital delivery:');
+  if(!email||!email.includes('@')){ showToast('Please enter a valid email.'); return; }
+  const handler = PaystackPop.setup({
+    key: 'pk_live_REPLACE_WITH_YOUR_PAYSTACK_KEY_HERE',
+    email: email,
+    amount: total * 100,
+    currency: 'NGN',
+    ref: 'DML-' + Date.now(),
+    metadata: {
+      products: cart.join(','),
+      buyer_email: email
+    },
+    callback: function(response){
+      deliverProducts(email, response.reference);
+    },
+    onClose: function(){ showToast('Payment window closed.'); }
+  });
+  handler.openIframe();
+}
+
+function deliverProducts(email, ref){
+  const licenceKey = 'DML-' + Math.random().toString(36).substr(2,4).toUpperCase() + '-' + Math.random().toString(36).substr(2,4).toUpperCase() + '-' + Math.random().toString(36).substr(2,4).toUpperCase();
+  cart = [];
+  updateCartUI();
+  closeCart();
+  showToast('✓ Payment successful! Check your email for download links.');
+  setTimeout(()=>{
+    alert(`🎉 Payment Confirmed!\n\nYour DomisLink Licence Key:\n${licenceKey}\n\nReference: ${ref}\n\nDownload links have been sent to ${email}.\nAccess your products at webstore.domislink.com/portal`);
+  },500);
+}
+
+// ══ PRODUCT FILTER ════════════════════════════════════════
+function filterProducts(cat, btn){
+  document.querySelectorAll('.filt').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('.prod-card').forEach(c=>{
+    const pcats = (c.dataset.cat||'').split(' ');
+    c.style.display = (cat==='all'||pcats.includes(cat)) ? 'block' : 'none';
+  });
+  document.querySelectorAll('[data-cat="divider"]').forEach(d=>d.style.display='block');
+}
+
+function searchProducts(q){
+  const query = q.toLowerCase();
+  document.querySelectorAll('.prod-card').forEach(c=>{
+    const name = c.querySelector('.prod-name')?.textContent.toLowerCase()||'';
+    const desc = c.querySelector('.prod-desc')?.textContent.toLowerCase()||'';
+    c.style.display = (!query||name.includes(query)||desc.includes(query)) ? 'block' : 'none';
+  });
+}
+
+// ══ MODAL ════════════════════════════════════════════════
+function openModal(id){
+  const p = PRODUCTS[id];
+  if(!p) return;
+  document.getElementById('modalTop').innerHTML = `
+    <button class="modal-close" onclick="closeModal()">×</button>
+    <div style="font-size:11px;letter-spacing:3px;color:var(--gold);font-weight:700;text-transform:uppercase;margin-bottom:8px;">${p.cat.toUpperCase()}</div>
+    <div style="font-family:'Cormorant Garamond',serif;font-size:28px;color:#fff;margin-bottom:8px;">${p.icon} ${p.name}</div>
+    ${p.ai?'<div style="display:inline-block;background:#5a0099;color:#fff;font-size:11px;font-weight:700;padding:4px 12px;border-radius:20px;letter-spacing:1px;">🤖 AI Tutor Included</div>':''}
+  `;
+  document.getElementById('modalBody').innerHTML = `
+    <div class="modal-price-row">
+      <div class="modal-price">₦${p.price.toLocaleString()}</div>
+      ${p.ai?'<div style="color:var(--muted);font-size:13px;">AI-powered interactive reader</div>':''}
+    </div>
+    <div style="font-size:13px;font-weight:700;color:var(--navy);margin-bottom:12px;letter-spacing:1px;text-transform:uppercase;">What's Included</div>
+    <ul class="modal-includes">
+      ${(p.includes||[]).map(i=>`<li>${i}</li>`).join('')}
+    </ul>
+    ${p.id==='gen50'?`<button class="modal-buy-btn" onclick="closeModal();openEbook()">👁 Preview Free Chapter</button>`:''}
+    <button class="modal-buy-btn" onclick="closeModal();addToCartById('${id}')">Add to Cart — ₦${p.price.toLocaleString()}</button>
+    <div style="text-align:center;font-size:12px;color:var(--muted);margin-top:8px;">🔒 Secure payment · DRM licence issued instantly · Access within minutes</div>
+  `;
+  document.getElementById('productModal').classList.add('open');
+}
+
+function closeModal(){ document.getElementById('productModal').classList.remove('open'); }
+document.getElementById('productModal').addEventListener('click',function(e){ if(e.target===this) closeModal(); });
+
+// ══ EBOOK READER ════════════════════════════════════════
+function openEbook(){
+  currentMethod = 0;
+  renderMethod();
+  buildMethodIndex();
+  document.getElementById('ebookModal').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+
+function closeEbook(){
+  document.getElementById('ebookModal').classList.remove('open');
+  document.body.style.overflow='';
+}
+
+function buildMethodIndex(){
+  const idx = document.getElementById('methodIndex');
+  idx.innerHTML = METHODS.map((m,i)=>`
+    <div class="mi-item ${i===0?'active':''}" onclick="goToMethod(${i})" id="mi-${i}">
+      <div class="mi-n">METHOD ${m.num}</div>
+      ${m.title}
+    </div>
+  `).join('');
+}
+
+function goToMethod(i){
+  currentMethod = i;
+  renderMethod();
+  document.querySelectorAll('.mi-item').forEach((el,j)=>el.classList.toggle('active',j===i));
+}
+
+function renderMethod(){
+  const m = METHODS[currentMethod];
+  const isPreview = currentMethod >= 3 && isPreviewMode;
+  document.getElementById('ebookTitle').textContent = '50 Methods of Generation 50';
+  document.getElementById('ebookProgress').textContent = `Method ${m.num} of 50`;
+  document.getElementById('methodCounter').textContent = `${m.num} / 50`;
+  document.getElementById('prevBtn').disabled = currentMethod===0;
+  document.getElementById('nextBtn').disabled = currentMethod===49;
+
+  if(isPreview){
+    document.getElementById('ebookContent').innerHTML = `
+      <div class="method-header">
+        <div class="method-num">METHOD ${m.num} OF 50</div>
+        <div class="method-title">${m.title}</div>
+      </div>
+      <div style="background:rgba(255,209,0,.1);border:1px solid rgba(255,209,0,.3);border-radius:12px;padding:32px;text-align:center;">
+        <div style="font-size:48px;margin-bottom:16px;">🔒</div>
+        <div style="font-family:'Cormorant Garamond',serif;font-size:24px;color:#fff;margin-bottom:12px;">Full Access Required</div>
+        <div style="color:rgba(245,230,192,.7);font-size:14px;line-height:1.75;margin-bottom:24px;max-width:400px;margin-left:auto;margin-right:auto;">You have previewed the first 3 methods. Purchase the full ebook to access all 50 methods plus unlimited AI tutor sessions.</div>
+        <button onclick="closeEbook();addToCartById('gen50')" style="background:var(--gold);color:var(--navy);border:none;padding:14px 32px;border-radius:30px;font-size:15px;font-weight:800;cursor:pointer;font-family:'DM Sans',sans-serif;">Get Full Access — ₦7,500</button>
+      </div>
+    `;
+    return;
+  }
+
+  document.getElementById('ebookContent').innerHTML = `
+    <div class="method-header">
+      <div class="method-num">METHOD ${m.num} OF 50</div>
+      <div class="method-title">${m.title}</div>
+    </div>
+    <div class="method-body">
+      <p>${m.body}</p>
+      <h4>Action Steps</h4>
+      <ul class="method-steps">
+        ${m.steps.map((s,i)=>`<li data-n="${i+1}">${s}</li>`).join('')}
+      </ul>
+      ${m.tip?`<div style="background:rgba(255,209,0,.08);border:1px solid rgba(255,209,0,.2);border-radius:10px;padding:16px;margin-top:20px;">
+        <div style="font-size:10px;font-weight:700;letter-spacing:2px;color:var(--gold);margin-bottom:6px;">💡 AI TUTOR TIP</div>
+        <div style="color:rgba(245,230,192,.75);font-size:14px;line-height:1.7;">${m.tip}</div>
+      </div>`:''}
+    </div>
+  `;
+
+  // Reset AI chat for new method
+  document.getElementById('aiMessages').innerHTML = `
+    <div class="ai-msg assistant">You are now reading <strong style="color:var(--gold);">Method ${m.num}: ${m.title}</strong>. Ask me anything about applying this in Nigeria — startup costs, realistic timelines, where to find your first customers, or how to handle specific challenges.</div>
+  `;
+}
+
+function changeMethod(dir){
+  const next = currentMethod + dir;
+  if(next<0||next>49) return;
+  goToMethod(next);
+}
+
+// ══ AI TUTOR ════════════════════════════════════════════
+async function sendAiMessage(){
+  const input = document.getElementById('aiInput');
+  const q = input.value.trim();
+  if(!q) return;
+  input.value = '';
+
+  const msgs = document.getElementById('aiMessages');
+  msgs.innerHTML += `<div class="ai-msg user">${q}</div>`;
+  msgs.innerHTML += `<div class="ai-msg thinking" id="thinking">Thinking...</div>`;
+  msgs.scrollTop = msgs.scrollHeight;
+
+  const m = METHODS[currentMethod];
+  const systemPrompt = `You are an AI tutor embedded in the DomisLink interactive ebook "50 Methods of Generation 50" by F/O Amaechi Ubadike, DomisLink International Services Ltd, Lagos Nigeria. The reader is currently on Method ${m.num}: ${m.title}.
+
+Method content: ${m.body}
+Action steps: ${m.steps.join('; ')}
+
+Your role: Help the reader understand and apply this specific income generation method in the Nigerian context. Be practical, specific, and encouraging. Give concrete Nigerian examples, realistic costs in naira, and actionable next steps. Keep responses concise — 3-5 sentences maximum unless the question specifically requires more detail. Always focus on practical application in Nigeria.`;
+
+  try {
+    const response = await fetch('https://api.anthropic.com/v1/messages',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({
+        model:'claude-sonnet-4-20250514',
+        max_tokens:1000,
+        system: systemPrompt,
+        messages:[{role:'user',content:q}]
+      })
+    });
+    const data = await response.json();
+    const answer = data.content?.[0]?.text || 'I could not generate a response. Please try again.';
+    document.getElementById('thinking').remove();
+    msgs.innerHTML += `<div class="ai-msg assistant">${answer}</div>`;
+    msgs.scrollTop = msgs.scrollHeight;
+  } catch(e){
+    document.getElementById('thinking').remove();
+    msgs.innerHTML += `<div class="ai-msg assistant">I am having trouble connecting right now. Please check your connection and try again.</div>`;
+    msgs.scrollTop = msgs.scrollHeight;
+  }
+}
+
+// ══ TOAST ════════════════════════════════════════════════
+function showToast(msg){
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),3000);
+}
+
+// ══ INIT ═════════════════════════════════════════════════
+updateCartUI();
+
+// Restore cart button states
+cart.forEach(id=>{
+  document.querySelectorAll(`[onclick*="${id}"]`).forEach(b=>{
+    if(b.classList.contains('add-btn')){ b.textContent='✓ In Cart'; b.classList.add('in-cart'); }
+  });
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,1397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="description" content="The world's first dedicated aviation memoir archive. Every aviation professional has a story the sky gave them. This is where those stories live — permanently, freely, forever.">
+<meta property="og:title" content="Aviation Memoir Archive — DomisLink">
+<meta property="og:description" content="Submit your memoir. We will publish it. The sky you flew is not yours alone to keep.">
+<meta name="theme-color" content="#0f0c08">
+<title>Aviation Memoir Archive — aviation-memoir.domislink.com</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600&family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+/* ═══════════════════════════════════════════════════════
+   ROOT & RESET
+═══════════════════════════════════════════════════════ */
+:root{
+  --ink:#0f0c08; --paper:#FFFFFF; --navy:#0A1F3D;
+  --gold:#FFD100; --lgold:#FFF8CC; --dgold:#BB8800;
+  --warm:#1C1510; --dark:#110d09; --muted:#BBBBBB;
+  --border:rgba(255,209,0,.25);
+  --border2:rgba(255,209,0,.12);
+  --glass:rgba(255,255,255,.04);
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{background:var(--warm);color:var(--paper);
+  font-family:'Crimson Pro',Georgia,serif;
+  line-height:1.72;overflow-x:hidden;}
+::selection{background:var(--gold);color:var(--warm);}
+::-webkit-scrollbar{width:4px;}
+::-webkit-scrollbar-track{background:var(--ink);}
+::-webkit-scrollbar-thumb{background:var(--gold);}
+
+/* ═══════════════════════════════════════════════════════
+   NAV
+═══════════════════════════════════════════════════════ */
+nav{position:fixed;top:0;left:0;right:0;z-index:900;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 52px;height:62px;
+  background:rgba(12,9,6,.94);
+  border-bottom:1px solid var(--border);
+  backdrop-filter:blur(14px);}
+.brand{text-decoration:none;}
+.brand-main{font-family:'Cormorant Garamond',serif;font-size:14px;
+  font-weight:500;color:var(--gold);letter-spacing:3px;
+  text-transform:uppercase;display:block;line-height:1.2;}
+.brand-url{font-family:'DM Mono',monospace;font-size:9px;
+  color:rgba(255,209,0,.4);letter-spacing:2px;}
+.nav-links{display:flex;align-items:center;gap:24px;}
+.nav-links a{font-size:11px;letter-spacing:2px;text-transform:uppercase;
+  color:rgba(255,255,255,.82);text-decoration:none;
+  font-family:'DM Mono',monospace;transition:color .2s;}
+.nav-links a:hover{color:var(--gold);}
+.nav-btn{border:1px solid var(--gold);color:var(--gold);
+  padding:8px 20px;font-family:'DM Mono',monospace;
+  font-size:10px;letter-spacing:2px;text-transform:uppercase;
+  text-decoration:none;transition:all .2s;background:none;}
+.nav-btn:hover{background:var(--gold);color:var(--warm);}
+
+/* ═══════════════════════════════════════════════════════
+   HERO
+═══════════════════════════════════════════════════════ */
+.hero{min-height:100vh;display:flex;flex-direction:column;
+  justify-content:center;align-items:center;text-align:center;
+  padding:140px 52px 100px;position:relative;overflow:hidden;}
+.hero-bg{position:absolute;inset:0;
+  background:
+    radial-gradient(ellipse 90% 70% at 50% 35%,
+      rgba(10,31,61,.75) 0%,transparent 65%),
+    radial-gradient(ellipse 50% 50% at 15% 85%,
+      rgba(255,209,0,.03) 0%,transparent 55%),
+    linear-gradient(180deg,#0f0c08 0%,#1C1510 55%,#0f0c08 100%);}
+.hero-grid{position:absolute;inset:0;
+  background-image:
+    repeating-linear-gradient(0deg,transparent,transparent 59px,
+      rgba(255,209,0,.025) 59px,rgba(255,209,0,.025) 60px),
+    repeating-linear-gradient(90deg,transparent,transparent 59px,
+      rgba(255,209,0,.012) 59px,rgba(255,209,0,.012) 60px);}
+.hero-content{position:relative;z-index:2;max-width:940px;}
+.hero-eyebrow{font-family:'DM Mono',monospace;font-size:10px;
+  letter-spacing:6px;color:var(--gold);text-transform:uppercase;
+  margin-bottom:36px;display:flex;align-items:center;
+  justify-content:center;gap:20px;}
+.hero-eyebrow::before,.hero-eyebrow::after{content:'';
+  height:1px;width:60px;background:var(--gold);opacity:.3;}
+.hero-title{font-family:'Cormorant Garamond',serif;
+  font-size:clamp(56px,10vw,112px);font-weight:300;
+  line-height:.92;color:var(--paper);margin-bottom:14px;
+  letter-spacing:-3px;}
+.hero-title em{color:var(--gold);font-style:italic;font-weight:300;}
+.hero-tagline{font-family:'Cormorant Garamond',serif;
+  font-size:clamp(18px,2.8vw,26px);color:rgba(255,243,176,.45);
+  font-weight:300;margin-bottom:36px;font-style:italic;}
+.hero-desc{font-size:18px;color:rgba(255,255,255,.88);
+  line-height:1.95;max-width:600px;margin:0 auto 56px;}
+.hero-actions{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;}
+.btn-gold{background:var(--gold);color:var(--warm);
+  padding:16px 44px;border:none;cursor:pointer;
+  font-family:'Cormorant Garamond',serif;font-size:18px;
+  font-weight:600;letter-spacing:.5px;transition:all .25s;
+  text-decoration:none;display:inline-block;}
+.btn-gold:hover{background:var(--lgold);}
+.btn-outline{background:transparent;color:var(--gold);
+  padding:16px 44px;border:1px solid rgba(255,209,0,.35);
+  font-family:'Cormorant Garamond',serif;font-size:18px;
+  cursor:pointer;transition:all .25s;text-decoration:none;
+  display:inline-block;}
+.btn-outline:hover{border-color:var(--gold);
+  background:rgba(255,209,0,.06);}
+.scroll-hint{margin-top:80px;font-family:'DM Mono',monospace;
+  font-size:9px;letter-spacing:4px;color:rgba(255,255,255,.60);
+  text-transform:uppercase;display:flex;flex-direction:column;
+  align-items:center;gap:12px;}
+.scroll-line{width:1px;height:40px;
+  background:linear-gradient(to bottom,var(--gold),transparent);
+  animation:scrollAnim 2s ease-in-out infinite;}
+@keyframes scrollAnim{0%,100%{opacity:.3;transform:scaleY(.5);}
+  50%{opacity:1;transform:scaleY(1);}}
+
+/* ═══════════════════════════════════════════════════════
+   LIVE COUNTER BAR
+═══════════════════════════════════════════════════════ */
+.counter-bar{background:var(--dark);
+  border-top:1px solid var(--border);
+  border-bottom:1px solid var(--border);
+  padding:36px 52px;
+  display:flex;justify-content:center;gap:80px;flex-wrap:wrap;}
+.ctr{text-align:center;}
+.ctr-n{font-family:'Cormorant Garamond',serif;
+  font-size:52px;font-weight:300;color:var(--gold);
+  line-height:1;display:block;margin-bottom:6px;}
+.ctr-l{font-family:'DM Mono',monospace;font-size:9px;
+  letter-spacing:4px;color:rgba(255,255,255,.72);
+  text-transform:uppercase;}
+
+/* ═══════════════════════════════════════════════════════
+   HOW IT WORKS
+═══════════════════════════════════════════════════════ */
+.hiw{padding:100px 52px;background:var(--warm);}
+.hiw-inner{max-width:1100px;margin:0 auto;}
+.section-eyebrow{font-family:'DM Mono',monospace;font-size:9px;
+  letter-spacing:6px;color:var(--gold);text-transform:uppercase;
+  margin-bottom:14px;}
+.section-heading{font-family:'Cormorant Garamond',serif;
+  font-size:clamp(34px,5vw,56px);font-weight:300;
+  color:var(--paper);line-height:1.1;margin-bottom:10px;}
+.section-heading em{color:var(--gold);font-style:italic;}
+.section-sub{font-size:18px;color:rgba(255,255,255,.84);
+  line-height:1.8;max-width:580px;margin-bottom:56px;}
+.steps-grid{display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+  gap:0;border:1px solid var(--border2);}
+.step{padding:40px 32px;border-right:1px solid var(--border2);
+  position:relative;}
+.step:last-child{border-right:none;}
+.step-n{font-family:'Cormorant Garamond',serif;font-size:80px;
+  font-weight:300;color:rgba(255,209,0,.07);
+  line-height:1;margin-bottom:16px;}
+.step-title{font-family:'Cormorant Garamond',serif;font-size:24px;
+  color:var(--paper);margin-bottom:10px;}
+.step-body{font-size:15px;color:rgba(255,255,255,.82);line-height:1.75;}
+.step-arrow{position:absolute;top:40px;right:-12px;
+  width:24px;height:24px;background:var(--warm);
+  border:1px solid var(--border);
+  display:flex;align-items:center;justify-content:center;
+  font-size:10px;color:var(--gold);z-index:1;}
+
+/* ═══════════════════════════════════════════════════════
+   FOUNDING MEMOIR — 5N-M-001
+═══════════════════════════════════════════════════════ */
+.founding{background:var(--dark);border-top:1px solid var(--border);
+  padding:110px 52px;}
+.founding-inner{max-width:820px;margin:0 auto;}
+.callsign-tag{font-family:'DM Mono',monospace;font-size:12px;
+  letter-spacing:5px;color:var(--gold);
+  border:1px solid var(--border);display:inline-flex;
+  align-items:center;gap:12px;padding:8px 20px;
+  margin-bottom:28px;background:rgba(255,209,0,.05);}
+.callsign-tag .dot{width:6px;height:6px;border-radius:50%;
+  background:var(--gold);animation:pulse 2s infinite;}
+@keyframes pulse{0%,100%{opacity:1;}50%{opacity:.3;}}
+.founding-title{font-family:'Cormorant Garamond',serif;
+  font-size:clamp(40px,6vw,72px);font-weight:300;
+  color:var(--paper);line-height:.98;margin-bottom:12px;}
+.founding-byline{font-family:'DM Mono',monospace;font-size:10px;
+  letter-spacing:3px;color:rgba(255,209,0,.45);
+  margin-bottom:52px;text-transform:uppercase;line-height:1.8;}
+.memoir-text{font-size:21px;line-height:1.96;
+  color:rgba(255,255,255,.96);}
+.memoir-text p{margin-bottom:28px;}
+.memoir-text p:first-child::first-letter{
+  font-family:'Cormorant Garamond',serif;
+  font-size:88px;font-weight:600;color:var(--gold);
+  float:left;line-height:.78;margin:12px 16px 0 0;}
+.memoir-text blockquote{border-left:2px solid var(--gold);
+  padding:16px 0 16px 30px;margin:40px 0;
+  font-style:italic;color:rgba(255,255,255,.88);font-size:24px;
+  line-height:1.7;}
+.memoir-text h4{font-family:'DM Mono',monospace;font-size:9px;
+  letter-spacing:4px;color:var(--gold);text-transform:uppercase;
+  margin:40px 0 16px;padding-bottom:8px;
+  border-bottom:1px solid var(--border);}
+.read-full{margin-top:48px;display:inline-flex;align-items:center;
+  gap:12px;font-family:'Cormorant Garamond',serif;font-size:18px;
+  color:var(--gold);cursor:pointer;text-decoration:none;
+  border-bottom:1px solid rgba(255,209,0,.25);
+  padding-bottom:4px;transition:border-color .2s;}
+.read-full:hover{border-color:var(--gold);}
+.read-full svg{transition:transform .2s;}
+.read-full:hover svg{transform:translateX(4px);}
+
+/* ═══════════════════════════════════════════════════════
+   ARCHIVE GRID
+═══════════════════════════════════════════════════════ */
+.archive{padding:90px 0;background:var(--warm);}
+.archive-inner{max-width:1200px;margin:0 auto;padding:0 52px;}
+.filter-bar{display:flex;gap:8px;flex-wrap:wrap;
+  margin-bottom:40px;align-items:center;}
+.f-label{font-family:'DM Mono',monospace;font-size:9px;
+  letter-spacing:3px;color:var(--muted);
+  text-transform:uppercase;margin-right:10px;}
+.f-btn{background:none;border:1px solid var(--border);
+  color:rgba(255,255,255,.76);padding:7px 18px;
+  font-family:'DM Mono',monospace;font-size:10px;
+  letter-spacing:2px;text-transform:uppercase;
+  cursor:pointer;transition:all .2s;}
+.f-btn:hover,.f-btn.active{border-color:var(--gold);
+  color:var(--gold);background:rgba(255,209,0,.06);}
+.search-bar{margin-left:auto;display:flex;align-items:center;
+  gap:8px;background:var(--glass);
+  border:1px solid var(--border);padding:7px 16px;}
+.search-bar input{background:none;border:none;
+  font-family:'DM Mono',monospace;font-size:11px;
+  color:var(--paper);outline:none;width:160px;
+  letter-spacing:1px;}
+.search-bar input::placeholder{color:rgba(255,255,255,.60);}
+.memoirs-grid{display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(340px,1fr));
+  gap:2px;}
+.mc{background:var(--dark);padding:38px;
+  border:1px solid var(--border2);cursor:pointer;
+  transition:all .3s;position:relative;overflow:hidden;}
+.mc::after{content:'';position:absolute;
+  top:0;left:0;right:0;height:2px;
+  background:linear-gradient(to right,var(--gold),var(--dgold));
+  transform:scaleX(0);transform-origin:left;transition:transform .35s;}
+.mc:hover::after{transform:scaleX(1);}
+.mc:hover{border-color:rgba(255,209,0,.18);
+  background:rgba(20,15,10,1);}
+.mc-cs{font-family:'DM Mono',monospace;font-size:12px;
+  letter-spacing:3px;color:var(--gold);margin-bottom:16px;
+  display:flex;align-items:center;gap:10px;}
+.mc-cs::after{content:'';flex:1;height:1px;
+  background:var(--border);}
+.mc-country{font-family:'DM Mono',monospace;font-size:9px;
+  letter-spacing:2px;color:rgba(255,255,255,.65);
+  text-transform:uppercase;margin-bottom:8px;}
+.mc-title{font-family:'Cormorant Garamond',serif;font-size:25px;
+  color:var(--paper);line-height:1.15;margin-bottom:10px;}
+.mc-excerpt{font-size:15px;color:rgba(255,255,255,.80);
+  line-height:1.72;margin-bottom:20px;}
+.mc-foot{display:flex;justify-content:space-between;
+  align-items:center;font-family:'DM Mono',monospace;
+  font-size:9px;letter-spacing:1.5px;
+  color:rgba(255,255,255,.60);text-transform:uppercase;}
+.mc-badge{background:rgba(255,209,0,.08);
+  border:1px solid var(--border);color:rgba(255,209,0,.5);
+  padding:3px 10px;font-family:'DM Mono',monospace;
+  font-size:8px;letter-spacing:2px;}
+.mc-badge.founder{background:rgba(10,31,61,.5);
+  border-color:rgba(255,209,0,.3);color:var(--gold);}
+.pending{opacity:.32;cursor:default;}
+.pending::after{display:none;}
+
+/* ═══════════════════════════════════════════════════════
+   THE REGISTER
+═══════════════════════════════════════════════════════ */
+.register{background:var(--ink);
+  border-top:1px solid var(--border);
+  border-bottom:1px solid var(--border);
+  padding:90px 52px;}
+.register-inner{max-width:1200px;margin:0 auto;}
+.register-intro{display:grid;grid-template-columns:1fr 1fr;
+  gap:60px;margin-bottom:60px;align-items:start;}
+.reg-stat-box{background:var(--dark);border:1px solid var(--border);
+  padding:32px;text-align:center;}
+.rsb-n{font-family:'Cormorant Garamond',serif;font-size:64px;
+  font-weight:300;color:var(--gold);line-height:1;
+  display:block;margin-bottom:8px;}
+.rsb-l{font-family:'DM Mono',monospace;font-size:9px;
+  letter-spacing:3px;color:rgba(255,255,255,.72);
+  text-transform:uppercase;}
+.prefix-grid{display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(145px,1fr));
+  gap:2px;}
+.pc{background:var(--glass);border:1px solid var(--border2);
+  padding:20px 16px;transition:all .2s;cursor:default;}
+.pc:hover{background:rgba(255,209,0,.05);
+  border-color:rgba(255,209,0,.2);}
+.pc.has-entry{border-left:2px solid var(--gold);
+  cursor:pointer;}
+.pc.has-entry:hover{background:rgba(255,209,0,.08);}
+.pc-code{font-family:'DM Mono',monospace;font-size:22px;
+  font-weight:500;color:var(--gold);margin-bottom:3px;
+  display:block;}
+.pc-name{font-family:'DM Mono',monospace;font-size:8px;
+  letter-spacing:1.5px;color:rgba(255,255,255,.70);
+  text-transform:uppercase;margin-bottom:10px;display:block;}
+.pc-count{font-size:13px;color:rgba(255,255,255,.55);}
+.pc-count strong{color:rgba(255,209,0,.7);
+  font-family:'DM Mono',monospace;font-size:11px;}
+
+/* ═══════════════════════════════════════════════════════
+   THE FORMAL OFFER
+═══════════════════════════════════════════════════════ */
+.offer-section{background:var(--navy);padding:110px 52px;
+  position:relative;overflow:hidden;}
+.offer-section::before{content:'';position:absolute;
+  top:-200px;right:-200px;width:600px;height:600px;
+  border-radius:50%;
+  background:radial-gradient(rgba(255,209,0,.06),transparent 65%);}
+.offer-section::after{content:'';position:absolute;
+  bottom:-100px;left:-100px;width:400px;height:400px;
+  border-radius:50%;
+  background:radial-gradient(rgba(10,31,61,.8),transparent 70%);}
+.offer-inner{max-width:820px;margin:0 auto;position:relative;z-index:2;}
+.offer-title{font-family:'Cormorant Garamond',serif;
+  font-size:clamp(40px,6vw,72px);font-weight:300;
+  color:var(--paper);line-height:1.05;margin-bottom:24px;}
+.offer-title em{color:var(--gold);font-style:italic;}
+.offer-lead{font-size:20px;color:rgba(255,255,255,.91);
+  line-height:1.9;margin-bottom:40px;}
+.offer-document{border:1px solid rgba(255,209,0,.25);
+  padding:44px;margin:40px 0;
+  background:rgba(255,209,0,.04);position:relative;}
+.offer-document::before{content:'\201C';
+  font-family:'Cormorant Garamond',serif;
+  font-size:100px;color:rgba(255,209,0,.12);
+  position:absolute;top:-30px;left:24px;line-height:1;}
+.offer-document p{font-family:'Cormorant Garamond',serif;
+  font-size:21px;font-style:italic;
+  color:rgba(255,255,255,.97);line-height:1.88;
+  margin-bottom:16px;}
+.offer-document p:last-child{margin-bottom:0;}
+.offer-sig{font-family:'DM Mono',monospace;font-size:9px;
+  letter-spacing:3px;color:var(--gold);text-transform:uppercase;
+  margin-top:24px;line-height:1.8;}
+.offer-ctas{display:flex;gap:14px;flex-wrap:wrap;margin-top:40px;}
+
+/* ═══════════════════════════════════════════════════════
+   WRITING GUIDE
+═══════════════════════════════════════════════════════ */
+.guide-section{background:var(--warm);padding:90px 52px;
+  border-top:1px solid var(--border);}
+.guide-inner{max-width:1100px;margin:0 auto;}
+.guide-grid{display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+  gap:2px;margin-top:52px;}
+.gc{padding:36px;background:var(--dark);
+  border:1px solid var(--border2);}
+.gc-n{font-family:'Cormorant Garamond',serif;font-size:72px;
+  font-weight:300;color:rgba(255,209,0,.07);
+  line-height:1;margin-bottom:16px;}
+.gc-title{font-family:'Cormorant Garamond',serif;font-size:24px;
+  color:var(--paper);margin-bottom:10px;font-weight:400;}
+.gc-body{font-size:15px;color:rgba(255,255,255,.80);line-height:1.78;}
+.gc-example{margin-top:14px;padding:12px 16px;
+  background:rgba(255,209,0,.05);
+  border-left:2px solid rgba(255,209,0,.3);
+  font-size:14px;color:rgba(255,255,255,.88);
+  font-style:italic;line-height:1.65;}
+
+/* ═══════════════════════════════════════════════════════
+   AI WRITING ASSISTANT
+═══════════════════════════════════════════════════════ */
+.ai-section{background:var(--dark);padding:90px 52px;
+  border-top:1px solid var(--border);}
+.ai-inner{max-width:900px;margin:0 auto;}
+.ai-badge{display:inline-flex;align-items:center;gap:8px;
+  background:rgba(90,0,153,.2);border:1px solid rgba(90,0,153,.4);
+  color:rgba(200,150,255,.8);padding:5px 14px;
+  font-family:'DM Mono',monospace;font-size:9px;
+  letter-spacing:3px;text-transform:uppercase;margin-bottom:20px;}
+.ai-chat{border:1px solid var(--border);margin-top:40px;
+  background:rgba(255,255,255,.02);}
+.ai-chat-head{background:rgba(10,31,61,.5);
+  border-bottom:1px solid var(--border);
+  padding:16px 24px;display:flex;align-items:center;gap:12px;}
+.ai-chat-head-title{font-family:'DM Mono',monospace;font-size:10px;
+  letter-spacing:3px;color:var(--gold);text-transform:uppercase;}
+.ai-messages{height:360px;overflow-y:auto;padding:24px;
+  display:flex;flex-direction:column;gap:16px;}
+.ai-msg{padding:14px 18px;font-size:15px;line-height:1.72;
+  max-width:85%;}
+.ai-msg.system{background:rgba(10,31,61,.4);
+  border-left:2px solid var(--gold);
+  color:rgba(255,255,255,.94);align-self:flex-start;}
+.ai-msg.user{background:rgba(255,209,0,.1);
+  border-left:2px solid rgba(255,209,0,.4);
+  color:rgba(255,255,255,.96);align-self:flex-end;}
+.ai-msg.thinking{color:rgba(255,255,255,.72);font-style:italic;
+  font-family:'DM Mono',monospace;font-size:12px;
+  align-self:flex-start;}
+.ai-input-row{border-top:1px solid var(--border);
+  padding:16px 24px;display:flex;gap:12px;}
+.ai-input{flex:1;background:rgba(255,255,255,.04);
+  border:1px solid var(--border);color:var(--paper);
+  padding:10px 16px;font-family:'Crimson Pro',serif;
+  font-size:16px;outline:none;transition:border-color .2s;}
+.ai-input:focus{border-color:rgba(255,209,0,.4);}
+.ai-input::placeholder{color:rgba(255,255,255,.60);}
+.ai-send{background:var(--gold);color:var(--warm);border:none;
+  padding:10px 24px;font-family:'DM Mono',monospace;
+  font-size:10px;letter-spacing:2px;cursor:pointer;
+  transition:all .2s;text-transform:uppercase;}
+.ai-send:hover{background:var(--lgold);}
+.ai-prompts{display:flex;gap:8px;flex-wrap:wrap;
+  padding:0 24px 16px;}
+.ai-prompt{background:none;border:1px solid var(--border);
+  color:rgba(255,255,255,.76);padding:6px 14px;
+  font-family:'DM Mono',monospace;font-size:9px;
+  letter-spacing:1px;cursor:pointer;transition:all .2s;}
+.ai-prompt:hover{border-color:var(--gold);color:var(--gold);}
+
+/* ═══════════════════════════════════════════════════════
+   EDITORIAL PROCESS
+═══════════════════════════════════════════════════════ */
+.editorial{background:var(--warm);padding:90px 52px;
+  border-top:1px solid var(--border);}
+.editorial-inner{max-width:1100px;margin:0 auto;}
+.process-timeline{margin-top:52px;position:relative;}
+.process-timeline::before{content:'';position:absolute;
+  left:28px;top:0;bottom:0;width:1px;
+  background:linear-gradient(to bottom,var(--gold),transparent);}
+.pt-item{display:flex;gap:40px;padding:0 0 48px 0;
+  position:relative;}
+.pt-item:last-child{padding-bottom:0;}
+.pt-num{width:56px;height:56px;border-radius:50%;
+  background:var(--dark);border:1px solid var(--gold);
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Cormorant Garamond',serif;font-size:24px;
+  font-weight:300;color:var(--gold);flex-shrink:0;z-index:1;}
+.pt-content{padding-top:12px;}
+.pt-title{font-family:'Cormorant Garamond',serif;
+  font-size:26px;color:var(--paper);margin-bottom:8px;}
+.pt-body{font-size:16px;color:rgba(255,255,255,.84);
+  line-height:1.75;max-width:560px;}
+.pt-time{margin-top:8px;font-family:'DM Mono',monospace;
+  font-size:9px;letter-spacing:2px;
+  color:rgba(255,209,0,.4);text-transform:uppercase;}
+
+/* ═══════════════════════════════════════════════════════
+   SUBMISSION FORM
+═══════════════════════════════════════════════════════ */
+.submit-section{background:var(--dark);padding:100px 52px;
+  border-top:1px solid var(--border);}
+.submit-inner{max-width:780px;margin:0 auto;}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;}
+.ff{display:flex;flex-direction:column;gap:7px;}
+.ff.full{grid-column:1/-1;}
+.fl{font-family:'DM Mono',monospace;font-size:9px;
+  letter-spacing:3px;color:rgba(255,209,0,.55);
+  text-transform:uppercase;}
+.fi,.fs,.ft{background:rgba(255,255,255,.04);
+  border:1px solid rgba(255,209,0,.14);color:var(--paper);
+  padding:13px 18px;font-family:'Crimson Pro',serif;
+  font-size:17px;outline:none;transition:border-color .2s;
+  width:100%;}
+.fi:focus,.fs:focus,.ft:focus{
+  border-color:rgba(255,209,0,.45);}
+.fs option{background:#1C1510;color:var(--paper);}
+.ft{min-height:340px;resize:vertical;line-height:1.82;}
+.fn{font-family:'DM Mono',monospace;font-size:9px;
+  letter-spacing:1.5px;color:rgba(255,255,255,.60);margin-top:3px;}
+.anon-toggle{display:flex;align-items:center;gap:12px;
+  padding:16px 18px;background:rgba(255,209,0,.04);
+  border:1px solid rgba(255,209,0,.1);cursor:pointer;}
+.anon-toggle input{width:17px;height:17px;
+  accent-color:var(--gold);cursor:pointer;}
+.anon-toggle label{font-size:16px;color:rgba(255,255,255,.90);
+  cursor:pointer;}
+.consent-row{display:flex;align-items:flex-start;
+  gap:12px;padding:16px 0;}
+.consent-row input{width:16px;height:16px;
+  accent-color:var(--gold);margin-top:4px;cursor:pointer;}
+.consent-row label{font-size:15px;
+  color:rgba(255,255,255,.86);line-height:1.65;cursor:pointer;}
+.submit-btn{width:100%;background:var(--gold);
+  color:var(--warm);border:none;padding:20px;margin-top:8px;
+  font-family:'Cormorant Garamond',serif;font-size:22px;
+  font-weight:600;cursor:pointer;transition:all .25s;
+  letter-spacing:.5px;}
+.submit-btn:hover{background:var(--lgold);}
+.submit-btn:disabled{opacity:.4;cursor:not-allowed;}
+.confirm-box{display:none;border:1px solid rgba(255,209,0,.25);
+  padding:60px 40px;text-align:center;
+  background:rgba(255,209,0,.04);}
+.conf-cs{font-family:'DM Mono',monospace;font-size:42px;
+  color:var(--gold);margin-bottom:20px;display:block;
+  letter-spacing:4px;}
+.conf-title{font-family:'Cormorant Garamond',serif;
+  font-size:30px;color:var(--paper);margin-bottom:12px;}
+.conf-body{font-size:17px;color:rgba(255,255,255,.86);
+  line-height:1.8;max-width:500px;margin:0 auto;}
+
+/* ═══════════════════════════════════════════════════════
+   ABOUT THE EDITOR
+═══════════════════════════════════════════════════════ */
+.about-section{background:var(--warm);padding:90px 52px;
+  border-top:1px solid var(--border);}
+.about-inner{max-width:1100px;margin:0 auto;
+  display:grid;grid-template-columns:1fr 2fr;gap:72px;
+  align-items:start;}
+.about-card{background:var(--dark);border:1px solid var(--border);
+  padding:36px;}
+.about-cs{font-family:'DM Mono',monospace;font-size:11px;
+  letter-spacing:3px;color:var(--gold);
+  border:1px solid var(--border);
+  display:inline-block;padding:6px 14px;margin-bottom:20px;
+  background:rgba(255,209,0,.05);}
+.about-name{font-family:'Cormorant Garamond',serif;
+  font-size:28px;font-weight:600;color:var(--paper);
+  margin-bottom:6px;}
+.about-role{font-family:'DM Mono',monospace;font-size:9px;
+  letter-spacing:2px;color:rgba(255,209,0,.5);
+  text-transform:uppercase;line-height:1.8;margin-bottom:16px;}
+.about-creds{list-style:none;}
+.about-creds li{font-size:14px;color:rgba(255,255,255,.76);
+  padding:6px 0;border-bottom:1px solid var(--border2);
+  display:flex;align-items:center;gap:8px;}
+.about-creds li::before{content:'';width:4px;height:4px;
+  border-radius:50%;background:var(--gold);flex-shrink:0;}
+.about-content p{font-size:18px;color:rgba(255,255,255,.92);
+  line-height:1.9;margin-bottom:20px;}
+.about-content h3{font-family:'Cormorant Garamond',serif;
+  font-size:26px;color:var(--paper);margin-bottom:12px;
+  margin-top:32px;}
+
+/* ═══════════════════════════════════════════════════════
+   FOOTER
+═══════════════════════════════════════════════════════ */
+footer{background:var(--ink);border-top:1px solid var(--border);
+  padding:72px 52px 40px;}
+.footer-grid{max-width:1200px;margin:0 auto;
+  display:grid;grid-template-columns:2fr 1fr 1fr 1fr;
+  gap:52px;margin-bottom:52px;}
+.footer-brand{font-family:'Cormorant Garamond',serif;
+  font-size:26px;font-weight:300;color:var(--gold);
+  margin-bottom:10px;}
+.footer-desc{font-size:14px;color:rgba(255,255,255,.70);
+  line-height:1.75;margin-bottom:16px;}
+.footer-contact{font-family:'DM Mono',monospace;font-size:10px;
+  letter-spacing:1.5px;color:rgba(255,209,0,.4);
+  line-height:2;}
+.fc-head{font-family:'DM Mono',monospace;font-size:9px;
+  letter-spacing:3px;color:rgba(255,209,0,.4);
+  text-transform:uppercase;margin-bottom:16px;}
+.fc-list{list-style:none;}
+.fc-list li{margin-bottom:8px;}
+.fc-list a{font-size:14px;color:rgba(255,255,255,.70);
+  text-decoration:none;transition:color .2s;}
+.fc-list a:hover{color:var(--gold);}
+.footer-bottom{border-top:1px solid var(--border);
+  padding-top:28px;display:flex;justify-content:space-between;
+  align-items:center;flex-wrap:wrap;gap:12px;
+  max-width:1200px;margin:0 auto;}
+.footer-copy{font-family:'DM Mono',monospace;font-size:9px;
+  letter-spacing:1.5px;color:rgba(255,255,255,.18);
+  text-transform:uppercase;}
+.footer-links-bot{display:flex;gap:20px;}
+.footer-links-bot a{font-family:'DM Mono',monospace;font-size:9px;
+  letter-spacing:1.5px;color:rgba(255,255,255,.60);
+  text-decoration:none;text-transform:uppercase;
+  transition:color .2s;}
+.footer-links-bot a:hover{color:var(--gold);}
+
+/* ═══════════════════════════════════════════════════════
+   FULL READER OVERLAY
+═══════════════════════════════════════════════════════ */
+.reader{display:none;position:fixed;inset:0;
+  background:rgba(6,4,2,.98);z-index:2000;
+  overflow-y:auto;backdrop-filter:blur(12px);}
+.reader.open{display:block;}
+.reader-nav{position:sticky;top:0;
+  background:rgba(6,4,2,.95);
+  border-bottom:1px solid var(--border);
+  padding:18px 52px;display:flex;
+  align-items:center;justify-content:space-between;
+  backdrop-filter:blur(10px);}
+.reader-nav-cs{font-family:'DM Mono',monospace;font-size:11px;
+  letter-spacing:4px;color:var(--gold);}
+.reader-close{background:none;border:1px solid rgba(255,209,0,.3);
+  color:var(--gold);padding:8px 20px;
+  font-family:'DM Mono',monospace;font-size:10px;
+  letter-spacing:2px;cursor:pointer;transition:all .2s;}
+.reader-close:hover{background:rgba(255,209,0,.1);}
+.reader-body{max-width:740px;margin:0 auto;
+  padding:80px 52px 120px;}
+.r-cs-tag{font-family:'DM Mono',monospace;font-size:12px;
+  letter-spacing:5px;color:var(--gold);
+  border:1px solid var(--border);display:inline-block;
+  padding:8px 20px;margin-bottom:36px;
+  background:rgba(255,209,0,.05);}
+.r-title{font-family:'Cormorant Garamond',serif;
+  font-size:clamp(40px,6vw,68px);font-weight:300;
+  color:var(--paper);line-height:1.0;margin-bottom:10px;}
+.r-byline{font-family:'DM Mono',monospace;font-size:10px;
+  letter-spacing:3px;color:rgba(255,209,0,.4);
+  margin-bottom:60px;text-transform:uppercase;line-height:1.9;}
+.r-rule{height:1px;background:var(--border);margin:52px 0;}
+.r-body{font-size:21px;line-height:1.98;
+  color:rgba(255,255,255,.96);}
+.r-body p{margin-bottom:30px;}
+.r-body p:first-child::first-letter{
+  font-family:'Cormorant Garamond',serif;
+  font-size:92px;font-weight:600;color:var(--gold);
+  float:left;line-height:.76;margin:14px 18px 0 0;}
+.r-body blockquote{border-left:2px solid var(--gold);
+  padding:18px 0 18px 32px;margin:44px 0;
+  font-style:italic;color:rgba(255,255,255,.88);font-size:25px;
+  line-height:1.7;}
+.r-body h4{font-family:'DM Mono',monospace;font-size:9px;
+  letter-spacing:4px;color:var(--gold);text-transform:uppercase;
+  margin:44px 0 18px;padding-bottom:10px;
+  border-bottom:1px solid var(--border);}
+.r-footer{background:var(--dark);border-top:1px solid var(--border);
+  padding:24px 52px;display:flex;justify-content:center;
+  font-family:'DM Mono',monospace;font-size:9px;
+  letter-spacing:3px;color:rgba(255,209,0,.3);
+  text-align:center;text-transform:uppercase;}
+
+/* ═══════════════════════════════════════════════════════
+   TOAST & RESPONSIVE
+═══════════════════════════════════════════════════════ */
+.toast{position:fixed;bottom:36px;left:50%;
+  transform:translateX(-50%) translateY(90px);
+  background:var(--gold);color:var(--warm);
+  padding:15px 32px;font-family:'DM Mono',monospace;
+  font-size:11px;letter-spacing:2px;text-transform:uppercase;
+  z-index:9999;transition:transform .4s;white-space:nowrap;}
+.toast.show{transform:translateX(-50%) translateY(0);}
+
+@media(max-width:900px){
+  nav{padding:0 20px;}
+  .nav-links a:not(.nav-btn){display:none;}
+  .hero,.founding,.archive-inner,.register,.offer-section,
+  .guide-section,.ai-section,.editorial,.submit-section,
+  .about-section{padding-left:20px;padding-right:20px;}
+  .archive-inner,.register-inner{padding:0 20px;}
+  .form-grid{grid-template-columns:1fr;}
+  .about-inner{grid-template-columns:1fr;}
+  .footer-grid{grid-template-columns:1fr;gap:32px;padding:0 20px;}
+  footer{padding:52px 20px 32px;}
+  .reader-body{padding:50px 20px 80px;}
+  .reader-nav{padding:16px 20px;}
+  .register-intro{grid-template-columns:1fr;}
+  .steps-grid{grid-template-columns:1fr;}
+  .step{border-right:none;border-bottom:1px solid var(--border2);}
+  .step:last-child{border-bottom:none;}
+  .counter-bar{gap:32px;padding:28px 20px;}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="brand">
+    <span class="brand-main">Aviation Memoir Archive</span>
+    <span class="brand-url">aviation-memoir.domislink.com</span>
+  </a>
+  <div class="nav-links">
+    <a href="#archive">Archive</a>
+    <a href="#register">Register</a>
+    <a href="#offer">The Offer</a>
+    <a href="#guide">Guidelines</a>
+    <a href="#about">Editor</a>
+    <a href="#submit" class="nav-btn">Submit Yours</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">Est. 2025 &nbsp;&middot;&nbsp; DomisLink International Services Ltd &nbsp;&middot;&nbsp; Lagos, Nigeria</div>
+    <h1 class="hero-title">
+      The Sky You Flew<br/>
+      Is Not Yours<br/>
+      <em>Alone to Keep</em>
+    </h1>
+    <p class="hero-tagline">The world&#8217;s first dedicated aviation memoir archive</p>
+    <p class="hero-desc">Every aviation professional carries stories the sky gave them. Near-misses never filed. Lessons no simulator was ever programmed with. Moments that changed how they understood the profession &#8212; and then went to the grave with them. This is where those stories live. Permanently. Freely. For ever.</p>
+    <div class="hero-actions">
+      <a href="#submit" class="btn-gold">Submit Your Memoir</a>
+      <a href="#archive" class="btn-outline">Read the Archive</a>
+    </div>
+    <div class="scroll-hint">
+      <div class="scroll-line"></div>
+      Scroll to explore
+    </div>
+  </div>
+</section>
+
+<!-- COUNTER BAR -->
+<div class="counter-bar">
+  <div class="ctr"><span class="ctr-n" id="cM">1</span><span class="ctr-l">Memoirs Published</span></div>
+  <div class="ctr"><span class="ctr-n" id="cC">1</span><span class="ctr-l">Countries Represented</span></div>
+  <div class="ctr"><span class="ctr-n">193</span><span class="ctr-l">Countries Invited</span></div>
+  <div class="ctr"><span class="ctr-n">&#8734;</span><span class="ctr-l">Stories Waiting</span></div>
+</div>
+
+<!-- HOW IT WORKS -->
+<section class="hiw">
+  <div class="hiw-inner">
+    <div class="section-eyebrow">How It Works</div>
+    <h2 class="section-heading">Four Steps.<br/><em>One Permanent Record.</em></h2>
+    <p class="section-sub">The simplest publishing process in aviation. You write it. We assign it a call sign. We publish it. It lives for ever.</p>
+    <div class="steps-grid">
+      <div class="step">
+        <div class="step-n">01</div>
+        <div class="step-title">Write Your Story</div>
+        <div class="step-body">Any length. Any format. A single incident or a full career. Use our AI writing assistant if you need a prompt or a structure. Begin wherever the sky takes you.</div>
+        <div class="step-arrow">&#8594;</div>
+      </div>
+      <div class="step">
+        <div class="step-n">02</div>
+        <div class="step-title">Submit to the Archive</div>
+        <div class="step-body">Submit via the form below or email memoir@domislink.com. You may submit under your full name, a pseudonym, or in complete anonymity. Your choice is final and respected.</div>
+        <div class="step-arrow">&#8594;</div>
+      </div>
+      <div class="step">
+        <div class="step-n">03</div>
+        <div class="step-title">Editorial Review</div>
+        <div class="step-body">The Editor-in-Chief, F/O Amaechi Ubadike, reviews every submission personally. Light editing for clarity only. No changes to content. The voice stays yours. Timeline: 14 days.</div>
+        <div class="step-arrow">&#8594;</div>
+      </div>
+      <div class="step">
+        <div class="step-n">04</div>
+        <div class="step-title">Your Call Sign Assigned</div>
+        <div class="step-body">Your memoir is published with a permanent ICAO prefix call sign &#8212; e.g. 5N-M-001 for Nigeria. Your permanent URL: aviation-memoir.domislink.com/[your-callsign]. Searchable. Free. For ever.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOUNDING MEMOIR -->
+<section class="founding" id="founding">
+  <div class="founding-inner">
+    <div class="section-eyebrow">Founding Entry &#8212; The Archive Begins</div>
+    <div class="callsign-tag"><div class="dot"></div> 5N-M-001 &nbsp;&middot;&nbsp; Nigeria</div>
+    <div class="founding-title">The Fence at Zaria &#8212;<br/>A Career That Chose Its Author</div>
+    <div class="founding-byline">
+      F/O Amaechi Ubadike &nbsp;&middot;&nbsp; Commercial Pilot &nbsp;&middot;&nbsp; Air Traffic Controller &nbsp;&middot;&nbsp; Aviation Safety Inspector<br/>
+      National Publicity Secretary, NATCA Nigeria (2000) &nbsp;&middot;&nbsp; 1980s &#8211; 2025
+    </div>
+    <div class="memoir-text">
+      <p>The aerodrome at Zaria in the 1980s was a particular kind of Nigerian place &#8212; practical, unpretentious, and quietly extraordinary. The runway ran alongside the compound of the Nigerian College of Aviation Technology, so that the boundary between learning to fly and learning to control was not an institutional border but a chain-link fence.</p>
+      <p>On one side of that fence: the ATC and COMS school, where I arrived as an assistant, learning the frequency, learning the tower, learning the controlled discipline of managing airspace through voice and position reports. On the other side: NCAT&#8217;s flying school &#8212; different instructors entirely, different equipment, different professional grammar. Two worlds sharing one compound. Two disciplines that the aviation system treats as separate, that the geography of Zaria made neighbouring.</p>
+      <blockquote>I did not arrive in aviation by design. I arrived at Zaria. And the room would not let me go.</blockquote>
+      <p>I joined ZAC &#8212; the Zaria Aero Club &#8212; and earned my PPL on the retired NCAT Cessna 150s. Member AC 25, SP 22 Standard Pilot. I built my hours while working ATC at Lagos Murtala Muhammed International Airport, sitting on one side of the frequency managing the movements of aircraft while on my days off I was on the other side, learning what it felt like to be managed.</p>
+      <p>Years later, at ZAC, I met Yinka. A club member who had come from London. We played Scrabble on his desktop computer. And then one day, on that same desktop, I saw Microsoft Flight Simulator 98 &#8212; and something happened in my understanding of what was possible that I have never recovered from and never want to recover from. The screen showed an aircraft cockpit. Every instrument I had learned to read from the controlling side of the frequency was now laid out in front of me from the pilot&#8217;s perspective. The thought that formed was not gradual. It was instant: <em>So I can access the aircraft this easily?</em></p>
+    </div>
+    <a href="#" class="read-full" onclick="openReader();return false;">
+      Read the complete founding memoir
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </a>
+  </div>
+</section>
+
+<!-- ARCHIVE -->
+<section class="archive" id="archive">
+  <div class="archive-inner">
+    <div class="section-eyebrow">The Archive</div>
+    <h2 class="section-heading">Published <em>Memoirs</em></h2>
+    <p class="section-sub">Searchable by ICAO prefix, role, and era. Every entry permanent. Every story free to read.</p>
+    <div class="filter-bar">
+      <span class="f-label">Filter:</span>
+      <button class="f-btn active" onclick="doFilter('all',this)">All</button>
+      <button class="f-btn" onclick="doFilter('pilot',this)">Pilots</button>
+      <button class="f-btn" onclick="doFilter('atc',this)">Controllers</button>
+      <button class="f-btn" onclick="doFilter('engineer',this)">Engineers</button>
+      <button class="f-btn" onclick="doFilter('inspector',this)">Inspectors</button>
+      <button class="f-btn" onclick="doFilter('5N',this)">5N Nigeria</button>
+      <div class="search-bar">
+        <span style="color:var(--gold);font-size:12px;">&#128269;</span>
+        <input type="text" placeholder="Search archive..." oninput="doSearch(this.value)">
+      </div>
+    </div>
+    <div class="memoirs-grid" id="mGrid">
+      <div class="mc" data-cat="atc inspector pilot 5N" onclick="openReader()">
+        <div class="mc-cs">5N-M-001</div>
+        <div class="mc-country">Nigeria &nbsp;&middot;&nbsp; Pilot &middot; ATC &middot; Inspector &nbsp;&middot;&nbsp; 1980s&#8211;2025</div>
+        <div class="mc-title">The Fence at Zaria &#8212; A Career That Chose Its Author</div>
+        <div class="mc-excerpt">The aerodrome at Zaria in the 1980s was a particular kind of Nigerian place &#8212; practical, unpretentious, and quietly extraordinary. The runway ran alongside the compound of NCAT...</div>
+        <div class="mc-foot"><span>F/O Amaechi Ubadike</span><span class="mc-badge founder">Founding Entry</span></div>
+      </div>
+      <div class="mc pending" data-cat="all"><div class="mc-cs" style="color:rgba(255,209,0,.22);">5N-M-002</div><div class="mc-country">Nigeria &middot; Awaiting</div><div class="mc-title" style="color:rgba(255,255,255,.62);">Your memoir could be here</div><div class="mc-excerpt" style="color:rgba(255,255,255,.18);">The second Nigerian entry awaits its author. Twenty-five years of Nigerian aviation professionals carry stories this profession has never heard publicly...</div><div class="mc-foot"><span style="color:rgba(255,255,255,.15);">Open for submission</span><span class="mc-badge">Pending</span></div></div>
+      <div class="mc pending" data-cat="all"><div class="mc-cs" style="color:rgba(255,209,0,.22);">G-M-001</div><div class="mc-country">United Kingdom &middot; Awaiting</div><div class="mc-title" style="color:rgba(255,255,255,.62);">The first British entry</div><div class="mc-excerpt" style="color:rgba(255,255,255,.18);">British aviation &#8212; from the early jet age to Heathrow&#8217;s busiest decades and the Concorde years &#8212; holds stories that belong in this archive...</div><div class="mc-foot"><span style="color:rgba(255,255,255,.15);">Open for submission</span><span class="mc-badge">Pending</span></div></div>
+      <div class="mc pending" data-cat="all"><div class="mc-cs" style="color:rgba(255,209,0,.22);">N-M-001</div><div class="mc-country">United States &middot; Awaiting</div><div class="mc-title" style="color:rgba(255,255,255,.62);">The first American entry</div><div class="mc-excerpt" style="color:rgba(255,255,255,.18);">American aviation. The largest professional community on earth. Thousands of careers, thousands of near-misses, one archive waiting to receive them...</div><div class="mc-foot"><span style="color:rgba(255,255,255,.15);">Open for submission</span><span class="mc-badge">Pending</span></div></div>
+      <div class="mc pending" data-cat="all"><div class="mc-cs" style="color:rgba(255,209,0,.22);">ET-M-001</div><div class="mc-country">Ethiopia &middot; Awaiting</div><div class="mc-title" style="color:rgba(255,255,255,.62);">The first Ethiopian entry</div><div class="mc-excerpt" style="color:rgba(255,255,255,.18);">Ethiopian Airlines built Africa&#8217;s greatest aviation success story. The professionals who built it carry the details of exactly how it was done...</div><div class="mc-foot"><span style="color:rgba(255,255,255,.15);">Open for submission</span><span class="mc-badge">Pending</span></div></div>
+      <div class="mc pending" data-cat="all"><div class="mc-cs" style="color:rgba(255,209,0,.22);">ZS-M-001</div><div class="mc-country">South Africa &middot; Awaiting</div><div class="mc-title" style="color:rgba(255,255,255,.62);">The first South African entry</div><div class="mc-excerpt" style="color:rgba(255,255,255,.18);">From early ATNS to the modern regional network, South African aviation&#8217;s professionals carry a history as rich as any on the continent...</div><div class="mc-foot"><span style="color:rgba(255,255,255,.15);">Open for submission</span><span class="mc-badge">Pending</span></div></div>
+      <div class="mc pending" data-cat="all"><div class="mc-cs" style="color:rgba(255,209,0,.22);">VH-M-001</div><div class="mc-country">Australia &middot; Awaiting</div><div class="mc-title" style="color:rgba(255,255,255,.62);">The first Australian entry</div><div class="mc-excerpt" style="color:rgba(255,255,255,.18);">Australian aviation across vast and remote territory &#8212; the outback, the ocean corridors, the bush strips where controllers and pilots learnt what &#8220;difficult terrain&#8221; really means...</div><div class="mc-foot"><span style="color:rgba(255,255,255,.15);">Open for submission</span><span class="mc-badge">Pending</span></div></div>
+      <div class="mc pending" data-cat="all"><div class="mc-cs" style="color:rgba(255,209,0,.22);">A6-M-001</div><div class="mc-country">UAE &middot; Awaiting</div><div class="mc-title" style="color:rgba(255,255,255,.62);">The first UAE entry</div><div class="mc-excerpt" style="color:rgba(255,255,255,.18);">The Gulf aviation miracle &#8212; Dubai, Abu Dhabi, the world&#8217;s busiest long-haul corridors &#8212; built by professionals from every continent. Their stories belong here...</div><div class="mc-foot"><span style="color:rgba(255,255,255,.15);">Open for submission</span><span class="mc-badge">Pending</span></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- THE REGISTER -->
+<section class="register" id="register">
+  <div class="register-inner">
+    <div class="section-eyebrow">The Register</div>
+    <h2 class="section-heading">ICAO Prefix <em>Catalogue</em></h2>
+    <p class="section-sub">Every memoir carries the ICAO aircraft registration prefix of the author&#8217;s country &#8212; the same language aviation uses to identify every aircraft on earth, now used to identify every story.</p>
+    <div class="register-intro">
+      <div>
+        <p style="font-size:18px;color:rgba(255,255,255,.90);line-height:1.88;margin-bottom:20px;">The call sign system is aviation&#8217;s own language applied to aviation&#8217;s own memory. A Nigerian pilot reading <strong style="color:var(--gold);">5N-M-001</strong> knows immediately: this story comes from a Nigerian colleague. A British controller reading <strong style="color:var(--gold);">G-M-001</strong> knows: this is one of ours. No explanation required. The prefix speaks for itself.</p>
+        <p style="font-size:18px;color:rgba(255,255,255,.90);line-height:1.88;">When ICAO member states adopt the Memoir SARP proposed in the White Paper, the register will become the world&#8217;s most comprehensive aviation professional knowledge database &#8212; organised by the country system that aviation already uses every day.</p>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:2px;">
+        <div class="reg-stat-box"><span class="rsb-n" id="rM">1</span><span class="rsb-l">Memoirs in Archive</span></div>
+        <div class="reg-stat-box"><span class="rsb-n">193</span><span class="rsb-l">ICAO Members Invited</span></div>
+        <div class="reg-stat-box"><span class="rsb-n" id="rC">1</span><span class="rsb-l">Countries Represented</span></div>
+        <div class="reg-stat-box" style="background:rgba(255,209,0,.05);border-color:rgba(255,209,0,.2);"><span class="rsb-n" style="font-size:36px;padding-top:8px;">5N-M-001</span><span class="rsb-l">First Entry</span></div>
+      </div>
+    </div>
+    <div class="prefix-grid" id="prefGrid"></div>
+  </div>
+</section>
+
+<!-- THE OFFER -->
+<section class="offer-section" id="offer">
+  <div class="offer-inner">
+    <div class="section-eyebrow">The Standing Offer</div>
+    <h2 class="offer-title">DomisLink Will <em>Publish</em><br/>Your Memoir</h2>
+    <p class="offer-lead">Every other institution in aviation asks professionals to report incidents through official channels. DomisLink makes a different offer. Send us your story &#8212; the real one &#8212; and we will give it a permanent home, a permanent call sign, and a permanent audience of the aviation community that most needs to read it.</p>
+    <div class="offer-document">
+      <p>DomisLink International Services Ltd hereby makes the following standing offer to every aviation professional worldwide:</p>
+      <p><strong style="font-style:normal;">Submit your memoir. We will publish it.</strong></p>
+      <p>Any aviation professional &#8212; pilot, controller, engineer, inspector, dispatcher, cabin crew member, or aviation worker of any discipline, from any country, in any era &#8212; who submits a memoir to DomisLink International Services Ltd will have that memoir reviewed, formatted, and published at aviation-memoir.domislink.com at no cost to the author.</p>
+      <p>Submissions may be made under the author&#8217;s full name, under a professional pseudonym, or in complete anonymity. The only requirement is that the content reflects genuine professional experience in civil aviation.</p>
+      <p>DomisLink does not own the memoir. The author retains full copyright. DomisLink serves as publisher and permanent custodian &#8212; committed to keeping the record accessible, searchable, and permanently available to the global aviation community.</p>
+      <p>The library is open. The first entry is posted. Send your story.</p>
+      <div class="offer-sig">
+        F/O Amaechi Ubadike &nbsp;&middot;&nbsp; Founder &amp; Editor-in-Chief<br/>
+        DomisLink International Services Ltd &nbsp;&middot;&nbsp; Lagos, Nigeria &nbsp;&middot;&nbsp; 2025
+      </div>
+    </div>
+    <div class="offer-ctas">
+      <a href="#submit" class="btn-gold">Submit Your Memoir</a>
+      <a href="mailto:memoir@domislink.com" class="btn-outline">memoir@domislink.com</a>
+    </div>
+  </div>
+</section>
+
+<!-- WRITING GUIDE -->
+<section class="guide-section" id="guide">
+  <div class="guide-inner">
+    <div class="section-eyebrow">Editorial Guidelines</div>
+    <h2 class="section-heading">How to Write Your <em>Memoir</em></h2>
+    <p class="section-sub">Six principles. They protect you, the archive, and the profession &#8212; and give your story the shape it needs to be heard.</p>
+    <div class="guide-grid">
+      <div class="gc"><div class="gc-n">01</div><div class="gc-title">Begin with a moment, not a career</div><div class="gc-body">The most powerful memoirs begin in a specific instant &#8212; a sound, a sensation, a radio call that changed everything. Start there. The career context can follow. What the reader needs first is to be in the cockpit, the tower, or the hangar with you.</div><div class="gc-example">&ldquo;The engine sound changed at 2,000 feet and I knew immediately that I had heard it before &#8212; in a report I had read six months earlier and filed away.&rdquo;</div></div>
+      <div class="gc"><div class="gc-n">02</div><div class="gc-title">Genuine experience only</div><div class="gc-body">We do not publish fiction or opinion without a professional foundation. Your story must reflect real experience in civil aviation &#8212; as a pilot, controller, engineer, inspector, dispatcher, or any other recognised aviation role. Your experience is credible because it happened.</div></div>
+      <div class="gc"><div class="gc-n">03</div><div class="gc-title">Name the lesson, not the culprit</div><div class="gc-body">You may describe events, situations, and professional conditions with full honesty. What you may not do is name individuals in ways that constitute defamation. If your story requires naming someone adversely, we will work with you on anonymisation. The safety lesson is what matters. The individual is secondary.</div></div>
+      <div class="gc"><div class="gc-n">04</div><div class="gc-title">Anonymity is fully supported</div><div class="gc-body">Full name, professional pseudonym, or complete anonymity &#8212; your choice, respected absolutely. Anonymous memoirs are often the most valuable entries in the archive because they contain what the professional cannot say publicly. The call sign belongs to the story, not necessarily to the named author.</div></div>
+      <div class="gc"><div class="gc-n">05</div><div class="gc-title">Any length, any format</div><div class="gc-body">Three paragraphs or thirty pages. One incident or a full career arc. We accept all lengths, all structures, all approaches. We edit lightly for clarity and never for content. If you wrote it and it is true, we publish it as you wrote it. The voice is yours and it stays yours.</div><div class="gc-example">Minimum guidance: 200 words. There is no maximum.</div></div>
+      <div class="gc"><div class="gc-n">06</div><div class="gc-title">Your rights stay yours</div><div class="gc-body">You retain full copyright in everything you submit. DomisLink serves as publisher and permanent custodian &#8212; we hold your story in trust, we do not own it. You may request removal at any time. You may republish your memoir elsewhere without restriction or notification. The archive is a gift to the profession, not a transfer of ownership.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- AI WRITING ASSISTANT -->
+<section class="ai-section">
+  <div class="ai-inner">
+    <div class="ai-badge">&#129302; AI Writing Assistant</div>
+    <div class="section-eyebrow">Need a Starting Point?</div>
+    <h2 class="section-heading">Let the AI Help You <em>Begin</em></h2>
+    <p class="section-sub">Not every story begins easily. The AI assistant below can help you find your opening, structure your account, or answer questions about what belongs in a memoir. Powered by Claude.</p>
+    <div class="ai-chat">
+      <div class="ai-chat-head">
+        <div style="width:8px;height:8px;border-radius:50%;background:var(--gold);animation:pulse 2s infinite;"></div>
+        <div class="ai-chat-head-title">Aviation Memoir Writing Assistant &nbsp;&middot;&nbsp; Powered by Claude</div>
+      </div>
+      <div class="ai-messages" id="aiMsgs">
+        <div class="ai-msg system">Welcome to the Aviation Memoir Writing Assistant. I am here to help you begin, structure, or develop your aviation memoir for submission to the DomisLink archive.<br/><br/>I can help you find your opening scene, decide what to include, navigate anonymity questions, or simply give you prompts to get the words moving. What do you need?</div>
+      </div>
+      <div class="ai-prompts">
+        <button class="ai-prompt" onclick="aiPrompt(this)">How do I start?</button>
+        <button class="ai-prompt" onclick="aiPrompt(this)">What should I include?</button>
+        <button class="ai-prompt" onclick="aiPrompt(this)">Can I write anonymously?</button>
+        <button class="ai-prompt" onclick="aiPrompt(this)">How long should it be?</button>
+        <button class="ai-prompt" onclick="aiPrompt(this)">I have a near-miss story</button>
+        <button class="ai-prompt" onclick="aiPrompt(this)">I retired recently</button>
+      </div>
+      <div class="ai-input-row">
+        <input class="ai-input" id="aiIn" type="text" placeholder="Ask the assistant anything about your memoir..." onkeydown="if(event.key==='Enter')sendAI()">
+        <button class="ai-send" onclick="sendAI()">Send</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EDITORIAL PROCESS -->
+<section class="editorial">
+  <div class="editorial-inner">
+    <div class="section-eyebrow">What Happens After You Submit</div>
+    <h2 class="section-heading">The Editorial <em>Process</em></h2>
+    <p class="section-sub">Every submission is reviewed personally by the Editor-in-Chief. Here is exactly what happens from the moment your story arrives.</p>
+    <div class="process-timeline">
+      <div class="pt-item">
+        <div class="pt-num">1</div>
+        <div class="pt-content">
+          <div class="pt-title">Receipt &amp; Acknowledgement</div>
+          <div class="pt-body">Your memoir arrives at memoir@domislink.com or through the submission form. An automated acknowledgement is sent immediately. Your submission is logged with a provisional reference number.</div>
+          <div class="pt-time">Within 24 hours of submission</div>
+        </div>
+      </div>
+      <div class="pt-item">
+        <div class="pt-num">2</div>
+        <div class="pt-content">
+          <div class="pt-title">Editorial Review by the Editor-in-Chief</div>
+          <div class="pt-body">F/O Amaechi Ubadike reads every submission. The review checks for: genuine professional experience (required), defamation risk (managed through anonymisation), operational security concerns (specific vulnerabilities redacted with author agreement). Content is never changed &#8212; only safety-critical specifics where necessary.</div>
+          <div class="pt-time">Within 14 days of receipt</div>
+        </div>
+      </div>
+      <div class="pt-item">
+        <div class="pt-num">3</div>
+        <div class="pt-content">
+          <div class="pt-title">Call Sign Assignment</div>
+          <div class="pt-body">Your ICAO prefix is confirmed from the country you specified. The next sequential number for your country is assigned. Your permanent call sign is created &#8212; e.g. 5N-M-007 for the seventh Nigerian memoir. This is confirmed to your email with your permanent URL.</div>
+          <div class="pt-time">With editorial decision</div>
+        </div>
+      </div>
+      <div class="pt-item">
+        <div class="pt-num">4</div>
+        <div class="pt-content">
+          <div class="pt-title">Formatting &amp; Publication</div>
+          <div class="pt-body">Your memoir is formatted to the DomisLink house style &#8212; the same typographic framework as 5N-M-001. A PDF version is generated for download. The memoir goes live at your permanent URL. The global register is updated. The archive counter increments.</div>
+          <div class="pt-time">Within 14 days of editorial approval</div>
+        </div>
+      </div>
+      <div class="pt-item">
+        <div class="pt-num">5</div>
+        <div class="pt-content">
+          <div class="pt-title">Permanent Record</div>
+          <div class="pt-body">Your memoir exists permanently at aviation-memoir.domislink.com/[your-callsign]. It is indexed by country, role, and decade. It is discoverable by training institutions, safety researchers, aviation historians, and every aviation professional who visits the archive. The story you told is now part of the profession&#8217;s permanent knowledge base.</div>
+          <div class="pt-time">Permanent. No expiry.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SUBMISSION FORM -->
+<section class="submit-section" id="submit">
+  <div class="submit-inner">
+    <div class="section-eyebrow">Submit Your Memoir</div>
+    <h2 style="font-family:'Cormorant Garamond',serif;font-size:clamp(34px,5vw,56px);font-weight:300;color:var(--paper);line-height:1.05;margin-bottom:10px;">Your Story.<br/><em style="color:var(--gold);font-style:italic;">Your Call Sign.</em></h2>
+    <p style="font-size:17px;color:rgba(255,255,255,.80);margin-bottom:44px;line-height:1.8;">Fill in what you are comfortable sharing. Every field except the memoir text is optional. Your call sign will be assigned and confirmed upon publication.</p>
+    <form id="mForm" onsubmit="doSubmit(event)" novalidate>
+      <div class="form-grid">
+        <div class="ff full">
+          <div class="anon-toggle">
+            <input type="checkbox" id="anon" onchange="toggleAnon()">
+            <label for="anon">I wish to submit anonymously. Do not publish my name or identifying information.</label>
+          </div>
+        </div>
+        <div class="ff" id="nField">
+          <label class="fl">Your Name or Pseudonym</label>
+          <input class="fi" id="nm" type="text" placeholder="F/O Amaechi Ubadike">
+        </div>
+        <div class="ff">
+          <label class="fl">Email Address</label>
+          <input class="fi" id="em" type="email" placeholder="your@email.com">
+          <span class="fn">Never published. Used only to send your call sign and publication confirmation.</span>
+        </div>
+        <div class="ff">
+          <label class="fl">Country of Professional Practice</label>
+          <select class="fs" id="cy">
+            <option value="">Select country...</option>
+            <option value="5N">Nigeria (5N)</option>
+            <option value="ZS">South Africa (ZS)</option>
+            <option value="5Y">Kenya (5Y)</option>
+            <option value="ET">Ethiopia (ET)</option>
+            <option value="9G">Ghana (9G)</option>
+            <option value="5V">Togo (5V)</option>
+            <option value="5U">Niger (5U)</option>
+            <option value="TY">Benin (TY)</option>
+            <option value="XT">Burkina Faso (XT)</option>
+            <option value="TZ">Mali (TZ)</option>
+            <option value="6V">Senegal (6V)</option>
+            <option value="G">United Kingdom (G)</option>
+            <option value="N">United States (N)</option>
+            <option value="F">France (F)</option>
+            <option value="D">Germany (D)</option>
+            <option value="C">Canada (C)</option>
+            <option value="VH">Australia (VH)</option>
+            <option value="VT">India (VT)</option>
+            <option value="JA">Japan (JA)</option>
+            <option value="B">China (B)</option>
+            <option value="A6">UAE (A6)</option>
+            <option value="HZ">Saudi Arabia (HZ)</option>
+            <option value="9V">Singapore (9V)</option>
+            <option value="HL">South Korea (HL)</option>
+            <option value="PK">Indonesia (PK)</option>
+            <option value="EI">Ireland (EI)</option>
+            <option value="OY">Denmark (OY)</option>
+            <option value="LN">Norway (LN)</option>
+            <option value="SE">Sweden (SE)</option>
+            <option value="OH">Finland (OH)</option>
+            <option value="CS">Portugal (CS)</option>
+            <option value="EC">Spain (EC)</option>
+            <option value="I">Italy (I)</option>
+            <option value="SU">Egypt (SU)</option>
+            <option value="7T">Algeria (7T)</option>
+            <option value="5X">Uganda (5X)</option>
+            <option value="Z">Zimbabwe (Z)</option>
+            <option value="V5">Namibia (V5)</option>
+            <option value="TF">Iceland (TF)</option>
+            <option value="9H">Malta (9H)</option>
+            <option value="RP">Philippines (RP)</option>
+            <option value="other">Other Country</option>
+          </select>
+        </div>
+        <div class="ff">
+          <label class="fl">Primary Aviation Role</label>
+          <select class="fs" id="rl">
+            <option value="">Select role...</option>
+            <option value="pilot">Commercial Pilot (CPL / ATPL)</option>
+            <option value="pilot">Private Pilot (PPL)</option>
+            <option value="pilot">Military Pilot (Civil experience)</option>
+            <option value="atc">Air Traffic Controller</option>
+            <option value="engineer">Aircraft Maintenance Engineer</option>
+            <option value="inspector">Aviation Safety Inspector</option>
+            <option value="dispatcher">Flight Dispatcher / Operations</option>
+            <option value="cabin">Cabin Crew</option>
+            <option value="met">Aviation Meteorologist</option>
+            <option value="ais">Aeronautical Information Officer</option>
+            <option value="ground">Ground Handling / Apron</option>
+            <option value="medical">Aviation Medical Officer</option>
+            <option value="other">Other Aviation Professional</option>
+          </select>
+        </div>
+        <div class="ff">
+          <label class="fl">Years of Service</label>
+          <input class="fi" id="yr" type="text" placeholder="e.g. 1988&#8211;2023 &nbsp;or&nbsp; 35 years">
+        </div>
+        <div class="ff">
+          <label class="fl">Organisation / Airline / ATC Centre</label>
+          <input class="fi" id="org" type="text" placeholder="Optional &#8212; may be anonymised on request">
+        </div>
+        <div class="ff full">
+          <label class="fl">Memoir Title *</label>
+          <input class="fi" id="mt" type="text" placeholder="What would you call your story?" required>
+        </div>
+        <div class="ff full">
+          <label class="fl">Your Memoir *</label>
+          <textarea class="ft" id="mx" placeholder="Write your story here.&#10;&#10;Any length. Any format. Begin wherever feels right &#8212; a single incident that never left you, a career arc that made you what you are, a lesson that changed how you understand this profession.&#10;&#10;The sky gave you this story. It belongs in the archive." required></textarea>
+          <span class="fn">Minimum guideline: 200 words. There is no maximum.</span>
+        </div>
+        <div class="ff full">
+          <div class="consent-row">
+            <input type="checkbox" id="consent" required>
+            <label for="consent">I confirm this memoir reflects genuine professional experience in civil aviation. I agree to DomisLink&#8217;s editorial guidelines. I understand that I retain full copyright and that DomisLink serves as publisher and custodian. I confirm there is no operational security information that could harm aviation safety in this submission.</label>
+          </div>
+        </div>
+      </div>
+      <button type="submit" class="submit-btn" id="subBtn">Submit to the Archive &#8594;</button>
+    </form>
+    <div class="confirm-box" id="confBox">
+      <span class="conf-cs" id="confCS">5N-M-002</span>
+      <div class="conf-title">Your memoir has been received.</div>
+      <div class="conf-body">Your provisional call sign is shown above. It will be confirmed and your memoir published within 14 days of editorial review. You will receive your permanent call sign and publication URL at the email you provided.<br/><br/><br/>Thank you for adding your story to the archive.<br/>The sky you flew is no longer yours alone to keep.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT EDITOR -->
+<section class="about-section" id="about">
+  <div class="about-inner">
+    <div>
+      <div class="about-card">
+        <div class="about-cs">Editor-in-Chief</div>
+        <div class="about-name">F/O Amaechi Ubadike</div>
+        <div class="about-role">
+          Commercial Pilot Licence<br/>
+          Air Traffic Controller<br/>
+          Aviation Safety Inspector<br/>
+          Personnel Licensing
+        </div>
+        <ul class="about-creds">
+          <li>National Publicity Secretary, NATCA Nigeria (2000)</li>
+          <li>Member AC 25 &nbsp;&middot;&nbsp; SP 22 Standard Pilot</li>
+          <li>ATNS Johannesburg &#8212; ICAO &amp; Government Operations</li>
+          <li>Queen Noor CATC, Jordan &#8212; Safety Inspectors</li>
+          <li>FAA Oklahoma City &#8212; Curriculum Development</li>
+          <li>25 years: Zaria, Lagos, Port Harcourt, Maiduguri, Bonny, Forcados</li>
+          <li>Founder, DomisLink International Services Ltd</li>
+          <li>Author: Cleared for Takeoff &#8212; But Who Is Flying Nigeria&#8217;s Aviation?</li>
+        </ul>
+      </div>
+    </div>
+    <div class="about-content">
+      <div class="section-eyebrow">About the Editor</div>
+      <h2 class="section-heading" style="font-size:clamp(30px,4vw,48px);margin-bottom:28px;">The Person Who<br/><em>Reads Every Story</em></h2>
+      <p>The DomisLink Aviation Memoir Archive has one editor. Not a committee. Not an algorithm. One person who reads every submission personally &#8212; because the only qualification for judging whether an aviation memoir is genuine is twenty-five years of having lived what it describes.</p>
+      <p>F/O Amaechi Ubadike holds simultaneously a Commercial Pilot Licence, an Air Traffic Controller rating, and an Aviation Safety Inspector designation in Personnel Licensing &#8212; one of the rarest triple qualifications in African aviation. He has worked every significant aviation posting in Nigeria. He has stood at the scene of major accidents as an NCAA Inspector. He has sat behind the frequency, behind the controls, and behind the inspector&#8217;s desk.</p>
+      <h3>Why an Aviation Professional Must Edit This Archive</h3>
+      <p>An aviation memoir contains details that only another aviation professional can assess correctly. The difference between a technical observation that illuminates a safety lesson and a specific vulnerability that must not be published. The difference between a colleague described by role and a colleague identifiable by context. The difference between honest professional testimony and a document that could expose the author to professional or legal risk.</p>
+      <p>Twenty-five years of professional experience in three aviation disciplines is the editorial qualification this archive requires. That is what the Editor-in-Chief brings to every submission that arrives at memoir@domislink.com.</p>
+      <h3>The Editor&#8217;s Promise</h3>
+      <p>Every memoir submitted to this archive will be read by a person who has spent a career in the same industry the author served. Your story will be understood by someone who knows what it means. It will be protected by someone who knows what it costs to tell it. And it will be published by someone who knows why it matters.</p>
+      <p style="margin-bottom:0;">&#8212; F/O Amaechi Ubadike, Editor-in-Chief &nbsp;&middot;&nbsp; memoir@domislink.com</p>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div>
+      <div class="footer-brand">Aviation Memoir Archive</div>
+      <div class="footer-desc">The world&#8217;s first dedicated aviation memoir archive. Published and curated by DomisLink International Services Ltd, Lagos, Nigeria. Editor-in-Chief: F/O Amaechi Ubadike.</div>
+      <div class="footer-contact">
+        memoir@domislink.com<br/>
+        +234 904 983 7474<br/>
+        19 Powerline, Asiwaju Dada, Lagos
+      </div>
+    </div>
+    <div>
+      <div class="fc-head">Navigate</div>
+      <ul class="fc-list">
+        <li><a href="#founding">5N-M-001 &#8212; Founding Memoir</a></li>
+        <li><a href="#archive">The Archive</a></li>
+        <li><a href="#register">ICAO Register</a></li>
+        <li><a href="#offer">The Offer</a></li>
+        <li><a href="#guide">Writing Guide</a></li>
+        <li><a href="#submit">Submit Your Memoir</a></li>
+        <li><a href="#about">About the Editor</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="fc-head">DomisLink</div>
+      <ul class="fc-list">
+        <li><a href="https://webstore.domislink.com">Digital Store</a></li>
+        <li><a href="https://submit.domislink.com">Aviation Summit</a></li>
+        <li><a href="mailto:domislinkint@gmail.com">domislinkint@gmail.com</a></li>
+        <li><a href="https://webstore.domislink.com">webstore.domislink.com</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="fc-head">The White Paper</div>
+      <ul class="fc-list">
+        <li><a href="#">The Dying Library &#8212; Policy White Paper</a></li>
+        <li><a href="#">The Memoir Challenge</a></li>
+        <li><a href="#">ICAO Recommendation</a></li>
+        <li><a href="#">Aviation Appointments Commission</a></li>
+        <li><a href="https://submit.domislink.com">Nigerian Aviation Summit</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-copy">
+      &#169; 2025 DomisLink International Services Ltd &nbsp;&middot;&nbsp;
+      aviation-memoir.domislink.com &nbsp;&middot;&nbsp;
+      All memoirs &#169; their respective authors &nbsp;&middot;&nbsp;
+      Editor-in-Chief: F/O Amaechi Ubadike
+    </div>
+    <div class="footer-links-bot">
+      <a href="#guide">Guidelines</a>
+      <a href="mailto:memoir@domislink.com">Contact</a>
+      <a href="#submit">Submit</a>
+    </div>
+  </div>
+</footer>
+
+<!-- FULL READER -->
+<div class="reader" id="reader">
+  <div class="reader-nav">
+    <div class="reader-nav-cs">5N-M-001 &nbsp;&middot;&nbsp; aviation-memoir.domislink.com</div>
+    <button class="reader-close" onclick="closeReader()">&#10005; Close</button>
+  </div>
+  <div class="reader-body">
+    <div class="r-cs-tag">5N-M-001</div>
+    <div class="r-title">The Fence at Zaria &#8212;<br/>A Career That Chose Its Author</div>
+    <div class="r-byline">
+      F/O Amaechi Ubadike &nbsp;&middot;&nbsp; Commercial Pilot &nbsp;&middot;&nbsp; Air Traffic Controller &nbsp;&middot;&nbsp; Aviation Safety Inspector<br/>
+      National Publicity Secretary, NATCA Nigeria (2000) &nbsp;&middot;&nbsp; Lagos, Nigeria &nbsp;&middot;&nbsp; 1980s &#8211; 2025
+    </div>
+    <div class="r-rule"></div>
+    <div class="r-body">
+      <p>The aerodrome at Zaria in the 1980s was a particular kind of Nigerian place &#8212; practical, unpretentious, and quietly extraordinary. The runway ran alongside the compound of the Nigerian College of Aviation Technology, so that the boundary between learning to fly and learning to control was not an institutional border but a chain-link fence. On one side: the ATC and COMS school, where I arrived as an assistant, learning the frequency, learning the tower, learning the controlled discipline of managing airspace through voice and position reports. These were ATC and communications instructors &#8212; a distinct world with a distinct professional grammar entirely their own. On the other side: NCAT&#8217;s flying school &#8212; different instructors, different equipment, the smell of avgas rather than radio sets, the sensation of controlled descent rather than the geometry of separation.</p>
+
+      <h4>Zaria Aero Club &nbsp;&middot;&nbsp; Where Two Worlds Crossed</h4>
+
+      <p>When NCAT upgraded its fleet and retired its Cessna 150s to ZAC, I joined the Zaria Aero Club. I earned my PPL on those retired aircraft &#8212; Member AC 25, SP 22 Standard Pilot &#8212; trained by flying instructors whose classroom was the aircraft, not the control room. Two disciplines. Two sets of teachers. One compound. And a young man crossing quietly from one world into the other, understanding both from the inside simultaneously.</p>
+
+      <p>I built my hours while working ATC at Lagos Murtala Muhammed International Airport &#8212; the busiest airport in West Africa &#8212; where I managed the movements of aircraft on the frequency while on my days off I was on the other side of it, learning what it felt like to be managed. There is a particular education that comes only from inhabiting both roles. The pilot who has never worked a control position sees ATC as a service provider. The controller who has never flown sees the cockpit as a black box. I saw both from the inside, and what I saw was not opposition but partnership &#8212; two professions jointly responsible for every aircraft that lifts and lands safely.</p>
+
+      <blockquote>The Lagos Aero Club was at Magbo Aerodrome, along Badagry Road near the toll-gate. I last heard that people have built on the place. A runway that trained Nigerian pilots is now under concrete. I do not say this as an anecdote. I say it as a diagnosis.</blockquote>
+
+      <h4>Yinka, the Desktop, and the Big Bang</h4>
+
+      <p>At ZAC I met Yinka. A club member who had come from London. We used to play Scrabble on his desktop computer &#8212; the easy companionship of colleagues with time between sessions. And then one day, on that same desktop, I saw Microsoft Flight Simulator 98. The screen showed an aircraft cockpit. Every instrument I had learned to read from the controlling side of the frequency was now laid out in front of me from the pilot&#8217;s perspective. The thought that formed was not gradual. It was instant, and it was several thoughts simultaneously: <em>So I can access the aircraft this easily? So I can do what pilots do? So I could fly &#8212; really fly &#8212; instruments, procedures, the whole thing?</em></p>
+
+      <p>The answer to every one of those questions was yes. And I have been answering yes ever since.</p>
+
+      <p>I became a Microsoft patronizer. I bought FS98. I updated to Flight Simulator 2000. Then 2004. Then FSX. I self-taught the Boeing 737. I flew it until the landings were not merely acceptable but precise. I flew continent to continent. No fuel cost. No weather cancellation. No meter running. I estimate, conservatively, thirty thousand hours of simulator time across those years.</p>
+
+      <h4>Mocked, Then Vindicated</h4>
+
+      <p>When I came to flying school, there were those who saw my passion for the simulator and called it what they thought it was: <em>You are playing games.</em> The harmattan that closed the sky for student pilots at NCAT, grounding the programme for days, did not ground me &#8212; because my simulator did not need visibility or wind conditions or serviceable aircraft. I kept flying while others waited. And when we were finally in the same aircraft, doing the same man&#339;uvres, being assessed by the same instructors &#8212; my performance spoke for itself. The confidence that thirty thousand unlogged hours had built was not subtle. It was sometimes, I am told, to the annoyance of some course mates.</p>
+
+      <blockquote>I could not have earned my captainship anywhere but in those simulators. The machines that many active flying pilots have never touched gave me everything freely, at the cost of nothing but electricity and the willingness to keep learning.</blockquote>
+
+      <h4>Traversing Nigeria</h4>
+
+      <p>My career took me across this country in ways that few aviation professionals experience &#8212; not as a passenger moving between airports, but as a controller and inspector working the system from the inside: Zaria. Lagos. Port Harcourt. Maiduguri. Bonny. Forcados Terminal. Each posting a different Nigeria. Each a different relationship between geography, weather, human settlement, and the aircraft moving overhead. Nothing prepared me for the Niger Delta the way the Niger Delta prepares you for itself. The vegetation alone &#8212; that layered, dense, insistent green &#8212; tells you immediately that this is not terrain that forgives error.</p>
+
+      <h4>The October Morning</h4>
+
+      <p>On 3 October 2013, I was at my desk at the NCAA annexe office when the call came. The crash site was approximately 150 metres from where I sat. I was almost instantly at the scene. An Embraer 120 belonging to Associated Aviation, chartered to carry the body of former Governor Olusegun Agagu of Ondo State from Lagos to Akure for burial, had lifted from Runway 18L at 09:32 and never made altitude. Less than a minute after wheels-up, the aircraft impacted terrain in a near-vertical bank, coming to rest against the fence of the Joint Users Hydrant Installation &#8212; the aviation fuel compound between the domestic and international terminals. Sixteen of the twenty people on board died.</p>
+
+      <p>Among the crew was a man I knew. The Captain. A man slightly shorter than average height, dark in complexion, taciturn by nature &#8212; a quiet, inward character. A professional. I knew him well. The fire response was immediate &#8212; FAAN, the oil company emergency teams, others from surrounding departments. The fuel premises did not ignite; the prompt response of the emergency teams prevented what the geography of the crash site had made terrifyingly possible.</p>
+
+      <blockquote>I will be honest about what the moment demanded. I was overwhelmed. That is the word, and it is the accurate one. Twenty-five years in aviation safety teaches you procedure. What it does not fully prepare you for is arriving at a scene where the Captain in the wreckage is someone whose face you know.</blockquote>
+
+      <h4>Why This Memoir Exists</h4>
+
+      <p>I write this memoir as the first entry in the archive that DomisLink is building &#8212; not because my story is the most important in Nigerian aviation, but because the founder&#8217;s memoir belongs first in the library the founder built.</p>
+
+      <p>Every subsequent entry will carry more weight than mine. The anonymous ATC who files his near-miss story at 3am because he has never found another channel. The retired engineer who finally writes down the maintenance pattern that haunted the last decade of her career. The first officer from Ethiopia or Singapore or Brazil who submits the account of the flight that changed everything &#8212; in whatever language comes most naturally, in whatever form feels most true.</p>
+
+      <p>The library needs those stories. The profession needs those stories. The next generation of aviation professionals needs to inherit not just the certifications and the regulations and the checklists, but the living knowledge of what the sky actually asked of the generation before them.</p>
+
+      <p>The fence at Zaria is still there. I am still on both sides of it.</p>
+    </div>
+    <div class="r-rule"></div>
+    <div class="r-footer">
+      5N-M-001 &nbsp;&middot;&nbsp; aviation-memoir.domislink.com/5N-M-001 &nbsp;&middot;&nbsp; &#169; F/O Amaechi Ubadike &nbsp;&middot;&nbsp; All rights reserved &nbsp;&middot;&nbsp; DomisLink International Services Ltd
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+/* ── ICAO PREFIXES ──────────────────────────────────── */
+const PFXS=[
+  {c:'5N',n:'Nigeria',m:1},{c:'ZS',n:'South Africa'},{c:'5Y',n:'Kenya'},
+  {c:'ET',n:'Ethiopia'},{c:'9G',n:'Ghana'},{c:'5V',n:'Togo'},
+  {c:'6V',n:'Senegal'},{c:'TU',n:'Côte d\'Ivoire'},{c:'5X',n:'Uganda'},
+  {c:'G',n:'United Kingdom'},{c:'N',n:'United States'},{c:'F',n:'France'},
+  {c:'D',n:'Germany'},{c:'C',n:'Canada'},{c:'VH',n:'Australia'},
+  {c:'VT',n:'India'},{c:'JA',n:'Japan'},{c:'B',n:'China'},
+  {c:'A6',n:'UAE'},{c:'HZ',n:'Saudi Arabia'},{c:'9V',n:'Singapore'},
+  {c:'HL',n:'South Korea'},{c:'PK',n:'Indonesia'},{c:'EI',n:'Ireland'},
+  {c:'OY',n:'Denmark'},{c:'LN',n:'Norway'},{c:'SE',n:'Sweden'},
+  {c:'OH',n:'Finland'},{c:'CS',n:'Portugal'},{c:'EC',n:'Spain'},
+  {c:'I',n:'Italy'},{c:'SU',n:'Egypt'},{c:'7T',n:'Algeria'},
+  {c:'Z',n:'Zimbabwe'},{c:'V5',n:'Namibia'},{c:'TF',n:'Iceland'},
+  {c:'9H',n:'Malta'},{c:'RP',n:'Philippines'},{c:'VR',n:'Hong Kong'},
+  {c:'A2',n:'Botswana'},{c:'3D',n:'Eswatini'},{c:'S9',n:'São Tomé'},
+  {c:'TT',n:'Chad'},{c:'TJ',n:'Cameroon'},{c:'5A',n:'Libya'},
+  {c:'ER',n:'Moldova'},{c:'UP',n:'Kazakhstan'},{c:'UK',n:'Uzbekistan'},
+  {c:'EK',n:'Armenia'},{c:'4K',n:'Azerbaijan'},{c:'EP',n:'Iran'},
+];
+const pg=document.getElementById('prefGrid');
+pg.innerHTML=PFXS.map(p=>`
+  <div class="pc${p.m?' has-entry':''}"${p.m?' onclick="openReader()"':''}>
+    <span class="pc-code">${p.c}</span>
+    <span class="pc-name">${p.n}</span>
+    <div class="pc-count">${p.m?`<strong>${p.m}</strong> memoir${p.m!==1?'s':''}`:'<span>0</span> awaiting'}</div>
+  </div>`).join('');
+
+/* ── FILTER & SEARCH ────────────────────────────────── */
+function doFilter(cat,btn){
+  document.querySelectorAll('.f-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('.mc').forEach(c=>{
+    const cats=(c.dataset.cat||'').split(' ');
+    c.style.display=(cat==='all'||cats.includes(cat))?'block':'none';
+  });
+}
+function doSearch(q){
+  q=q.toLowerCase();
+  document.querySelectorAll('.mc').forEach(c=>{
+    const txt=(c.innerText||'').toLowerCase();
+    c.style.display=(!q||txt.includes(q))?'block':'none';
+  });
+}
+
+/* ── READER ─────────────────────────────────────────── */
+function openReader(){
+  document.getElementById('reader').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function closeReader(){
+  document.getElementById('reader').classList.remove('open');
+  document.body.style.overflow='';
+}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeReader();});
+
+/* ── ANON TOGGLE ────────────────────────────────────── */
+function toggleAnon(){
+  const a=document.getElementById('anon').checked;
+  const f=document.getElementById('nField');
+  f.style.opacity=a?'.3':'1';
+  f.style.pointerEvents=a?'none':'auto';
+}
+
+/* ── SUBMIT ─────────────────────────────────────────── */
+const cnts={};
+function nxtCS(p){
+  if(!p||p==='other')p='XX';
+  cnts[p]=(cnts[p]||1)+1;
+  return`${p}-M-${String(cnts[p]).padStart(3,'0')}`;
+}
+function doSubmit(e){
+  e.preventDefault();
+  const mx=document.getElementById('mx').value.trim();
+  const mt=document.getElementById('mt').value.trim();
+  const consent=document.getElementById('consent').checked;
+  if(!mt){showToast('Please give your memoir a title');return;}
+  if(mx.split(/\s+/).length<50){showToast('Please write at least a few sentences');return;}
+  if(!consent){showToast('Please confirm the consent checkbox');return;}
+  const p=document.getElementById('cy').value;
+  const cs=nxtCS(p);
+  document.getElementById('confCS').textContent=cs;
+  document.getElementById('mForm').style.display='none';
+  document.getElementById('confBox').style.display='block';
+  document.getElementById('cM').textContent=parseInt(document.getElementById('cM').textContent)+1;
+  document.getElementById('rM').textContent=parseInt(document.getElementById('rM').textContent)+1;
+  showToast('Received \u2013 Call sign '+cs+' assigned');
+}
+
+/* ── AI ASSISTANT ───────────────────────────────────── */
+function aiPrompt(btn){
+  document.getElementById('aiIn').value=btn.textContent;
+  sendAI();
+}
+async function sendAI(){
+  const inp=document.getElementById('aiIn');
+  const q=inp.value.trim();
+  if(!q)return;
+  inp.value='';
+  const msgs=document.getElementById('aiMsgs');
+  msgs.innerHTML+=`<div class="ai-msg user">${q}</div>`;
+  msgs.innerHTML+=`<div class="ai-msg thinking" id="aiThink">Thinking...</div>`;
+  msgs.scrollTop=msgs.scrollHeight;
+  const sys=`You are an AI writing assistant embedded in the DomisLink Aviation Memoir Archive (aviation-memoir.domislink.com), curated by F/O Amaechi Ubadike, a Nigerian Commercial Pilot, Air Traffic Controller, and Aviation Safety Inspector with 25 years of experience. Help aviation professionals write their memoirs for submission to this archive. The archive accepts stories from pilots, controllers, engineers, inspectors, dispatchers, and all aviation professionals worldwide. Submissions can be anonymous. Focus on helping people begin writing, structure their account, decide what to include, and understand the submission process. Be warm, encouraging, and practically helpful. Keep responses concise — 2-4 sentences unless the question needs more.`;
+  try{
+    const r=await fetch('https://api.anthropic.com/v1/messages',{
+      method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1000,
+        system:sys,messages:[{role:'user',content:q}]})
+    });
+    const d=await r.json();
+    const ans=d.content?.[0]?.text||'I could not generate a response. Please try again.';
+    document.getElementById('aiThink')?.remove();
+    msgs.innerHTML+=`<div class="ai-msg system">${ans}</div>`;
+    msgs.scrollTop=msgs.scrollHeight;
+  }catch(err){
+    document.getElementById('aiThink')?.remove();
+    msgs.innerHTML+=`<div class="ai-msg system">Connection issue. Please check your internet and try again, or email memoir@domislink.com directly.</div>`;
+    msgs.scrollTop=msgs.scrollHeight;
+  }
+}
+
+/* ── TOAST ──────────────────────────────────────────── */
+function showToast(m){
+  const t=document.getElementById('toast');
+  t.textContent=m;t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),3500);
+}
+
+/* ── SCROLL ANIMATE ─────────────────────────────────── */
+const obs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      e.target.style.opacity='1';
+      e.target.style.transform='translateY(0)';
+    }
+  });
+},{threshold:0.07});
+document.querySelectorAll('.mc,.pc,.gc,.step,.pt-item,.about-card').forEach(el=>{
+  el.style.opacity='0';
+  el.style.transform='translateY(22px)';
+  el.style.transition='opacity .55s,transform .55s';
+  obs.observe(el);
+});
+</script>
+</body>
+</html>

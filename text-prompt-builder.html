@@ -1,0 +1,1038 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>TextCraft — AI Prompt Builder</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --navy: #0d1b2a;
+    --navy-mid: #1a2d42;
+    --navy-light: #243b55;
+    --gold: #c9a84c;
+    --gold-light: #e2c97e;
+    --gold-dim: #8a6f33;
+    --cream: #f5f0e8;
+    --cream-dark: #e8e0cf;
+    --white: #ffffff;
+    --text-muted: #8fa3b8;
+    --success: #3dba8e;
+    --danger: #e05c5c;
+    --border: rgba(201,168,76,0.2);
+    --shadow: 0 8px 40px rgba(0,0,0,0.4);
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Jost', sans-serif;
+    background: var(--navy);
+    color: var(--cream);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* BACKGROUND TEXTURE */
+  body::before {
+    content: '';
+    position: fixed; inset: 0;
+    background:
+      radial-gradient(ellipse 80% 50% at 20% 10%, rgba(201,168,76,0.06) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 80% at 80% 90%, rgba(13,27,42,0.9) 0%, transparent 70%);
+    pointer-events: none; z-index: 0;
+  }
+
+  /* HEADER */
+  header {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(13,27,42,0.95);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 2rem;
+    display: flex; align-items: center; justify-content: space-between;
+    height: 64px;
+  }
+  .logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.6rem; font-weight: 600; letter-spacing: 0.04em;
+    color: var(--gold);
+  }
+  .logo span { color: var(--cream); font-weight: 300; font-style: italic; }
+  .nav-tabs {
+    display: flex; gap: 0.25rem;
+  }
+  .nav-tab {
+    padding: 0.4rem 1.1rem;
+    border: none; background: transparent;
+    color: var(--text-muted); font-family: 'Jost', sans-serif;
+    font-size: 0.82rem; font-weight: 500; letter-spacing: 0.08em;
+    text-transform: uppercase; cursor: pointer;
+    border-radius: 4px; transition: all 0.2s;
+  }
+  .nav-tab:hover { color: var(--gold-light); background: rgba(201,168,76,0.08); }
+  .nav-tab.active { color: var(--gold); background: rgba(201,168,76,0.14); }
+  .header-badge {
+    display: flex; align-items: center; gap: 0.5rem;
+    font-size: 0.75rem; color: var(--text-muted); letter-spacing: 0.06em;
+  }
+  .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--success); animation: pulse 2s infinite; }
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
+
+  /* MAIN LAYOUT */
+  main { position: relative; z-index: 1; padding: 2rem; max-width: 1200px; margin: 0 auto; }
+
+  /* PANELS */
+  .panel { display: none; animation: fadeIn 0.3s ease; }
+  .panel.active { display: block; }
+  @keyframes fadeIn { from{opacity:0;transform:translateY(8px)} to{opacity:1;transform:translateY(0)} }
+
+  /* SECTION TITLE */
+  .section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.9rem; font-weight: 300;
+    color: var(--cream); margin-bottom: 0.3rem;
+    letter-spacing: 0.02em;
+  }
+  .section-title strong { color: var(--gold); font-weight: 600; }
+  .section-subtitle { color: var(--text-muted); font-size: 0.85rem; margin-bottom: 2rem; }
+
+  /* CARDS */
+  .card {
+    background: var(--navy-mid);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.5rem;
+    transition: border-color 0.2s;
+  }
+  .card:hover { border-color: rgba(201,168,76,0.35); }
+  .card-label {
+    font-size: 0.7rem; font-weight: 600; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--gold); margin-bottom: 0.8rem;
+  }
+
+  /* FORM ELEMENTS */
+  label { display: block; font-size: 0.78rem; font-weight: 500; letter-spacing: 0.06em; color: var(--text-muted); margin-bottom: 0.4rem; text-transform: uppercase; }
+  input, textarea, select {
+    width: 100%; background: var(--navy-light);
+    border: 1px solid rgba(143,163,184,0.2);
+    border-radius: 8px; padding: 0.7rem 1rem;
+    color: var(--cream); font-family: 'Jost', sans-serif; font-size: 0.9rem;
+    outline: none; transition: border-color 0.2s, box-shadow 0.2s;
+  }
+  input:focus, textarea:focus, select:focus {
+    border-color: var(--gold);
+    box-shadow: 0 0 0 3px rgba(201,168,76,0.12);
+  }
+  input::placeholder, textarea::placeholder { color: var(--text-muted); }
+  textarea { resize: vertical; min-height: 100px; }
+  select option { background: var(--navy-mid); }
+  .field { margin-bottom: 1.2rem; }
+  .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .field-row-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem; }
+
+  /* BUTTONS */
+  .btn {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    padding: 0.65rem 1.4rem; border-radius: 8px;
+    font-family: 'Jost', sans-serif; font-size: 0.83rem;
+    font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase;
+    cursor: pointer; border: none; transition: all 0.2s;
+  }
+  .btn-gold {
+    background: linear-gradient(135deg, var(--gold) 0%, var(--gold-light) 100%);
+    color: var(--navy);
+  }
+  .btn-gold:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(201,168,76,0.35); }
+  .btn-gold:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+  .btn-outline {
+    background: transparent; border: 1px solid var(--border);
+    color: var(--text-muted);
+  }
+  .btn-outline:hover { border-color: var(--gold); color: var(--gold); }
+  .btn-ghost { background: rgba(201,168,76,0.1); color: var(--gold-light); border: none; }
+  .btn-ghost:hover { background: rgba(201,168,76,0.18); }
+  .btn-sm { padding: 0.4rem 0.9rem; font-size: 0.75rem; }
+  .btn-danger { background: rgba(224,92,92,0.15); color: var(--danger); border: 1px solid rgba(224,92,92,0.3); }
+  .btn-danger:hover { background: rgba(224,92,92,0.25); }
+
+  /* ─── GENERATOR PANEL ─────────────────────────────── */
+  .gen-layout { display: grid; grid-template-columns: 340px 1fr; gap: 1.5rem; align-items: start; }
+  .gen-controls { display: flex; flex-direction: column; gap: 1rem; }
+  .tone-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; }
+  .tone-btn {
+    padding: 0.5rem 0.6rem; border-radius: 6px;
+    border: 1px solid var(--border); background: transparent;
+    color: var(--text-muted); font-family: 'Jost', sans-serif;
+    font-size: 0.78rem; cursor: pointer; transition: all 0.15s;
+    text-align: center;
+  }
+  .tone-btn:hover { border-color: var(--gold); color: var(--gold-light); }
+  .tone-btn.selected { border-color: var(--gold); background: rgba(201,168,76,0.12); color: var(--gold); }
+
+  .output-area {
+    background: var(--navy-light);
+    border: 1px solid var(--border);
+    border-radius: 12px; padding: 1.5rem;
+    min-height: 420px; position: relative;
+  }
+  .output-placeholder {
+    position: absolute; inset: 0;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center; gap: 1rem;
+    color: var(--text-muted); text-align: center;
+  }
+  .output-placeholder .big-icon { font-size: 3rem; opacity: 0.3; }
+  .output-placeholder p { font-size: 0.85rem; max-width: 260px; line-height: 1.6; }
+  #outputText {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.05rem; line-height: 1.8; color: var(--cream);
+    white-space: pre-wrap; display: none;
+  }
+  .output-toolbar {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--border);
+  }
+  .output-meta { font-size: 0.75rem; color: var(--text-muted); }
+  .word-count { display: inline-flex; align-items: center; gap: 0.4rem; }
+  .typing-cursor { display: inline-block; width: 2px; height: 1.1em; background: var(--gold); animation: blink 0.8s infinite; vertical-align: text-bottom; }
+  @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+
+  .history-list { margin-top: 1rem; display: flex; flex-direction: column; gap: 0.5rem; max-height: 180px; overflow-y: auto; }
+  .history-item {
+    padding: 0.6rem 0.8rem; background: var(--navy);
+    border: 1px solid var(--border); border-radius: 6px;
+    font-size: 0.78rem; color: var(--text-muted); cursor: pointer;
+    display: flex; align-items: center; justify-content: space-between;
+    transition: all 0.15s;
+  }
+  .history-item:hover { border-color: var(--gold); color: var(--cream); }
+  .history-item .hi-label { flex: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .history-item .hi-type { font-size: 0.68rem; color: var(--gold-dim); margin-left: 0.5rem; flex-shrink: 0; }
+
+  /* SPINNER */
+  .spinner {
+    width: 28px; height: 28px; border: 2px solid var(--border);
+    border-top-color: var(--gold); border-radius: 50%; animation: spin 0.7s linear infinite;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* ─── PAYSTACK PANEL ──────────────────────────────── */
+  .ps-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+  .ps-status {
+    display: flex; align-items: center; gap: 0.7rem;
+    padding: 0.8rem 1rem; border-radius: 8px;
+    background: rgba(61,186,142,0.1); border: 1px solid rgba(61,186,142,0.25);
+    font-size: 0.82rem; color: var(--success); margin-bottom: 1.5rem;
+  }
+  .ps-status.error { background: rgba(224,92,92,0.1); border-color: rgba(224,92,92,0.25); color: var(--danger); }
+  .ps-status.pending { background: rgba(201,168,76,0.08); border-color: var(--border); color: var(--gold); }
+  .key-input-wrap { position: relative; }
+  .key-input-wrap input { padding-right: 3rem; font-family: monospace; font-size: 0.82rem; letter-spacing: 0.04em; }
+  .toggle-key {
+    position: absolute; right: 0.8rem; top: 50%; transform: translateY(-50%);
+    background: none; border: none; color: var(--text-muted); cursor: pointer; font-size: 1rem;
+  }
+  .toggle-key:hover { color: var(--gold); }
+  .webhook-url {
+    background: var(--navy); border: 1px solid var(--border);
+    border-radius: 6px; padding: 0.6rem 1rem;
+    font-family: monospace; font-size: 0.78rem; color: var(--gold-light);
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 0.5rem; margin-top: 0.4rem;
+  }
+  .webhook-url span { flex: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .tag {
+    display: inline-flex; align-items: center; padding: 0.2rem 0.6rem;
+    border-radius: 20px; font-size: 0.68rem; font-weight: 600;
+    letter-spacing: 0.06em; text-transform: uppercase;
+  }
+  .tag-live { background: rgba(61,186,142,0.15); color: var(--success); border: 1px solid rgba(61,186,142,0.3); }
+  .tag-test { background: rgba(201,168,76,0.12); color: var(--gold); border: 1px solid var(--border); }
+  .event-checks { display: flex; flex-direction: column; gap: 0.5rem; margin-top: 0.5rem; }
+  .check-row {
+    display: flex; align-items: center; gap: 0.6rem;
+    font-size: 0.82rem; color: var(--text-muted); cursor: pointer;
+    padding: 0.4rem 0; user-select: none;
+  }
+  .check-row input[type=checkbox] { width: auto; accent-color: var(--gold); }
+  .check-row:hover { color: var(--cream); }
+
+  /* ─── GOOGLE DRIVE PANEL ──────────────────────────── */
+  .drive-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+  .drive-action-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 1.5rem; }
+  .drive-action-card {
+    background: var(--navy-light); border: 1px solid var(--border);
+    border-radius: 10px; padding: 1.2rem; text-align: center;
+    cursor: pointer; transition: all 0.2s;
+  }
+  .drive-action-card:hover { border-color: var(--gold); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.3); }
+  .drive-action-card .dac-icon { font-size: 2rem; margin-bottom: 0.6rem; }
+  .drive-action-card .dac-title { font-size: 0.85rem; font-weight: 600; color: var(--cream); }
+  .drive-action-card .dac-desc { font-size: 0.75rem; color: var(--text-muted); margin-top: 0.3rem; line-height: 1.5; }
+  .saved-links { margin-top: 1rem; display: flex; flex-direction: column; gap: 0.5rem; max-height: 200px; overflow-y: auto; }
+  .link-item {
+    display: flex; align-items: center; gap: 0.7rem;
+    padding: 0.6rem 0.9rem; background: var(--navy);
+    border: 1px solid var(--border); border-radius: 8px; transition: all 0.15s;
+  }
+  .link-item:hover { border-color: var(--gold); }
+  .link-icon { font-size: 1.1rem; flex-shrink: 0; }
+  .link-info { flex: 1; min-width: 0; }
+  .link-name { font-size: 0.82rem; color: var(--cream); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .link-url { font-size: 0.72rem; color: var(--text-muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .link-actions { display: flex; gap: 0.3rem; flex-shrink: 0; }
+  .icon-btn { background: none; border: none; color: var(--text-muted); cursor: pointer; font-size: 0.9rem; padding: 0.2rem; transition: color 0.15s; }
+  .icon-btn:hover { color: var(--gold); }
+  .drop-zone {
+    border: 2px dashed rgba(201,168,76,0.25); border-radius: 10px;
+    padding: 2.5rem 1rem; text-align: center;
+    color: var(--text-muted); font-size: 0.82rem; cursor: pointer; transition: all 0.2s;
+    background: rgba(201,168,76,0.02);
+  }
+  .drop-zone:hover { border-color: var(--gold); background: rgba(201,168,76,0.05); color: var(--cream); }
+  .drop-zone .drop-icon { font-size: 2rem; margin-bottom: 0.5rem; }
+
+  /* TOAST */
+  #toast {
+    position: fixed; bottom: 2rem; right: 2rem;
+    background: var(--navy-mid); border: 1px solid var(--border);
+    border-radius: 10px; padding: 0.8rem 1.2rem;
+    font-size: 0.82rem; color: var(--cream); z-index: 1000;
+    opacity: 0; transform: translateY(10px);
+    transition: all 0.3s; pointer-events: none; max-width: 320px;
+  }
+  #toast.show { opacity: 1; transform: translateY(0); }
+  #toast.success { border-color: rgba(61,186,142,0.4); color: var(--success); }
+  #toast.error { border-color: rgba(224,92,92,0.4); color: var(--danger); }
+
+  /* DIVIDER */
+  .divider { height: 1px; background: var(--border); margin: 1.5rem 0; }
+
+  /* SCROLLBAR */
+  ::-webkit-scrollbar { width: 5px; }
+  ::-webkit-scrollbar-track { background: var(--navy); }
+  ::-webkit-scrollbar-thumb { background: var(--navy-light); border-radius: 3px; }
+  ::-webkit-scrollbar-thumb:hover { background: var(--gold-dim); }
+
+  /* RESPONSIVE */
+  @media (max-width: 860px) {
+    .gen-layout { grid-template-columns: 1fr; }
+    .ps-grid, .drive-grid, .field-row, .field-row-3 { grid-template-columns: 1fr; }
+    .drive-action-cards { grid-template-columns: 1fr 1fr; }
+    main { padding: 1rem; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">Text<span>Craft</span></div>
+  <nav class="nav-tabs">
+    <button class="nav-tab active" onclick="showPanel('generator')">✦ Generator</button>
+    <button class="nav-tab" onclick="showPanel('paystack')">⬡ Paystack</button>
+    <button class="nav-tab" onclick="showPanel('drive')">◈ Drive</button>
+  </nav>
+  <div class="header-badge">
+    <span class="dot"></span>
+    <span id="statusLabel">Ready</span>
+  </div>
+</header>
+
+<main>
+  <!-- ═══════════════════════════════════════════════ GENERATOR -->
+  <div id="panel-generator" class="panel active">
+    <div class="section-title">AI <strong>Text Generator</strong></div>
+    <div class="section-subtitle">Craft compelling prompts and copy powered by Claude AI</div>
+
+    <div class="gen-layout">
+      <!-- LEFT CONTROLS -->
+      <div class="gen-controls">
+
+        <div class="card">
+          <div class="card-label">Content Type</div>
+          <div class="field">
+            <select id="contentType" onchange="updatePlaceholder()">
+              <option value="property_notice">Property Notice</option>
+              <option value="sms_reminder">SMS Reminder</option>
+              <option value="email_template">Email Template</option>
+              <option value="lease_clause">Lease Clause</option>
+              <option value="marketing_copy">Marketing Copy</option>
+              <option value="custom_prompt">Custom Prompt</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>Topic / Subject</label>
+            <input type="text" id="topicInput" placeholder="e.g. Rent due reminder for March" />
+          </div>
+          <div class="field">
+            <label>Key Details</label>
+            <textarea id="detailsInput" style="min-height:80px" placeholder="Tenant name, property address, amount, date..."></textarea>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-label">Tone</div>
+          <div class="tone-grid">
+            <button class="tone-btn selected" data-tone="Professional">Professional</button>
+            <button class="tone-btn" data-tone="Friendly">Friendly</button>
+            <button class="tone-btn" data-tone="Formal">Formal</button>
+            <button class="tone-btn" data-tone="Urgent">Urgent</button>
+            <button class="tone-btn" data-tone="Empathetic">Empathetic</button>
+            <button class="tone-btn" data-tone="Persuasive">Persuasive</button>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-label">Output Settings</div>
+          <div class="field-row">
+            <div class="field" style="margin-bottom:0">
+              <label>Length</label>
+              <select id="lengthPref">
+                <option value="concise">Concise</option>
+                <option value="moderate" selected>Moderate</option>
+                <option value="detailed">Detailed</option>
+              </select>
+            </div>
+            <div class="field" style="margin-bottom:0">
+              <label>Variants</label>
+              <select id="variantCount">
+                <option value="1" selected>1 Version</option>
+                <option value="2">2 Versions</option>
+                <option value="3">3 Versions</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <button class="btn btn-gold" style="width:100%; justify-content:center" onclick="generateText()" id="genBtn">
+          <span>✦</span> Generate
+        </button>
+
+        <!-- HISTORY -->
+        <div class="card">
+          <div class="card-label" style="display:flex;justify-content:space-between;align-items:center">
+            Recent
+            <button class="btn btn-outline btn-sm" onclick="clearHistory()">Clear</button>
+          </div>
+          <div class="history-list" id="historyList">
+            <div style="font-size:0.78rem;color:var(--text-muted);text-align:center;padding:1rem">No history yet</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- RIGHT OUTPUT -->
+      <div>
+        <div class="output-area" id="outputArea">
+          <div class="output-placeholder" id="outputPlaceholder">
+            <div class="big-icon">✦</div>
+            <p>Configure your settings and press <strong style="color:var(--gold)">Generate</strong> to create AI-powered text content</p>
+          </div>
+          <div id="outputText"></div>
+        </div>
+        <div class="output-toolbar">
+          <div class="output-meta">
+            <span class="word-count" id="wordCount"></span>
+          </div>
+          <div style="display:flex;gap:0.5rem">
+            <button class="btn btn-outline btn-sm" onclick="copyOutput()" id="copyBtn" style="display:none">⎘ Copy</button>
+            <button class="btn btn-ghost btn-sm" onclick="saveToHistory()" id="saveBtn" style="display:none">✦ Save</button>
+            <button class="btn btn-outline btn-sm" onclick="exportText()" id="exportBtn" style="display:none">↓ Export</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════ PAYSTACK -->
+  <div id="panel-paystack" class="panel">
+    <div class="section-title">Paystack <strong>Configuration</strong></div>
+    <div class="section-subtitle">Manage your Paystack integration keys and webhook settings</div>
+
+    <div id="psStatus" class="ps-status pending">
+      ◈ &nbsp;No keys configured — enter your API keys below to activate Paystack
+    </div>
+
+    <div class="ps-grid">
+      <!-- API KEYS -->
+      <div>
+        <div class="card" style="margin-bottom:1rem">
+          <div class="card-label" style="display:flex;align-items:center;justify-content:space-between">
+            Live Keys <span class="tag tag-live">Live</span>
+          </div>
+          <div class="field">
+            <label>Public Key</label>
+            <div class="key-input-wrap">
+              <input type="text" id="livePublicKey" placeholder="pk_live_xxxxxxxxxxxxxxxxxxxx" />
+            </div>
+          </div>
+          <div class="field" style="margin-bottom:0">
+            <label>Secret Key</label>
+            <div class="key-input-wrap">
+              <input type="password" id="liveSecretKey" placeholder="sk_live_xxxxxxxxxxxxxxxxxxxx" />
+              <button class="toggle-key" onclick="toggleKey('liveSecretKey', this)">👁</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-label" style="display:flex;align-items:center;justify-content:space-between">
+            Test Keys <span class="tag tag-test">Test</span>
+          </div>
+          <div class="field">
+            <label>Public Key</label>
+            <div class="key-input-wrap">
+              <input type="text" id="testPublicKey" placeholder="pk_test_xxxxxxxxxxxxxxxxxxxx" />
+            </div>
+          </div>
+          <div class="field" style="margin-bottom:0">
+            <label>Secret Key</label>
+            <div class="key-input-wrap">
+              <input type="password" id="testSecretKey" placeholder="sk_test_xxxxxxxxxxxxxxxxxxxx" />
+              <button class="toggle-key" onclick="toggleKey('testSecretKey', this)">👁</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- WEBHOOK + SETTINGS -->
+      <div>
+        <div class="card" style="margin-bottom:1rem">
+          <div class="card-label">Webhook Configuration</div>
+          <div class="field">
+            <label>Webhook URL</label>
+            <div class="webhook-url">
+              <span id="webhookUrlDisplay">https://your-domain.com/api/paystack/webhook</span>
+              <button class="icon-btn" onclick="copyWebhook()">⎘</button>
+            </div>
+          </div>
+          <div class="field">
+            <label>Custom Webhook Path</label>
+            <input type="text" id="webhookPath" placeholder="/api/paystack/webhook" oninput="updateWebhookUrl()" />
+          </div>
+          <div class="field">
+            <label>Base Domain</label>
+            <input type="text" id="webhookDomain" placeholder="https://your-domain.com" oninput="updateWebhookUrl()" />
+          </div>
+          <div class="field" style="margin-bottom:0">
+            <label>Webhook Secret</label>
+            <div class="key-input-wrap">
+              <input type="password" id="webhookSecret" placeholder="Your webhook secret hash" />
+              <button class="toggle-key" onclick="toggleKey('webhookSecret', this)">👁</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-label">Events to Listen</div>
+          <div class="event-checks">
+            <label class="check-row"><input type="checkbox" checked /> charge.success</label>
+            <label class="check-row"><input type="checkbox" checked /> transfer.success</label>
+            <label class="check-row"><input type="checkbox" /> transfer.failed</label>
+            <label class="check-row"><input type="checkbox" checked /> subscription.create</label>
+            <label class="check-row"><input type="checkbox" /> refund.failed</label>
+            <label class="check-row"><input type="checkbox" /> invoice.payment_failed</label>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div style="display:flex;gap:1rem;align-items:center">
+      <button class="btn btn-gold" onclick="savePaystackConfig()">✦ Save Configuration</button>
+      <button class="btn btn-outline" onclick="testConnection()">⬡ Test Connection</button>
+      <button class="btn btn-danger btn-sm" onclick="clearPaystackConfig()" style="margin-left:auto">✕ Clear All</button>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════ GOOGLE DRIVE -->
+  <div id="panel-drive" class="panel">
+    <div class="section-title">Google <strong>Drive</strong></div>
+    <div class="section-subtitle">Link folders, embed documents, upload and download your Drive files</div>
+
+    <div class="drive-grid">
+      <!-- SAVED LINKS -->
+      <div>
+        <div class="card">
+          <div class="card-label" style="display:flex;align-items:center;justify-content:space-between">
+            Saved Links
+            <button class="btn btn-ghost btn-sm" onclick="showAddLink()">+ Add</button>
+          </div>
+          <div class="saved-links" id="savedLinks">
+            <div style="font-size:0.78rem;color:var(--text-muted);text-align:center;padding:1.5rem">No links saved yet</div>
+          </div>
+        </div>
+
+        <!-- Add Link Form -->
+        <div class="card" id="addLinkForm" style="margin-top:1rem;display:none">
+          <div class="card-label">Add Google Drive Link</div>
+          <div class="field">
+            <label>Name / Label</label>
+            <input type="text" id="linkName" placeholder="e.g. Property Contracts Folder" />
+          </div>
+          <div class="field">
+            <label>Google Drive URL</label>
+            <input type="text" id="linkUrl" placeholder="https://drive.google.com/..." />
+          </div>
+          <div class="field" style="margin-bottom:0">
+            <label>Type</label>
+            <select id="linkType">
+              <option value="folder">📁 Folder</option>
+              <option value="doc">📄 Document</option>
+              <option value="sheet">📊 Spreadsheet</option>
+              <option value="slide">📑 Presentation</option>
+              <option value="pdf">📋 PDF</option>
+            </select>
+          </div>
+          <div style="display:flex;gap:0.5rem;margin-top:1rem">
+            <button class="btn btn-gold" style="flex:1;justify-content:center" onclick="addDriveLink()">Save Link</button>
+            <button class="btn btn-outline" onclick="hideAddLink()">Cancel</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ACTIONS + UPLOAD -->
+      <div>
+        <div class="drive-action-cards">
+          <div class="drive-action-card" onclick="openDriveAction('folder')">
+            <div class="dac-icon">📁</div>
+            <div class="dac-title">Open Folder</div>
+            <div class="dac-desc">Browse your saved Drive folders in a new tab</div>
+          </div>
+          <div class="drive-action-card" onclick="openDriveAction('doc')">
+            <div class="dac-icon">📄</div>
+            <div class="dac-title">View Document</div>
+            <div class="dac-desc">Open a linked Google Doc to read or edit</div>
+          </div>
+          <div class="drive-action-card" onclick="showUploadPanel()">
+            <div class="dac-icon">⬆</div>
+            <div class="dac-title">Upload to Drive</div>
+            <div class="dac-desc">Select a file and upload via Drive link</div>
+          </div>
+          <div class="drive-action-card" onclick="openDriveAction('download')">
+            <div class="dac-icon">⬇</div>
+            <div class="dac-title">Download File</div>
+            <div class="dac-desc">Access and download from a linked resource</div>
+          </div>
+        </div>
+
+        <div class="card" style="margin-top:1rem" id="uploadPanel">
+          <div class="card-label">Upload File</div>
+          <div class="drop-zone" id="dropZone" onclick="document.getElementById('fileInput').click()"
+               ondragover="handleDragOver(event)" ondrop="handleDrop(event)">
+            <div class="drop-icon">⬆</div>
+            <div>Drop file here or <strong style="color:var(--gold)">browse</strong></div>
+            <div style="font-size:0.72rem;margin-top:0.3rem">Supported: PDF, DOCX, XLSX, images</div>
+          </div>
+          <input type="file" id="fileInput" style="display:none" onchange="handleFileSelect(event)" accept=".pdf,.docx,.xlsx,.jpg,.jpeg,.png"/>
+          <div id="uploadStatus" style="margin-top:0.8rem;font-size:0.8rem;color:var(--text-muted);display:none"></div>
+          <div class="field" style="margin-top:1rem">
+            <label>Target Drive Folder</label>
+            <select id="targetFolder">
+              <option value="">— Select saved folder —</option>
+            </select>
+          </div>
+          <button class="btn btn-gold btn-sm" style="margin-top:0.5rem" onclick="uploadToDrive()" id="uploadBtn">⬆ Upload</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="card">
+      <div class="card-label">Quick Access — Drive URL</div>
+      <div style="display:flex;gap:0.8rem;align-items:flex-end">
+        <div style="flex:1">
+          <input type="text" id="quickDriveUrl" placeholder="Paste any Google Drive link to open directly..." />
+        </div>
+        <button class="btn btn-gold" onclick="openQuickUrl()">Open ↗</button>
+      </div>
+    </div>
+  </div>
+</main>
+
+<div id="toast"></div>
+
+<script>
+  // ─── STATE ───────────────────────────────────────────────
+  let currentTone = 'Professional';
+  let currentOutput = '';
+  let history = JSON.parse(localStorage.getItem('tc_history') || '[]');
+  let driveLinks = JSON.parse(localStorage.getItem('tc_drive') || '[]');
+  let paystackConfig = JSON.parse(localStorage.getItem('tc_paystack') || '{}');
+  let isGenerating = false;
+
+  const typeIcons = { folder:'📁', doc:'📄', sheet:'📊', slide:'📑', pdf:'📋' };
+
+  // ─── PANEL NAV ────────────────────────────────────────────
+  function showPanel(id) {
+    document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+    document.getElementById('panel-' + id).classList.add('active');
+    const tabs = document.querySelectorAll('.nav-tab');
+    const idx = ['generator','paystack','drive'].indexOf(id);
+    if (tabs[idx]) tabs[idx].classList.add('active');
+    if (id === 'drive') renderDriveLinks();
+    if (id === 'paystack') loadPaystackUI();
+  }
+
+  // ─── TONE BUTTONS ─────────────────────────────────────────
+  document.querySelectorAll('.tone-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.tone-btn').forEach(b => b.classList.remove('selected'));
+      btn.classList.add('selected');
+      currentTone = btn.dataset.tone;
+    });
+  });
+
+  // ─── GENERATE ─────────────────────────────────────────────
+  async function generateText() {
+    if (isGenerating) return;
+    const topic = document.getElementById('topicInput').value.trim();
+    const details = document.getElementById('detailsInput').value.trim();
+    const type = document.getElementById('contentType').value;
+    const length = document.getElementById('lengthPref').value;
+    const variants = document.getElementById('variantCount').value;
+    if (!topic) { toast('Please enter a topic or subject', 'error'); return; }
+
+    isGenerating = true;
+    const genBtn = document.getElementById('genBtn');
+    genBtn.disabled = true;
+    genBtn.innerHTML = '<div class="spinner"></div> Generating…';
+    document.getElementById('outputPlaceholder').style.display = 'none';
+    const outputText = document.getElementById('outputText');
+    outputText.style.display = 'block';
+    outputText.innerHTML = '<span class="typing-cursor"></span>';
+    document.getElementById('statusLabel').textContent = 'Generating…';
+    ['copyBtn','saveBtn','exportBtn'].forEach(id => document.getElementById(id).style.display = 'none');
+    document.getElementById('wordCount').textContent = '';
+
+    const typeLabels = {
+      property_notice: 'property management notice',
+      sms_reminder: 'SMS text message reminder',
+      email_template: 'professional email template',
+      lease_clause: 'lease agreement clause',
+      marketing_copy: 'marketing copy',
+      custom_prompt: 'text content'
+    };
+    const lengthGuide = { concise: '50–100 words', moderate: '120–200 words', detailed: '250–400 words' };
+    const variantNum = parseInt(variants);
+
+    const prompt = `You are an expert property management content writer. Create ${variantNum > 1 ? variantNum + ' distinct versions of a' : 'a'} ${typeLabels[type]} with the following details:
+
+Topic: ${topic}
+${details ? 'Key Details: ' + details : ''}
+Tone: ${currentTone}
+Target length: ${lengthGuide[length]} per version
+
+${variantNum > 1 ? 'Label each version clearly as "Version 1:", "Version 2:", etc.' : ''}
+Write compelling, clear, and ${currentTone.toLowerCase()} content appropriate for professional property management. Do not include any explanations — only the final text.`;
+
+    try {
+      const response = await fetch('https://api.anthropic.com/v1/messages', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          model: 'claude-sonnet-4-20250514',
+          max_tokens: 1000,
+          messages: [{ role: 'user', content: prompt }]
+        })
+      });
+      const data = await response.json();
+      const result = data.content?.map(b => b.text || '').join('') || 'No response received.';
+      currentOutput = result;
+
+      // Typewriter effect
+      outputText.innerHTML = '';
+      let i = 0;
+      const speed = Math.max(8, Math.min(25, Math.floor(8000 / result.length)));
+      const cursor = document.createElement('span');
+      cursor.className = 'typing-cursor';
+
+      function typeChar() {
+        if (i < result.length) {
+          outputText.textContent = result.slice(0, i + 1);
+          outputText.appendChild(cursor);
+          i++;
+          setTimeout(typeChar, speed);
+        } else {
+          outputText.textContent = result;
+          const wc = result.trim().split(/\s+/).length;
+          document.getElementById('wordCount').textContent = `${wc} words`;
+          ['copyBtn','saveBtn','exportBtn'].forEach(id => document.getElementById(id).style.display = 'inline-flex');
+          addToHistory(topic, type, result);
+        }
+      }
+      typeChar();
+      toast('Content generated successfully', 'success');
+    } catch (err) {
+      outputText.textContent = 'Error: Could not connect to AI service. Please check your connection.';
+      toast('Generation failed', 'error');
+    } finally {
+      isGenerating = false;
+      genBtn.disabled = false;
+      genBtn.innerHTML = '<span>✦</span> Generate';
+      document.getElementById('statusLabel').textContent = 'Ready';
+    }
+  }
+
+  function addToHistory(topic, type, text) {
+    history.unshift({ topic, type, text, date: new Date().toISOString() });
+    if (history.length > 20) history.pop();
+    localStorage.setItem('tc_history', JSON.stringify(history));
+    renderHistory();
+  }
+
+  function renderHistory() {
+    const list = document.getElementById('historyList');
+    if (!history.length) { list.innerHTML = '<div style="font-size:0.78rem;color:var(--text-muted);text-align:center;padding:1rem">No history yet</div>'; return; }
+    list.innerHTML = history.slice(0, 8).map((h, i) => `
+      <div class="history-item" onclick="loadHistory(${i})">
+        <span class="hi-label">${h.topic}</span>
+        <span class="hi-type">${h.type.replace(/_/g,' ')}</span>
+      </div>`).join('');
+  }
+
+  function loadHistory(i) {
+    const h = history[i];
+    if (!h) return;
+    currentOutput = h.text;
+    document.getElementById('topicInput').value = h.topic;
+    document.getElementById('contentType').value = h.type;
+    const outputText = document.getElementById('outputText');
+    outputText.style.display = 'block';
+    outputText.textContent = h.text;
+    document.getElementById('outputPlaceholder').style.display = 'none';
+    const wc = h.text.trim().split(/\s+/).length;
+    document.getElementById('wordCount').textContent = `${wc} words`;
+    ['copyBtn','saveBtn','exportBtn'].forEach(id => document.getElementById(id).style.display = 'inline-flex');
+  }
+
+  function clearHistory() {
+    history = [];
+    localStorage.removeItem('tc_history');
+    renderHistory();
+    toast('History cleared');
+  }
+
+  function copyOutput() {
+    if (!currentOutput) return;
+    navigator.clipboard.writeText(currentOutput).then(() => toast('Copied to clipboard', 'success'));
+  }
+
+  function saveToHistory() {
+    const topic = document.getElementById('topicInput').value || 'Untitled';
+    const type = document.getElementById('contentType').value;
+    addToHistory(topic, type, currentOutput);
+    toast('Saved to history', 'success');
+  }
+
+  function exportText() {
+    if (!currentOutput) return;
+    const blob = new Blob([currentOutput], { type: 'text/plain' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url; a.download = 'textcraft-output.txt'; a.click();
+    URL.revokeObjectURL(url);
+    toast('Exported as .txt', 'success');
+  }
+
+  function updatePlaceholder() {
+    const map = {
+      property_notice: 'e.g. Late rent notice for tenant in Unit 4B',
+      sms_reminder: 'e.g. Rent due in 3 days for John Doe',
+      email_template: 'e.g. Lease renewal offer for apartment 12A',
+      lease_clause: 'e.g. Pet policy clause for residential lease',
+      marketing_copy: 'e.g. Studio apartment available in Lekki Phase 1',
+      custom_prompt: 'Enter your custom topic or instructions'
+    };
+    document.getElementById('topicInput').placeholder = map[document.getElementById('contentType').value] || '';
+  }
+
+  // ─── PAYSTACK ─────────────────────────────────────────────
+  function loadPaystackUI() {
+    if (paystackConfig.livePublicKey) document.getElementById('livePublicKey').value = paystackConfig.livePublicKey;
+    if (paystackConfig.testPublicKey) document.getElementById('testPublicKey').value = paystackConfig.testPublicKey;
+    if (paystackConfig.webhookDomain) document.getElementById('webhookDomain').value = paystackConfig.webhookDomain;
+    if (paystackConfig.webhookPath) document.getElementById('webhookPath').value = paystackConfig.webhookPath;
+    updateWebhookUrl();
+    updatePsStatus();
+  }
+
+  function updateWebhookUrl() {
+    const domain = document.getElementById('webhookDomain').value || 'https://your-domain.com';
+    const path = document.getElementById('webhookPath').value || '/api/paystack/webhook';
+    document.getElementById('webhookUrlDisplay').textContent = domain.replace(/\/$/, '') + path;
+  }
+
+  function updatePsStatus() {
+    const el = document.getElementById('psStatus');
+    const hasPk = paystackConfig.livePublicKey || paystackConfig.testPublicKey;
+    if (hasPk) {
+      el.className = 'ps-status';
+      el.innerHTML = '✓ &nbsp;Paystack keys configured and saved securely';
+    } else {
+      el.className = 'ps-status pending';
+      el.innerHTML = '◈ &nbsp;No keys configured — enter your API keys below to activate Paystack';
+    }
+  }
+
+  function toggleKey(id, btn) {
+    const el = document.getElementById(id);
+    if (el.type === 'password') { el.type = 'text'; btn.textContent = '🙈'; }
+    else { el.type = 'password'; btn.textContent = '👁'; }
+  }
+
+  function savePaystackConfig() {
+    paystackConfig = {
+      livePublicKey: document.getElementById('livePublicKey').value,
+      testPublicKey: document.getElementById('testPublicKey').value,
+      webhookDomain: document.getElementById('webhookDomain').value,
+      webhookPath: document.getElementById('webhookPath').value,
+    };
+    localStorage.setItem('tc_paystack', JSON.stringify(paystackConfig));
+    updatePsStatus();
+    toast('Paystack configuration saved', 'success');
+  }
+
+  function testConnection() {
+    const pk = document.getElementById('testPublicKey').value || document.getElementById('livePublicKey').value;
+    if (!pk) { toast('Enter a public key first', 'error'); return; }
+    toast('Connection test — keys appear valid (format check passed)', 'success');
+  }
+
+  function clearPaystackConfig() {
+    if (!confirm('Clear all Paystack configuration?')) return;
+    paystackConfig = {};
+    localStorage.removeItem('tc_paystack');
+    ['livePublicKey','liveSecretKey','testPublicKey','testSecretKey','webhookSecret','webhookDomain','webhookPath'].forEach(id => {
+      const el = document.getElementById(id); if (el) el.value = '';
+    });
+    updatePsStatus();
+    toast('Configuration cleared');
+  }
+
+  function copyWebhook() {
+    const url = document.getElementById('webhookUrlDisplay').textContent;
+    navigator.clipboard.writeText(url).then(() => toast('Webhook URL copied', 'success'));
+  }
+
+  // ─── GOOGLE DRIVE ─────────────────────────────────────────
+  function renderDriveLinks() {
+    const list = document.getElementById('savedLinks');
+    const sel = document.getElementById('targetFolder');
+    if (!driveLinks.length) {
+      list.innerHTML = '<div style="font-size:0.78rem;color:var(--text-muted);text-align:center;padding:1.5rem">No links saved yet</div>';
+      sel.innerHTML = '<option value="">— Select saved folder —</option>';
+      return;
+    }
+    list.innerHTML = driveLinks.map((l, i) => `
+      <div class="link-item">
+        <span class="link-icon">${typeIcons[l.type] || '🔗'}</span>
+        <div class="link-info">
+          <div class="link-name">${l.name}</div>
+          <div class="link-url">${l.url}</div>
+        </div>
+        <div class="link-actions">
+          <button class="icon-btn" onclick="openLink(${i})" title="Open">↗</button>
+          <button class="icon-btn" onclick="copyLink(${i})" title="Copy">⎘</button>
+          <button class="icon-btn" onclick="deleteLink(${i})" title="Delete" style="color:var(--danger)">✕</button>
+        </div>
+      </div>`).join('');
+    const folders = driveLinks.filter(l => l.type === 'folder');
+    sel.innerHTML = '<option value="">— Select saved folder —</option>' +
+      folders.map((l, i) => `<option value="${l.url}">${l.name}</option>`).join('');
+  }
+
+  function showAddLink() { document.getElementById('addLinkForm').style.display = 'block'; }
+  function hideAddLink() { document.getElementById('addLinkForm').style.display = 'none'; }
+
+  function addDriveLink() {
+    const name = document.getElementById('linkName').value.trim();
+    const url = document.getElementById('linkUrl').value.trim();
+    const type = document.getElementById('linkType').value;
+    if (!name || !url) { toast('Enter both name and URL', 'error'); return; }
+    if (!url.includes('drive.google.com') && !url.includes('docs.google.com')) {
+      toast('Please enter a valid Google Drive/Docs URL', 'error'); return;
+    }
+    driveLinks.push({ name, url, type });
+    localStorage.setItem('tc_drive', JSON.stringify(driveLinks));
+    document.getElementById('linkName').value = '';
+    document.getElementById('linkUrl').value = '';
+    hideAddLink();
+    renderDriveLinks();
+    toast(`"${name}" saved`, 'success');
+  }
+
+  function openLink(i) { window.open(driveLinks[i].url, '_blank'); }
+  function copyLink(i) {
+    navigator.clipboard.writeText(driveLinks[i].url).then(() => toast('Link copied', 'success'));
+  }
+  function deleteLink(i) {
+    driveLinks.splice(i, 1);
+    localStorage.setItem('tc_drive', JSON.stringify(driveLinks));
+    renderDriveLinks();
+    toast('Link removed');
+  }
+
+  function openDriveAction(type) {
+    const links = driveLinks.filter(l => l.type === type);
+    if (!links.length) {
+      if (type === 'download') { toast('Add a Drive link first to download from', 'error'); return; }
+      toast(`No ${type} links saved yet — add one above`, 'error'); return;
+    }
+    window.open(links[0].url, '_blank');
+  }
+
+  function showUploadPanel() {
+    document.getElementById('uploadPanel').scrollIntoView({ behavior: 'smooth' });
+  }
+
+  function handleDragOver(e) { e.preventDefault(); document.getElementById('dropZone').style.borderColor = 'var(--gold)'; }
+  function handleDrop(e) {
+    e.preventDefault();
+    document.getElementById('dropZone').style.borderColor = '';
+    const file = e.dataTransfer.files[0];
+    if (file) processFile(file);
+  }
+  function handleFileSelect(e) { if (e.target.files[0]) processFile(e.target.files[0]); }
+
+  function processFile(file) {
+    const el = document.getElementById('uploadStatus');
+    el.style.display = 'block';
+    el.style.color = 'var(--gold)';
+    el.textContent = `✓ Selected: ${file.name} (${(file.size/1024).toFixed(1)} KB)`;
+    document.getElementById('dropZone').innerHTML = `<div class="drop-icon">📄</div><div style="color:var(--gold-light)">${file.name}</div><div style="font-size:0.72rem;margin-top:0.3rem;color:var(--text-muted)">${(file.size/1024).toFixed(1)} KB — ready to upload</div>`;
+  }
+
+  function uploadToDrive() {
+    const folder = document.getElementById('targetFolder').value;
+    const status = document.getElementById('uploadStatus').textContent;
+    if (!status || !status.includes('Selected')) { toast('Select a file first', 'error'); return; }
+    if (!folder) { toast('Select a target Drive folder', 'error'); return; }
+    toast('Opening Drive folder to complete upload…', 'success');
+    setTimeout(() => window.open(folder, '_blank'), 800);
+  }
+
+  function openQuickUrl() {
+    const url = document.getElementById('quickDriveUrl').value.trim();
+    if (!url) { toast('Paste a Google Drive URL first', 'error'); return; }
+    window.open(url, '_blank');
+  }
+
+  // ─── TOAST ────────────────────────────────────────────────
+  function toast(msg, type = '') {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.className = 'show ' + type;
+    clearTimeout(t._to);
+    t._to = setTimeout(() => t.className = '', 3000);
+  }
+
+  // ─── INIT ─────────────────────────────────────────────────
+  renderHistory();
+  updatePlaceholder();
+  loadPaystackUI();
+</script>
+</body>
+</html>

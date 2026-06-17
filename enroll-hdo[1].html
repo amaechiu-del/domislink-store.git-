@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enroll: HDO Certification Course - DomisLink University</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-blue: #0053A0;
+            --accent-purple: #9B51E0;
+            --university-gold: #F59E0B;
+            --success: #10B981;
+            --white: #FFFFFF;
+            --light-gray: #F7F8FA;
+            --text-dark: #1A1A2E;
+            --text-medium: #6B7280;
+            --danger: #EF4444;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--light-gray);
+            color: var(--text-dark);
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        /* Header */
+        header {
+            background: var(--primary-blue);
+            color: white;
+            padding: 40px 20px;
+            margin-bottom: 40px;
+            border-radius: 8px;
+            text-align: center;
+        }
+        
+        header h1 {
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+        
+        header p {
+            font-size: 16px;
+            opacity: 0.9;
+        }
+        
+        .back-link {
+            display: inline-block;
+            margin-bottom: 20px;
+            color: var(--primary-blue);
+            font-weight: 600;
+            text-decoration: none;
+            border: 2px solid var(--primary-blue);
+            padding: 8px 16px;
+            border-radius: 4px;
+            transition: all 0.3s;
+        }
+        
+        .back-link:hover {
+            background: var(--primary-blue);
+            color: white;
+        }
+        
+        /* Two Column Layout */
+        .enrollment-wrapper {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+        
+        @media (max-width: 768px) {
+            .enrollment-wrapper {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        /* Left Column: Form */
+        .enrollment-form {
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+        
+        .form-section {
+            margin-bottom: 30px;
+        }
+        
+        .form-section h3 {
+            color: var(--primary-blue);
+            font-size: 18px;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--light-gray);
+        }
+        
+        .form-group {
+            margin-bottom: 15px;
+        }
+        
+        label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 6px;
+            color: var(--text-dark);
+            font-size: 14px;
+        }
+        
+        input, select, textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            transition: border-color 0.3s;
+        }
+        
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: var(--primary-blue);
+            box-shadow: 0 0 0 3px rgba(0, 83, 160, 0.1);
+        }
+        
+        textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+        
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+        
+        /* Right Column: Summary */
+        .course-summary {
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            height: fit-content;
+            position: sticky;
+            top: 20px;
+        }
+        
+        .course-summary h3 {
+            color: var(--text-dark);
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
+        
+        .course-detail {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 0;
+            border-bottom: 1px solid var(--light-gray);
+            font-size: 14px;
+        }
+        
+        .course-detail:last-of-type {
+            border-bottom: none;
+        }
+        
+        .course-detail-label {
+            font-weight: 600;
+            color: var(--text-medium);
+        }
+        
+        .course-detail-value {
+            color: var(--text-dark);
+            font-weight: 600;
+        }
+        
+        .price-box {
+            background: linear-gradient(135deg, var(--primary-blue) 0%, #003D75 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            margin: 20px 0;
+        }
+        
+        .price-box .price {
+            font-size: 32px;
+            font-weight: 900;
+            margin-bottom: 5px;
+        }
+        
+        .price-box .period {
+            font-size: 12px;
+            opacity: 0.9;
+        }
+        
+        .payment-methods {
+            background: var(--light-gray);
+            padding: 15px;
+            border-radius: 6px;
+            margin-top: 20px;
+            font-size: 13px;
+        }
+        
+        .payment-methods h4 {
+            color: var(--text-dark);
+            margin-bottom: 10px;
+            font-size: 14px;
+        }
+        
+        .payment-option {
+            padding: 8px 0;
+            border-bottom: 1px solid white;
+        }
+        
+        .payment-option:last-child {
+            border-bottom: none;
+        }
+        
+        .payment-option strong {
+            color: var(--primary-blue);
+            display: block;
+            font-size: 12px;
+            margin-bottom: 2px;
+        }
+        
+        /* Buttons */
+        .button-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 30px;
+        }
+        
+        button {
+            flex: 1;
+            padding: 14px 24px;
+            font-size: 16px;
+            font-weight: 600;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: 'Inter', sans-serif;
+        }
+        
+        .btn-primary {
+            background: var(--primary-blue);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background: #003D75;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 83, 160, 0.3);
+        }
+        
+        .btn-secondary {
+            background: var(--light-gray);
+            color: var(--text-dark);
+        }
+        
+        .btn-secondary:hover {
+            background: #ddd;
+        }
+        
+        /* Info Box */
+        .info-box {
+            background: #E3F2FD;
+            border-left: 4px solid var(--primary-blue);
+            padding: 15px;
+            border-radius: 4px;
+            margin-bottom: 20px;
+            font-size: 14px;
+        }
+        
+        .info-box strong {
+            color: var(--primary-blue);
+        }
+        
+        /* Guarantee */
+        .guarantee {
+            background: #F0FDF4;
+            border-left: 4px solid var(--success);
+            padding: 15px;
+            border-radius: 4px;
+            margin: 20px 0;
+            font-size: 14px;
+        }
+        
+        .guarantee strong {
+            color: var(--success);
+        }
+        
+        /* Footer */
+        .enrollment-footer {
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            text-align: center;
+            font-size: 14px;
+            color: var(--text-medium);
+        }
+        
+        .enrollment-footer a {
+            color: var(--primary-blue);
+            text-decoration: none;
+            font-weight: 600;
+        }
+        
+        .enrollment-footer a:hover {
+            text-decoration: underline;
+        }
+        
+        .contact-info {
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid var(--light-gray);
+        }
+        
+        .contact-info p {
+            margin: 8px 0;
+        }
+        
+        .contact-info strong {
+            color: var(--text-dark);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="https://domislinks5.wordpress.com/university" class="back-link">← Back to University</a>
+        
+        <header>
+            <h1>✈️ HDO Certification Course Enrollment</h1>
+            <p>Complete the form below and choose your payment method</p>
+        </header>
+        
+        <div class="enrollment-wrapper">
+            <!-- Left: Enrollment Form -->
+            <div class="enrollment-form">
+                <div class="info-box">
+                    <strong>⏱️ Limited Time:</strong> Complete your enrollment today. Course access activated within 24 hours of payment confirmation.
+                </div>
+                
+                <form id="enrollmentForm">
+                    <!-- Personal Information -->
+                    <div class="form-section">
+                        <h3>📋 Personal Information</h3>
+                        
+                        <div class="form-group">
+                            <label for="fullname">Full Name *</label>
+                            <input type="text" id="fullname" name="fullname" required placeholder="Your full name">
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="email">Email Address *</label>
+                                <input type="email" id="email" name="email" required placeholder="your@email.com">
+                            </div>
+                            <div class="form-group">
+                                <label for="phone">Phone Number *</label>
+                                <input type="tel" id="phone" name="phone" required placeholder="+234 706 611 7100">
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="age">Age *</label>
+                                <input type="number" id="age" name="age" required placeholder="18+" min="18">
+                            </div>
+                            <div class="form-group">
+                                <label for="state">State/Location</label>
+                                <input type="text" id="state" name="state" placeholder="Lagos">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Course Information -->
+                    <div class="form-section">
+                        <h3>🎓 Course Details</h3>
+                        
+                        <div class="form-group">
+                            <label for="experience">Previous Aviation Experience</label>
+                            <select id="experience" name="experience">
+                                <option value="">-- Select --</option>
+                                <option value="none">No experience</option>
+                                <option value="beginner">1-2 years</option>
+                                <option value="intermediate">2-5 years</option>
+                                <option value="advanced">5+ years</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="employer">Current/Previous Employer</label>
+                            <input type="text" id="employer" name="employer" placeholder="Optional">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="goals">Why are you taking this course?</label>
+                            <textarea id="goals" name="goals" placeholder="Career advancement, new skills, offshore work, etc."></textarea>
+                        </div>
+                    </div>
+                    
+                    <!-- Payment Method -->
+                    <div class="form-section">
+                        <h3>💳 Payment Method</h3>
+                        
+                        <div class="form-group">
+                            <label for="payment">Select Payment Method *</label>
+                            <select id="payment" name="payment" required>
+                                <option value="">-- Choose payment method --</option>
+                                <option value="opay">💚 OPay (Fastest)</option>
+                                <option value="bank">🏦 Bank Transfer</option>
+                                <option value="card">💳 Card (Paystack)</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <!-- Agreement -->
+                    <div class="form-section">
+                        <div class="form-group">
+                            <input type="checkbox" id="agree" name="agree" required style="width: auto; margin-right: 8px;">
+                            <label for="agree" style="display: inline; margin-bottom: 0;">I agree to the course terms and 30-day money-back guarantee</label>
+                        </div>
+                    </div>
+                    
+                    <div class="button-group">
+                        <button type="reset" class="btn-secondary">Clear Form</button>
+                        <button type="submit" class="btn-primary">Proceed to Payment</button>
+                    </div>
+                </form>
+                
+                <div class="guarantee">
+                    <strong>✅ 30-Day Money-Back Guarantee:</strong> Not satisfied? Request a full refund within 30 days. No questions asked.
+                </div>
+            </div>
+            
+            <!-- Right: Course Summary -->
+            <div class="course-summary">
+                <h3>Course Summary</h3>
+                
+                <div class="course-detail">
+                    <span class="course-detail-label">Course</span>
+                    <span class="course-detail-value">HDO Certification</span>
+                </div>
+                
+                <div class="course-detail">
+                    <span class="course-detail-label">Faculty</span>
+                    <span class="course-detail-value">Aviation Academy</span>
+                </div>
+                
+                <div class="course-detail">
+                    <span class="course-detail-label">Duration</span>
+                    <span class="course-detail-value">4 Weeks</span>
+                </div>
+                
+                <div class="course-detail">
+                    <span class="course-detail-label">Modules</span>
+                    <span class="course-detail-value">12 Modules</span>
+                </div>
+                
+                <div class="course-detail">
+                    <span class="course-detail-label">Certificate</span>
+                    <span class="course-detail-value">Yes (QR Verified)</span>
+                </div>
+                
+                <div class="course-detail">
+                    <span class="course-detail-label">Offline Access</span>
+                    <span class="course-detail-value">✓ Available</span>
+                </div>
+                
+                <div class="price-box">
+                    <div class="price">₦75,000</div>
+                    <div class="period">One-time payment</div>
+                </div>
+                
+                <div class="payment-methods">
+                    <h4>💰 Payment Options</h4>
+                    
+                    <div class="payment-option">
+                        <strong>💚 OPay (Recommended)</strong>
+                        Account: 7066117100
+                        <br><small>USSD: *955*75000*7066117100#</small>
+                    </div>
+                    
+                    <div class="payment-option">
+                        <strong>🏦 Bank Transfer</strong>
+                        Call: +234 706 611 7100
+                    </div>
+                    
+                    <div class="payment-option">
+                        <strong>💳 Card Payment</strong>
+                        Paystack/Flutterwave
+                    </div>
+                </div>
+                
+                <div style="margin-top: 20px; padding: 15px; background: #FEF3C7; border-radius: 6px; font-size: 13px;">
+                    <strong style="color: #92400E;">📝 After Payment:</strong>
+                    <p style="margin-top: 8px;">Send receipt to WhatsApp: <strong>+234 706 611 7100</strong></p>
+                    <p>Include: Name + Email + Course name</p>
+                    <p>Access within 24 hours ⏱️</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Footer -->
+        <div class="enrollment-footer">
+            <h3>Need Help?</h3>
+            <p>Have questions about the HDO Certification course? Contact our admissions team:</p>
+            
+            <div class="contact-info">
+                <p>📧 <strong>aviation@domislink.com</strong></p>
+                <p>📱 <strong>+234 706 611 7100</strong> (Call/WhatsApp)</p>
+                <p>🏢 <strong>19 Powerline Avenue, Meiran, Lagos</strong></p>
+                <p>⏰ <strong>Monday-Friday: 8am-6pm | Saturday: 9am-3pm</strong></p>
+            </div>
+            
+            <p style="margin-top: 20px;">
+                <a href="https://domislinks5.wordpress.com/university">← Back to University</a> | 
+                <a href="https://domislinks5.wordpress.com">Go to DomisLink Hub</a>
+            </p>
+        </div>
+    </div>
+    
+    <script>
+        document.getElementById('enrollmentForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const formData = {
+                fullname: document.getElementById('fullname').value,
+                email: document.getElementById('email').value,
+                phone: document.getElementById('phone').value,
+                payment: document.getElementById('payment').value
+            };
+            
+            alert(`Thank you, ${formData.fullname}!\n\nYour enrollment application has been received.\n\nNext Steps:\n1. Make payment via ${formData.payment}\n2. Send receipt to WhatsApp: +234 706 611 7100\n3. Receive course access within 24 hours\n\nWe'll contact you at: ${formData.email}`);
+            
+            // In production, send to backend
+            console.log('Enrollment Data:', formData);
+        });
+    </script>
+</body>
+</html>

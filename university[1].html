@@ -1,0 +1,947 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DomisLink Universal University - Online Education Portal</title>
+    <meta name="description" content="DomisLink University - Professional online courses in Aviation, Technology, Business, Real Estate. 50+ courses, expert instructors, recognized certificates.">
+    <meta property="og:title" content="DomisLink Universal University">
+    <meta property="og:description" content="Transform your future with world-class education. Aviation, Technology, Business, Real Estate courses.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://domislinks5.wordpress.com/university">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary-blue: #0053A0;
+            --primary-dark: #003D75;
+            --accent-purple: #9B51E0;
+            --accent-light: #B76EF5;
+            --university-gold: #F59E0B;
+            --white: #FFFFFF;
+            --light-gray: #F7F8FA;
+            --medium-gray: #E5E7EB;
+            --dark-gray: #374151;
+            --text-dark: #1A1A2E;
+            --text-medium: #6B7280;
+            --success: #10B981;
+            --warning: #F59E0B;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            color: var(--text-dark);
+            line-height: 1.6;
+            background: var(--light-gray);
+        }
+        
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+        
+        /* Header/Navigation */
+        header {
+            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--primary-dark) 100%);
+            color: white;
+            padding: 20px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 24px;
+            font-weight: 800;
+            color: white;
+        }
+        
+        .nav-link {
+            color: white;
+            padding: 8px 16px;
+            border-radius: 4px;
+            transition: all 0.3s;
+            font-weight: 500;
+            font-size: 14px;
+        }
+        
+        .nav-link:hover {
+            background: rgba(255,255,255,0.2);
+        }
+        
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--primary-dark) 100%);
+            color: white;
+            padding: 80px 0;
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        
+        .hero h1 {
+            font-size: 48px;
+            font-weight: 900;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+        
+        .hero .subtitle {
+            font-size: 20px;
+            margin-bottom: 30px;
+            opacity: 0.95;
+        }
+        
+        .hero-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .stat {
+            background: rgba(255,255,255,0.1);
+            padding: 20px;
+            border-radius: 8px;
+            backdrop-filter: blur(10px);
+        }
+        
+        .stat-number {
+            font-size: 36px;
+            font-weight: 900;
+            color: var(--university-gold);
+        }
+        
+        .stat-label {
+            font-size: 14px;
+            opacity: 0.9;
+            margin-top: 8px;
+        }
+        
+        /* Section */
+        section {
+            margin-bottom: 80px;
+        }
+        
+        section h2 {
+            font-size: 36px;
+            font-weight: 900;
+            color: var(--text-dark);
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        
+        /* Faculties Grid */
+        .faculties-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 24px;
+            margin-bottom: 50px;
+        }
+        
+        .faculty-card {
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            transition: all 0.3s;
+            border-top: 4px solid var(--primary-blue);
+            text-align: center;
+        }
+        
+        .faculty-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+            border-top-color: var(--accent-purple);
+        }
+        
+        .faculty-card-icon {
+            font-size: 48px;
+            margin-bottom: 15px;
+        }
+        
+        .faculty-card h3 {
+            font-size: 18px;
+            color: var(--text-dark);
+            margin-bottom: 10px;
+        }
+        
+        .faculty-card p {
+            font-size: 14px;
+            color: var(--text-medium);
+            margin-bottom: 15px;
+        }
+        
+        .faculty-card-count {
+            font-weight: 700;
+            color: var(--primary-blue);
+            font-size: 16px;
+        }
+        
+        /* Courses Grid */
+        .courses-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+        }
+        
+        .course-card {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            transition: all 0.3s;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .course-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+        }
+        
+        .course-header {
+            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--primary-dark) 100%);
+            color: white;
+            padding: 24px;
+            flex-shrink: 0;
+        }
+        
+        .course-header h3 {
+            font-size: 18px;
+            margin-bottom: 8px;
+        }
+        
+        .course-header p {
+            font-size: 13px;
+            opacity: 0.9;
+        }
+        
+        .course-body {
+            padding: 24px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .course-meta {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid var(--medium-gray);
+        }
+        
+        .meta-item {
+            font-size: 13px;
+            color: var(--text-medium);
+        }
+        
+        .meta-item strong {
+            display: block;
+            color: var(--text-dark);
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+        
+        .course-badge {
+            display: inline-block;
+            background: var(--university-gold);
+            color: white;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            width: fit-content;
+        }
+        
+        .course-price {
+            font-size: 28px;
+            color: var(--primary-blue);
+            font-weight: 900;
+            margin: 20px 0;
+        }
+        
+        /* Button Styles */
+        .btn {
+            display: inline-block;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 4px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 14px;
+            text-align: center;
+            margin-top: auto;
+            font-family: 'Inter', sans-serif;
+        }
+        
+        .btn-primary {
+            background: var(--primary-blue);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,83,160,0.3);
+        }
+        
+        .btn-secondary {
+            background: var(--light-gray);
+            color: var(--text-dark);
+        }
+        
+        .btn-secondary:hover {
+            background: var(--medium-gray);
+        }
+        
+        /* Features Grid */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+        }
+        
+        .feature-card {
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+        
+        .feature-icon {
+            font-size: 40px;
+            margin-bottom: 15px;
+        }
+        
+        .feature-card h3 {
+            font-size: 18px;
+            margin-bottom: 12px;
+            color: var(--text-dark);
+        }
+        
+        .feature-card p {
+            color: var(--text-medium);
+            font-size: 14px;
+            line-height: 1.6;
+        }
+        
+        /* Pricing Section */
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+            margin-bottom: 50px;
+        }
+        
+        .pricing-card {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            position: relative;
+        }
+        
+        .pricing-card.featured {
+            border: 3px solid var(--primary-blue);
+            transform: scale(1.05);
+        }
+        
+        .pricing-header {
+            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--primary-dark) 100%);
+            color: white;
+            padding: 24px;
+            text-align: center;
+        }
+        
+        .pricing-card.featured .pricing-header {
+            background: linear-gradient(135deg, var(--accent-purple) 0%, var(--primary-blue) 100%);
+        }
+        
+        .pricing-header h3 {
+            font-size: 20px;
+            margin-bottom: 8px;
+        }
+        
+        .pricing-header p {
+            font-size: 13px;
+            opacity: 0.9;
+        }
+        
+        .pricing-body {
+            padding: 30px;
+        }
+        
+        .pricing-amount {
+            font-size: 36px;
+            font-weight: 900;
+            color: var(--primary-blue);
+            text-align: center;
+            margin: 20px 0;
+        }
+        
+        .pricing-features {
+            list-style: none;
+            margin: 30px 0;
+        }
+        
+        .pricing-features li {
+            padding: 10px 0;
+            border-bottom: 1px solid var(--medium-gray);
+            font-size: 14px;
+            color: var(--text-medium);
+        }
+        
+        .pricing-features li:before {
+            content: "✓ ";
+            color: var(--success);
+            font-weight: 700;
+            margin-right: 8px;
+        }
+        
+        .pricing-features li:last-child {
+            border-bottom: none;
+        }
+        
+        /* Testimonials */
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+        }
+        
+        .testimonial-card {
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            border-left: 4px solid var(--accent-purple);
+        }
+        
+        .testimonial-text {
+            font-size: 14px;
+            line-height: 1.8;
+            color: var(--text-medium);
+            margin-bottom: 15px;
+            font-style: italic;
+        }
+        
+        .testimonial-author {
+            font-weight: 700;
+            color: var(--text-dark);
+            font-size: 14px;
+        }
+        
+        .testimonial-title {
+            font-size: 12px;
+            color: var(--primary-blue);
+        }
+        
+        .rating {
+            color: var(--university-gold);
+            font-size: 12px;
+            margin: 8px 0;
+        }
+        
+        /* CTA Section */
+        .cta-section {
+            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--primary-dark) 100%);
+            color: white;
+            padding: 60px 0;
+            text-align: center;
+            border-radius: 8px;
+            margin-bottom: 60px;
+        }
+        
+        .cta-section h2 {
+            color: white;
+            font-size: 36px;
+            margin-bottom: 20px;
+        }
+        
+        .cta-section p {
+            font-size: 18px;
+            margin-bottom: 30px;
+            opacity: 0.95;
+        }
+        
+        .btn-white {
+            background: white;
+            color: var(--primary-blue);
+            font-weight: 700;
+        }
+        
+        .btn-white:hover {
+            background: var(--light-gray);
+        }
+        
+        /* Footer */
+        footer {
+            background: var(--text-dark);
+            color: white;
+            padding: 40px 0 20px;
+            text-align: center;
+            font-size: 14px;
+        }
+        
+        footer a {
+            color: var(--university-gold);
+            text-decoration: none;
+            font-weight: 600;
+        }
+        
+        footer a:hover {
+            text-decoration: underline;
+        }
+        
+        .footer-contact {
+            margin: 30px 0;
+            padding: 30px 0;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .footer-contact p {
+            margin: 8px 0;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 32px;
+            }
+            
+            .hero .subtitle {
+                font-size: 16px;
+            }
+            
+            section h2 {
+                font-size: 28px;
+            }
+            
+            .pricing-card.featured {
+                transform: scale(1);
+            }
+            
+            .header-content {
+                flex-direction: column;
+                gap: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">🎓 DomisLink University</div>
+                <a href="https://domislinks5.wordpress.com" class="nav-link">← Back to DomisLink Hub</a>
+            </div>
+        </div>
+    </header>
+    
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1>Transform Your Future</h1>
+            <p class="subtitle">Professional online education with world-class instructors</p>
+            
+            <div class="hero-stats">
+                <div class="stat">
+                    <div class="stat-number">50+</div>
+                    <div class="stat-label">Courses Available</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number">10,000+</div>
+                    <div class="stat-label">Active Students</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number">95%</div>
+                    <div class="stat-label">Success Rate</div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Faculties Section -->
+    <section>
+        <div class="container">
+            <h2>Our 8 Faculties</h2>
+            <div class="faculties-grid">
+                <div class="faculty-card">
+                    <div class="faculty-card-icon">✈️</div>
+                    <h3>Aviation Academy</h3>
+                    <p>Pilot training, Heli-Deck operations, Safety management</p>
+                    <div class="faculty-card-count">12 Courses</div>
+                </div>
+                
+                <div class="faculty-card">
+                    <div class="faculty-card-icon">💻</div>
+                    <h3>School of Technology</h3>
+                    <p>Software development, Data science, Cybersecurity</p>
+                    <div class="faculty-card-count">18 Courses</div>
+                </div>
+                
+                <div class="faculty-card">
+                    <div class="faculty-card-icon">🏠</div>
+                    <h3>Real Estate Institute</h3>
+                    <p>Property management, Valuation, Investment analysis</p>
+                    <div class="faculty-card-count">8 Courses</div>
+                </div>
+                
+                <div class="faculty-card">
+                    <div class="faculty-card-icon">📊</div>
+                    <h3>Business School</h3>
+                    <p>Management, Marketing, Entrepreneurship, Finance</p>
+                    <div class="faculty-card-count">15 Courses</div>
+                </div>
+                
+                <div class="faculty-card">
+                    <div class="faculty-card-icon">🎓</div>
+                    <h3>Education Faculty</h3>
+                    <p>Teaching methods, Curriculum design, EdTech</p>
+                    <div class="faculty-card-count">10 Courses</div>
+                </div>
+                
+                <div class="faculty-card">
+                    <div class="faculty-card-icon">🚗</div>
+                    <h3>Transport Academy</h3>
+                    <p>Driving instruction, Logistics, Fleet management</p>
+                    <div class="faculty-card-count">6 Courses</div>
+                </div>
+                
+                <div class="faculty-card">
+                    <div class="faculty-card-icon">⚖️</div>
+                    <h3>Law & Compliance</h3>
+                    <p>Business law, Regulatory compliance, Contracts</p>
+                    <div class="faculty-card-count">7 Courses</div>
+                </div>
+                
+                <div class="faculty-card">
+                    <div class="faculty-card-icon">🏥</div>
+                    <h3>Health & Safety</h3>
+                    <p>Occupational safety, First aid, Environmental health</p>
+                    <div class="faculty-card-count">9 Courses</div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Featured Courses -->
+    <section>
+        <div class="container">
+            <h2>Featured Courses</h2>
+            <div class="courses-grid">
+                <!-- HDO Course -->
+                <div class="course-card">
+                    <div class="course-header">
+                        <h3>✈️ Heli-Deck Officer (HDO)</h3>
+                        <p>Aviation Academy</p>
+                    </div>
+                    <div class="course-body">
+                        <span class="course-badge">⭐ BESTSELLER</span>
+                        <div class="course-meta">
+                            <div class="meta-item"><strong>Duration</strong> 4 Weeks</div>
+                            <div class="meta-item"><strong>Modules</strong> 12</div>
+                        </div>
+                        <div class="course-price">₦75,000</div>
+                        <p style="font-size: 13px; color: var(--text-medium); margin-bottom: 15px;">Master helideck operations with ICAO & NCAA aligned certification.</p>
+                        <a href="enroll-hdo.html" class="btn btn-primary">ENROLL NOW</a>
+                    </div>
+                </div>
+                
+                <!-- Web Development -->
+                <div class="course-card">
+                    <div class="course-header">
+                        <h3>💻 Web Development Bootcamp</h3>
+                        <p>School of Technology</p>
+                    </div>
+                    <div class="course-body">
+                        <span class="course-badge">🆕 NEW</span>
+                        <div class="course-meta">
+                            <div class="meta-item"><strong>Duration</strong> 12 Weeks</div>
+                            <div class="meta-item"><strong>Modules</strong> 24</div>
+                        </div>
+                        <div class="course-price">₦150,000</div>
+                        <p style="font-size: 13px; color: var(--text-medium); margin-bottom: 15px;">Full-stack development from beginner to job-ready professional.</p>
+                        <a href="enroll-web.html" class="btn btn-primary">ENROLL NOW</a>
+                    </div>
+                </div>
+                
+                <!-- Real Estate -->
+                <div class="course-card">
+                    <div class="course-header">
+                        <h3>🏠 Property Management</h3>
+                        <p>Real Estate Institute</p>
+                    </div>
+                    <div class="course-body">
+                        <span class="course-badge">📚 POPULAR</span>
+                        <div class="course-meta">
+                            <div class="meta-item"><strong>Duration</strong> 6 Weeks</div>
+                            <div class="meta-item"><strong>Modules</strong> 8</div>
+                        </div>
+                        <div class="course-price">₦50,000</div>
+                        <p style="font-size: 13px; color: var(--text-medium); margin-bottom: 15px;">Complete property management system for agents and investors.</p>
+                        <a href="enroll-realestate.html" class="btn btn-primary">ENROLL NOW</a>
+                    </div>
+                </div>
+                
+                <!-- Digital Marketing -->
+                <div class="course-card">
+                    <div class="course-header">
+                        <h3>📊 Digital Marketing Masterclass</h3>
+                        <p>Business School</p>
+                    </div>
+                    <div class="course-body">
+                        <span class="course-badge">💼 BUSINESS</span>
+                        <div class="course-meta">
+                            <div class="meta-item"><strong>Duration</strong> 8 Weeks</div>
+                            <div class="meta-item"><strong>Modules</strong> 16</div>
+                        </div>
+                        <div class="course-price">₦45,000</div>
+                        <p style="font-size: 13px; color: var(--text-medium); margin-bottom: 15px;">Master modern digital marketing strategies for African markets.</p>
+                        <a href="enroll-marketing.html" class="btn btn-primary">ENROLL NOW</a>
+                    </div>
+                </div>
+                
+                <!-- TeachMaster -->
+                <div class="course-card">
+                    <div class="course-header">
+                        <h3>🎓 TeachMaster: AI Lesson Planning</h3>
+                        <p>Education Faculty</p>
+                    </div>
+                    <div class="course-body">
+                        <span class="course-badge">🔥 POPULAR</span>
+                        <div class="course-meta">
+                            <div class="meta-item"><strong>Duration</strong> 2 Weeks</div>
+                            <div class="meta-item"><strong>Modules</strong> 6</div>
+                        </div>
+                        <div class="course-price">₦15,000</div>
+                        <p style="font-size: 13px; color: var(--text-medium); margin-bottom: 15px;">AI-powered lesson planning for Nigerian teachers (WAEC/NECO).</p>
+                        <a href="enroll-teachmaster.html" class="btn btn-primary">ENROLL NOW</a>
+                    </div>
+                </div>
+                
+                <!-- Driving Instructor -->
+                <div class="course-card">
+                    <div class="course-header">
+                        <h3>🚗 Driving Instructor Course</h3>
+                        <p>Transport Academy</p>
+                    </div>
+                    <div class="course-body">
+                        <span class="course-badge">🎯 CAREER</span>
+                        <div class="course-meta">
+                            <div class="meta-item"><strong>Duration</strong> 4 Weeks</div>
+                            <div class="meta-item"><strong>Modules</strong> 10</div>
+                        </div>
+                        <div class="course-price">₦35,000</div>
+                        <p style="font-size: 13px; color: var(--text-medium); margin-bottom: 15px;">Become a professional driving instructor with FRSC certification.</p>
+                        <a href="enroll-driving.html" class="btn btn-primary">ENROLL NOW</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Why Choose Us -->
+    <section>
+        <div class="container">
+            <h2>Why Choose DomisLink University?</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">📱</div>
+                    <h3>Learn Anywhere</h3>
+                    <p>Access courses on any device. Study on your commute, at home, or anywhere in the world.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📴</div>
+                    <h3>Works Offline</h3>
+                    <p>Download lessons and study without internet. Perfect for Nigerian network reality.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🏆</div>
+                    <h3>Recognized Certificates</h3>
+                    <p>Earn industry-recognized certifications that employers trust (ICAO, NCAA, WAEC aligned).</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">👨‍🏫</div>
+                    <h3>Expert Instructors</h3>
+                    <p>Learn from professionals with real-world experience in their fields (20+ years average).</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">💬</div>
+                    <h3>Community Support</h3>
+                    <p>Join study groups, forums, and get help from peers and mentors throughout your course.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">💰</div>
+                    <h3>Affordable Pricing</h3>
+                    <p>Quality education at Nigerian-friendly prices. Payment plans and discounts available.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Pricing Section -->
+    <section>
+        <div class="container">
+            <h2>Flexible Pricing Plans</h2>
+            <div class="pricing-grid">
+                <div class="pricing-card">
+                    <div class="pricing-header">
+                        <h3>📚 Single Course</h3>
+                        <p>Perfect for focused learning</p>
+                    </div>
+                    <div class="pricing-body">
+                        <div class="pricing-amount">₦15K - ₦150K</div>
+                        <p style="text-align: center; font-size: 12px; color: var(--text-medium); margin-bottom: 20px;">One-time payment</p>
+                        <ul class="pricing-features">
+                            <li>Access to one course</li>
+                            <li>Course certificate</li>
+                            <li>Downloadable materials</li>
+                            <li>Community forum access</li>
+                            <li>Email support</li>
+                            <li>Lifetime access</li>
+                        </ul>
+                        <a href="#courses" class="btn btn-primary" style="width: 100%;">Browse Courses</a>
+                    </div>
+                </div>
+                
+                <div class="pricing-card featured">
+                    <div class="pricing-header">
+                        <h3>🎓 Faculty Pass</h3>
+                        <p>⭐ MOST POPULAR</p>
+                    </div>
+                    <div class="pricing-body">
+                        <div class="pricing-amount">₦199K/year</div>
+                        <p style="text-align: center; font-size: 12px; color: var(--text-medium); margin-bottom: 20px;">All courses in ONE faculty</p>
+                        <ul class="pricing-features">
+                            <li>All courses in 1 faculty</li>
+                            <li>All certificates included</li>
+                            <li>Priority support</li>
+                            <li>Live Q&A sessions</li>
+                            <li>Career guidance</li>
+                            <li>Job placement help</li>
+                        </ul>
+                        <a href="#contact" class="btn btn-primary" style="width: 100%;">Get Faculty Pass</a>
+                    </div>
+                </div>
+                
+                <div class="pricing-card">
+                    <div class="pricing-header">
+                        <h3>🏆 All-Access Pass</h3>
+                        <p>For serious learners</p>
+                    </div>
+                    <div class="pricing-body">
+                        <div class="pricing-amount">₦499K/year</div>
+                        <p style="text-align: center; font-size: 12px; color: var(--text-medium); margin-bottom: 20px;">ALL courses, ALL faculties</p>
+                        <ul class="pricing-features">
+                            <li>ALL courses, ALL faculties</li>
+                            <li>Unlimited certificates</li>
+                            <li>1-on-1 mentorship</li>
+                            <li>Private support group</li>
+                            <li>Company training options</li>
+                            <li>Custom learning paths</li>
+                        </ul>
+                        <a href="#contact" class="btn btn-primary" style="width: 100%;">Get All-Access</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Testimonials -->
+    <section>
+        <div class="container">
+            <h2>Student Success Stories</h2>
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <div class="rating">⭐⭐⭐⭐⭐</div>
+                    <p class="testimonial-text">"The HDO course gave me the certification I needed to work offshore. Within 3 months of completing, I got a job with a major oil company earning 3x my previous salary."</p>
+                    <div class="testimonial-author">Chinedu Okonkwo</div>
+                    <div class="testimonial-title">Heli-Deck Officer, Port Harcourt</div>
+                </div>
+                
+                <div class="testimonial-card">
+                    <div class="rating">⭐⭐⭐⭐⭐</div>
+                    <p class="testimonial-text">"As a teacher in Lagos, TeachMaster has saved me 10+ hours per week. The AI lesson planning is amazing, and my students are more engaged than ever."</p>
+                    <div class="testimonial-author">Amina Abubakar</div>
+                    <div class="testimonial-title">Secondary School Teacher, Lagos</div>
+                </div>
+                
+                <div class="testimonial-card">
+                    <div class="rating">⭐⭐⭐⭐⭐</div>
+                    <p class="testimonial-text">"The web development bootcamp was intense but absolutely worth it. I now work as a freelance developer and earn significantly more. Best investment I made."</p>
+                    <div class="testimonial-author">Tunde Olamide</div>
+                    <div class="testimonial-title">Full-Stack Developer, Abuja</div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container" id="contact">
+            <h2>Ready to Transform Your Career?</h2>
+            <p>Join thousands of students who are achieving their goals with DomisLink University</p>
+            <a href="#courses" class="btn btn-white">Explore Our Courses</a>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <h3>🎓 DomisLink University</h3>
+            <p>Professional Online Education for Africans</p>
+            
+            <div class="footer-contact">
+                <p>📧 <strong>university@domislink.com</strong></p>
+                <p>📱 <strong>+234 706 611 7100</strong> (Call/WhatsApp)</p>
+                <p>📍 <strong>19 Powerline Avenue, Meiran, Lagos</strong></p>
+                <p>⏰ <strong>Monday-Friday: 8am-6pm | Saturday: 9am-3pm</strong></p>
+            </div>
+            
+            <p>
+                <a href="https://domislinks5.wordpress.com">← Back to DomisLink Hub</a> | 
+                <a href="https://domislinks5.wordpress.com/about">About DomisLink</a> | 
+                <a href="https://domislinks5.wordpress.com/contact">Contact Us</a>
+            </p>
+            
+            <p style="margin-top: 30px; opacity: 0.8;">© 2024 DomisLink International Business Lagos Nig Ltd. All rights reserved.</p>
+            <p style="opacity: 0.6; font-size: 12px;">ICAO | NCAA | WAEC | NUC Aligned Standards</p>
+        </div>
+    </footer>
+</body>
+</html>
